@@ -5,19 +5,20 @@
   
 
   
-  <title>黑夜传说</title>
+  <title>内存管理 | 黑夜传说</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+  <meta name="description" content="MRC 与 ARCObjective-C中提供了两种内存管理机制：MRC（MannulReference Counting）和 ARC(Automatic Reference Counting)，分别提供对内存的手动和自动管理，来满足不同的需求。现在苹果推荐使用 ARC 来进行内存管理。 MRC对象操作的四个类别    操作对象 OC中对应的方法 对应的retainCount变化     持有并生">
 <meta name="keywords" content="Object-C 、Swift">
-<meta property="og:type" content="website">
-<meta property="og:title" content="黑夜传说">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/MRC-ARC/index.html">
 <meta property="og:site_name" content="黑夜传说">
-<meta property="og:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta property="og:description" content="MRC 与 ARCObjective-C中提供了两种内存管理机制：MRC（MannulReference Counting）和 ARC(Automatic Reference Counting)，分别提供对内存的手动和自动管理，来满足不同的需求。现在苹果推荐使用 ARC 来进行内存管理。 MRC对象操作的四个类别    操作对象 OC中对应的方法 对应的retainCount变化     持有并生">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-26T06:34:47.674Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="黑夜传说">
-<meta name="twitter:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta name="twitter:title" content="内存管理">
+<meta name="twitter:description" content="MRC 与 ARCObjective-C中提供了两种内存管理机制：MRC（MannulReference Counting）和 ARC(Automatic Reference Counting)，分别提供对内存的手动和自动管理，来满足不同的需求。现在苹果推荐使用 ARC 来进行内存管理。 MRC对象操作的四个类别    操作对象 OC中对应的方法 对应的retainCount变化     持有并生">
   
     <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
   
@@ -68,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-MRC-ARC" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-MRC-ARC" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/26/MRC-ARC/" class="article-date">
   <time datetime="2019-03-26T06:23:42.292Z" itemprop="datePublished">2019-03-26</time>
@@ -83,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/26/MRC-ARC/">内存管理</a>
+    <h1 class="article-title" itemprop="name">
+      内存管理
     </h1>
   
 
@@ -189,94 +188,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-post-title" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/post-title/" class="article-date">
-  <time datetime="2019-03-22T04:15:52.000Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/post-title/">苹果证书如何转pem文件</a>
-    </h1>
+    <a href="/2019/03/22/post-title/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">苹果证书如何转pem文件</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>openssl x509 -in apns_miaobozhibo.cer -inform der -out apns_miaobozhibo.pem<br>注：<br>apns_miaobozhibo.cer:推送证书<br>apns_miaobozhibo.pem:要生的pem文件</p>
-<p>p12转pem文件<br>openssl pkcs12 -nocerts -out apns_miaobozhiboKey.pem -in  apns_miaobozhibo.p12<br>注：<br>apns_miaobozhibo.p12文件<br>apns_miaobozhiboKey.pem 要生成的pem文件</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cjtpevv3f0000alb7yvicrjq2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/hello-world/" class="article-date">
-  <time datetime="2019-03-22T02:32:46.486Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjtpevv3j0001alb70vwob90d" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
