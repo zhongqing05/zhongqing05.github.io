@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NSDictionary 的实现原理 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
+<meta name="keywords" content="NSDictionary的内部实现原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSDictionary 的实现原理">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Dictionary/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T00:27:02.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NSDictionary 的实现原理">
+<meta name="twitter:description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">为了更好的明天而努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/Dictionary/" class="article-date">
+  <time datetime="2019-03-29T11:31:49.850Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NSDictionary 的实现原理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="NSDictionary使用原理"><a href="#NSDictionary使用原理" class="headerlink" title="NSDictionary使用原理"></a>NSDictionary使用原理</h3><p>1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率</p>
+<p>2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现，</p>
+<h3 id="哈希原理"><a href="#哈希原理" class="headerlink" title="哈希原理"></a>哈希原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的是键值对。</span><br></pre></td></tr></table></figure>
+<h3 id="哈希表的存储过程："><a href="#哈希表的存储过程：" class="headerlink" title="哈希表的存储过程："></a>哈希表的存储过程：</h3><ol>
+<li>根据key计算出它的哈希值h。</li>
+<li>假设箱子的个数为n，那没这个键值对应该放在第（h % n）个箱子中。</li>
+<li>如果该箱子中已经有了键值对，就使用开放寻址法或者拉链法解决冲突</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在使用拉链法解决哈希冲突时，每个箱子其实是一个链表，属于同一个箱子的所用键值都会排列在链表中。</span><br><span class="line">哈希表还有一个重要的属性：负载因子（load foctor），它用来衡量哈希表的空、满程度，一定程度上也是可以体现查询效率，计算公式为</span><br><span class="line">负载因子 = 总键值对数/箱子个数</span><br><span class="line">负载因子越大，意味着哈希表越满，越容易导致冲突，性能也就越低。因此，一般来说，当负载因子大于某个常数（可能是1，或者0.75）时，哈希表将自动扩容。</span><br></pre></td></tr></table></figure>
+<h3 id="重哈希概念："><a href="#重哈希概念：" class="headerlink" title="重哈希概念："></a>重哈希概念：</h3><ol>
+<li><p>哈希表在自动扩容时，一般会创建两倍于原来个数的箱子，因此即使key的哈希值不变，对箱子个数取余结果也会发生改变，因此所有键值对的存放位置可能发生改变，这个过程称为重哈希（rehash）</p>
+</li>
+<li><p>哈希表的扩容并不是总能够有效的解决负载因子过大的问题。假设所有的key的哈希值都一样，那么即使扩容以后他们的位置也不会变化。因为负载因子会降低，但实际存储在每个箱子中的链表长度并不发送改变，因此也就不能提高哈希表的查询性能</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、如果哈希表中本来箱子就比较多，扩容时需要重新设计哈希并移动数据，性能影响较大。<br>2、如果哈希函数设计不合理，哈希表在极端情况下会变成线性表。性能极低。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cju7mgv6d0000cyb7vpyvfoby" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/01/GCD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS 多线程实现 --GCD使用详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/29/ios_memory/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS 内存的几大区域</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/06/data_struct/">数据结构的一些定义</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/04/CocosPod/">CocosPod 错误</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/02/swift/">Swift 相关面试题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/lock/">iOS中几种常用的锁</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/GCD/">iOS 多线程实现 --GCD使用详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

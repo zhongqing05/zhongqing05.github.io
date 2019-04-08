@@ -70,6 +70,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-data_struct" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/06/data_struct/" class="article-date">
+  <time datetime="2019-04-06T14:57:08.153Z" itemprop="datePublished">2019-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/06/data_struct/">数据结构的一些定义</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h3><p>数据结构是存在一种或多种特定关系的数据元素的集合。</p>
+<p>逻辑结构：是指数据对象中元素之间的相互关系。从逻辑上分有以下四种：</p>
+<ul>
+<li>集合结构</li>
+<li>线性结构</li>
+<li>数形结构</li>
+<li>图形结构</li>
+</ul>
+<p>物理结构：是指数据结构在计算机中的存储形式：从物理上分有以下2种:</p>
+<p>顺序存储结构<br>链式存储结构</p>
+<h3 id="什么是算法"><a href="#什么是算法" class="headerlink" title="什么是算法"></a>什么是算法</h3><p>定义：算法是解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示一个或多个操作</p>
+<p>算法的特点：有穷性，确定性，可行行，输入，输出。</p>
+<p>算法的设计要求: 正确性、可读性、输入、输出</p>
+<h4 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h4><p>定义：线性表是零个或多个具有相同元素的有限序列。线性表分为顺序存储结构和链式存储结构</p>
+<h4 id="线性表的顺序存储结构"><a href="#线性表的顺序存储结构" class="headerlink" title="线性表的顺序存储结构:"></a>线性表的顺序存储结构:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">线性表的顺序存储结构，指的是连续的存储单元依次存储线性表的数据元素</span><br><span class="line">优点:</span><br><span class="line"> 无需为表中元素之间的逻辑关系而增加额外的存储空间。</span><br><span class="line"> 可以快速的存取表中任一位置的元素</span><br><span class="line">缺点:</span><br><span class="line"> 插入和删除操作需要移动大量的元素</span><br><span class="line"> 当线性表长度变化较大时，难以确定存储空间的容量</span><br><span class="line"> 造成存储空间的碎片</span><br></pre></td></tr></table></figure>
+<h4 id="线性表的链式存储结构"><a href="#线性表的链式存储结构" class="headerlink" title="线性表的链式存储结构:"></a>线性表的链式存储结构:</h4><p><strong>结点:</strong>我们把存储数据元素信息的域称为数据域，把存储直接后继位置的域称为指针域。指针域中的存储的信息称做指针或链。这两部分信息组成的数据元素ai的存储映像。称为结点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1单链表：</span><br><span class="line">n个结点链接成一个链表，即为线性表的链式存储结构，因为此链表的每一个结点中只包含一个指针域，所以叫单链表。</span><br><span class="line">2静态链表：</span><br><span class="line">用数组描述的链表叫做静态链表</span><br><span class="line">3循环链表：</span><br><span class="line">将单链表中终端结点的指针由空指针指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表称为单循环链表，简称循环链表。</span><br><span class="line">4双向链表：</span><br><span class="line">双向链表是在单链表的每一个结点中，再设置一个指向前驱结点的指针域</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">### 栈与队列</span><br><span class="line">#### 栈</span><br><span class="line">栈是限定仅在表尾进行插入和删除的操作的线性表。我们把允许插入和删除的一端称为栈顶，另一端称为栈底。栈又是后进先出的线性表，简称LIFO（last in first out）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 队列</span><br><span class="line">队列是只允许在一端进行插入操作、而在另一端进行删除操作的线性表.队列是一种先进先出的线性表，简称FIFO（first in first out）。允许插入的一端称为队尾，允许删除的一端称为队头</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">他们均可用线性表的顺序存储结构来实现，但都存在着顺序存储的一些弊端。因此他们各自有各自的技巧来解决这个问题</span><br></pre></td></tr></table></figure>
+<p>对于栈来说，如果两个数据类型相同的栈，可以用数组的两端作栈底的方法让两个栈共享数据，这就可以最大地利用数组空间。</p>
+<p>对于对列来说，为了避免数组插入和删除需要移动数据，于是引入了循环队列，使得队头和队尾可以在数组中循环变化。解决了移动数据的时间消化，使得本来插入和删除是O(n)的时间复杂度变成了O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">他们也都可以通过链式存储结构来实现。实现原则上与线下表基本相同。</span><br><span class="line"></span><br><span class="line">### 串</span><br><span class="line">串（string）是由零个或多个字符组成的有限序列，又名字符串。</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">串的顺序存储有一些变化，串值的存储空间可在程序执行过程中动态分配而得。比如在计算机中存在一个自由存储区。叫做”堆“。这个堆可由C语言动态分配函数malloc()和free()来管理</span><br><span class="line"></span><br><span class="line">串的链式存储结构除了在连接串与串操作时有一定方便之外，总的来说不如顺序存储灵活，性能也不如顺序存储结构好。</span><br><span class="line"></span><br><span class="line">### 树</span><br><span class="line"></span><br><span class="line">树(Tree)是n(n&gt;=0)个结点的有限集。当n=0时称为空数。在任意一棵非空树中:</span><br><span class="line">有且仅有一个特定的结点称为根(root)结点；</span><br><span class="line">当(n&gt;1)时，其余的结点可分为m（m&gt;0）个互不相交的有限集T1、T2、T3...Tm,其中每一个集合本身又是一棵树，并且称做根的子数（SubTree）</span><br><span class="line"></span><br><span class="line">其他定义</span><br></pre></td></tr></table></figure></p>
+<p>结点拥有的子树称为结点的度。度为0时称为叶结点或终端结点。度不为0时称为非终端结点或分支结点。除根结点之外，分支结点也称为内部结点。</p>
+<p>结点的层次从根开始定义起，根为第一层，根的孩子为第二层。双亲在同一层的结点互为堂兄弟。树中结点的最大层次称为树的深度或高度。<br>如果将树中结点的各个子树看成从左至右是有序的，不能互换的，则称改树为有序树，否则称为无序树。<br>森林是m（m&gt;0）棵互不相交的树的集合。对树中每个结点而言，其子树的集合即为森林。<br><code>`</code><br><strong>树的存储结构：</strong></p>
+<ul>
+<li>双亲表示法：在每一个结点中，附设一个指示器指示双亲结点在数组中的位置。</li>
+<li>孩子表示法：把每个结点的孩子排列起来，以单链表作为存储结构，则n个结点有n个孩子链表，如果是叶子结点则此单链表为空。然后n个头指针又组成一个线性表，采用顺序存储结构，存放进一个一维数组中。</li>
+<li>孩子兄弟表示法：任意一棵树，它的结点的第一个孩子如果存在就是唯一的，它的右兄弟如果存在也是唯一的。因此，我们设计两个指针，分别指向该结点的第一个孩子和此结点的右兄弟。</li>
+</ul>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>二叉树是n(n&gt;=0)个结点的有限集合，该集合或为空集（称为空二叉树），或者由一个根节点和两颗互不相交的，分别称为根结点的左子树和右子树的二叉树组成。</p>
+<p><strong>二叉树的特点：</strong></p>
+<ol>
+<li>每个结点最多有两颗子树，所以二叉树中不存在度大于2的结点。注意不是只有两颗子树，而是最多有。没有子树或者有一颗子树都是可以的。</li>
+<li>左子树和右子树是有顺序的，次序不能任意颠倒。</li>
+<li>即使树中的某一个节点，也要区分是左子树还是右子树</li>
+</ol>
+<p><strong>二叉树具有5种基本形态</strong></p>
+<ol>
+<li>空二叉树</li>
+<li>只有一个根结点</li>
+<li>根结点只有左子树</li>
+<li>根结点只有右子树</li>
+<li>根结点既有左子树又有右子树</li>
+</ol>
+<p><strong>特殊二叉树</strong></p>
+<ul>
+<li><p>斜树:所有的结点都只有左子树的二叉树叫做左斜树。所有节点都只有右子树的二叉树叫做右斜树。左斜树和右斜树统称为斜树。</p>
+</li>
+<li><p>满二叉树：如果所有的分支节点都存在左子树和右子树，并且所有的叶子都在同一层上。这样的二叉树叫做满二叉树。</p>
+</li>
+<li><p>完全二叉树：对一颗具有n个结点的二叉树按层序标号，如果编号为i（1 &lt;= i &lt;=n ）的结点与同样深度的满二叉树中编号为i的结点在二叉树中位置完全相同，则这棵树称为完全二叉树。(不好理解)</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/06/data_struct/" data-id="cju7mgv6u000ccyb7632pnekh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CocosPod" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/04/CocosPod/" class="article-date">
@@ -105,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/04/CocosPod/" data-id="cju3mrixf00019xb7tf1a5o0i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/04/CocosPod/" data-id="cju7mgv6k0003cyb794vum49f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -294,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cju3mrixl00069xb75dpv767y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cju7mgv6r0009cyb74zq8bf9b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
@@ -410,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cju3mrixr00089xb7cd34ldkf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cju7mgv6q0008cyb77wunvstp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li></ul>
@@ -515,9 +603,63 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cju3mrixh00029xb7e3hncw5h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cju7mgv6o0007cyb7nkxqy7i3" class="article-share-link">Share</a>
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/Dictionary/" class="article-date">
+  <time datetime="2019-03-29T11:31:49.850Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/29/Dictionary/">NSDictionary 的实现原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="NSDictionary使用原理"><a href="#NSDictionary使用原理" class="headerlink" title="NSDictionary使用原理"></a>NSDictionary使用原理</h3><p>1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率</p>
+<p>2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现，</p>
+<h3 id="哈希原理"><a href="#哈希原理" class="headerlink" title="哈希原理"></a>哈希原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的是键值对。</span><br></pre></td></tr></table></figure>
+<h3 id="哈希表的存储过程："><a href="#哈希表的存储过程：" class="headerlink" title="哈希表的存储过程："></a>哈希表的存储过程：</h3><ol>
+<li>根据key计算出它的哈希值h。</li>
+<li>假设箱子的个数为n，那没这个键值对应该放在第（h % n）个箱子中。</li>
+<li>如果该箱子中已经有了键值对，就使用开放寻址法或者拉链法解决冲突</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在使用拉链法解决哈希冲突时，每个箱子其实是一个链表，属于同一个箱子的所用键值都会排列在链表中。</span><br><span class="line">哈希表还有一个重要的属性：负载因子（load foctor），它用来衡量哈希表的空、满程度，一定程度上也是可以体现查询效率，计算公式为</span><br><span class="line">负载因子 = 总键值对数/箱子个数</span><br><span class="line">负载因子越大，意味着哈希表越满，越容易导致冲突，性能也就越低。因此，一般来说，当负载因子大于某个常数（可能是1，或者0.75）时，哈希表将自动扩容。</span><br></pre></td></tr></table></figure>
+<h3 id="重哈希概念："><a href="#重哈希概念：" class="headerlink" title="重哈希概念："></a>重哈希概念：</h3><ol>
+<li><p>哈希表在自动扩容时，一般会创建两倍于原来个数的箱子，因此即使key的哈希值不变，对箱子个数取余结果也会发生改变，因此所有键值对的存放位置可能发生改变，这个过程称为重哈希（rehash）</p>
+</li>
+<li><p>哈希表的扩容并不是总能够有效的解决负载因子过大的问题。假设所有的key的哈希值都一样，那么即使扩容以后他们的位置也不会变化。因为负载因子会降低，但实际存储在每个箱子中的链表长度并不发送改变，因此也就不能提高哈希表的查询性能</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、如果哈希表中本来箱子就比较多，扩容时需要重新设计哈希并移动数据，性能影响较大。<br>2、如果哈希函数设计不合理，哈希表在极端情况下会变成线性表。性能极低。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cju7mgv6d0000cyb7vpyvfoby" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li></ul>
+
     </footer>
   </div>
   
@@ -584,7 +726,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cju3mrixl00059xb7cneujh1p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cju7mgv6x000dcyb73vfrc9yu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
@@ -627,7 +769,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cju3mrixc00009xb7mftsylbh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cju7mgv6h0001cyb7nuqz9waz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -750,7 +892,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cju3mrixj00039xb7ov47uasz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cju7mgv6l0004cyb7ma4jz665" class="article-share-link">Share</a>
       
       
     </footer>
@@ -788,52 +930,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cju3mrixs00099xb77vygt5f9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/hello-world/" class="article-date">
-  <time datetime="2019-03-22T02:32:46.486Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cju3mrixk00049xb7ttq4xe2v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cju7mgv6s000bcyb7vaju1n5s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -844,6 +941,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -856,7 +958,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
     </div>
   </div>
 
@@ -866,7 +968,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a>
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
     </div>
   </div>
 
@@ -888,6 +990,10 @@
       <ul>
         
           <li>
+            <a href="/2019/04/06/data_struct/">数据结构的一些定义</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/04/CocosPod/">CocosPod 错误</a>
           </li>
         
@@ -901,10 +1007,6 @@
         
           <li>
             <a href="/2019/04/01/GCD/">iOS 多线程实现 --GCD使用详解</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/29/ios_memory/">iOS 内存的几大区域</a>
           </li>
         
       </ul>
