@@ -129,7 +129,12 @@
 <h3 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h3><h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈是限定仅在表尾进行插入和删除的操作的线性表。我们把允许插入和删除的一端称为栈顶，另一端称为栈底。栈又是后进先出的线性表，简称LIFO（last in first out）</p>
 <h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>队列是只允许在一端进行插入操作、而在另一端进行删除操作的线性表.队列是一种先进先出的线性表，简称FIFO（first in first out）。允许插入的一端称为队尾，允许删除的一端称为队头</p>
 <p>他们均可用线性表的顺序存储结构来实现，但都存在着顺序存储的一些弊端。因此他们各自有各自的技巧来解决这个问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对于栈来说，如果两个数据类型相同的栈，可以用数组的两端作栈底的方法让两个栈共享数据，这就可以最大地利用数组空间。</span><br><span class="line"></span><br><span class="line">对于对列来说，为了避免数组插入和删除需要移动数据，于是引入了循环队列，使得队头和队尾可以在数组中循环变化。解决了移动数据的时间消化，使得本来插入和删除是O(n)的时间复杂度变成了O(1)。</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><strong>对于栈来说</strong>，如果两个数据类型相同的栈，可以用数组的两端作栈底的方法让两个栈共享数据，这就可以最大地利用数组空间。</p>
+</li>
+<li><p><strong>对于对列来说</strong>，为了避免数组插入和删除需要移动数据，于是引入了循环队列，使得队头和队尾可以在数组中循环变化。解决了移动数据的时间消化，使得本来插入和删除是O(n)的时间复杂度变成了O(1)。</p>
+</li>
+</ol>
 <p>他们也都可以通过链式存储结构来实现。实现原则上与线下表基本相同。</p>
 <h3 id="串"><a href="#串" class="headerlink" title="串"></a>串</h3><p>串（string）是由零个或多个字符组成的有限序列，又名字符串。</p>
 <p>注：</p>
@@ -137,12 +142,14 @@
 <p>串的链式存储结构除了在连接串与串操作时有一定方便之外，总的来说不如顺序存储灵活，性能也不如顺序存储结构好。</p>
 <h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>树(Tree)是n(n&gt;=0)个结点的有限集。当n=0时称为空数。在任意一棵非空树中:<br>有且仅有一个特定的结点称为根(root)结点；<br>当(n&gt;1)时，其余的结点可分为m（m&gt;0）个互不相交的有限集T1、T2、T3…Tm,其中每一个集合本身又是一棵树，并且称做根的子数（SubTree）</p>
 <p>其他定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">结点拥有的子树称为结点的度。度为0时称为叶结点或终端结点。度不为0时称为非终端结点或分支结点。除根结点之外，分支结点也称为内部结点。</span><br><span class="line"></span><br><span class="line">结点的层次从根开始定义起，根为第一层，根的孩子为第二层。双亲在同一层的结点互为堂兄弟。树中结点的最大层次称为树的深度或高度。</span><br><span class="line">如果将树中结点的各个子树看成从左至右是有序的，不能互换的，则称改树为有序树，否则称为无序树。</span><br><span class="line">森林是m（m&gt;0）棵互不相交的树的集合。对树中每个结点而言，其子树的集合即为森林。</span><br></pre></td></tr></table></figure>
+<p>结点拥有的子树称为结点的<strong>度</strong>。度为0时称为<strong>叶结点</strong>或终端结点。度不为0时称为非终端结点或分支结点。除根结点之外，分支结点也称为内部结点。</p>
+<p>结点的层次从根开始定义起，根为第一层，根的孩子为第二层。双亲在同一层的结点<strong>互为堂兄弟</strong>。树中结点的最大层次称为<strong>树的深度或高度</strong>。<br>如果将树中结点的各个子树看成从左至右是有序的，不能互换的，则称该树为<strong>有序树</strong>，否则称为<strong>无序树</strong>。</p>
+<p><strong>森林</strong>是m（m&gt;0）棵互不相交的树的集合。对树中每个结点而言，其子树的集合即为森林。</p>
 <p><strong>树的存储结构：</strong></p>
 <ul>
-<li>双亲表示法：在每一个结点中，附设一个指示器指示双亲结点在数组中的位置。</li>
-<li>孩子表示法：把每个结点的孩子排列起来，以单链表作为存储结构，则n个结点有n个孩子链表，如果是叶子结点则此单链表为空。然后n个头指针又组成一个线性表，采用顺序存储结构，存放进一个一维数组中。</li>
-<li>孩子兄弟表示法：任意一棵树，它的结点的第一个孩子如果存在就是唯一的，它的右兄弟如果存在也是唯一的。因此，我们设计两个指针，分别指向该结点的第一个孩子和此结点的右兄弟。</li>
+<li><strong>双亲表示法</strong>：在每一个结点中，附设一个指示器指示双亲结点在数组中的位置。</li>
+<li><strong>孩子表示法</strong>：把每个结点的孩子排列起来，以单链表作为存储结构，则n个结点有n个孩子链表，如果是叶子结点则此单链表为空。然后n个头指针又组成一个线性表，采用顺序存储结构，存放进一个一维数组中。</li>
+<li><strong>孩子兄弟表示法</strong>：任意一棵树，它的结点的第一个孩子如果存在就是唯一的，它的右兄弟如果存在也是唯一的。因此，我们设计两个指针，分别指向该结点的第一个孩子和此结点的右兄弟。</li>
 </ul>
 <h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>二叉树是n(n&gt;=0)个结点的有限集合，该集合或为空集（称为空二叉树），或者由一个根节点和两颗互不相交的，分别称为根结点的左子树和右子树的二叉树组成。</p>
 <p><strong>二叉树的特点：</strong></p>
@@ -161,18 +168,18 @@
 </ol>
 <p><strong>特殊二叉树</strong></p>
 <ul>
-<li><p>斜树:所有的结点都只有左子树的二叉树叫做左斜树。所有节点都只有右子树的二叉树叫做右斜树。左斜树和右斜树统称为斜树。</p>
+<li><p><strong>斜树</strong>:所有的结点都只有左子树的二叉树叫做左斜树。所有节点都只有右子树的二叉树叫做右斜树。左斜树和右斜树统称为斜树。</p>
 </li>
-<li><p>满二叉树：如果所有的分支节点都存在左子树和右子树，并且所有的叶子都在同一层上。这样的二叉树叫做满二叉树。</p>
+<li><p><strong>满二叉树</strong>：如果所有的分支节点都存在左子树和右子树，并且所有的叶子都在同一层上。这样的二叉树叫做满二叉树。</p>
 </li>
-<li><p>完全二叉树：对一颗具有n个结点的二叉树按层序标号，如果编号为i（1 &lt;= i &lt;=n ）的结点与同样深度的满二叉树中编号为i的结点在二叉树中位置完全相同，则这棵树称为完全二叉树。(不好理解)</p>
+<li><p><strong>完全二叉树</strong>：对一颗具有n个结点的二叉树按层序标号，如果编号为i（1 &lt;= i &lt;=n ）的结点与同样深度的满二叉树中编号为i的结点在二叉树中位置完全相同，则这棵树称为完全二叉树。(不好理解)</p>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/data_struct/" data-id="cju7n6mn60009rab7holq10er" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/data_struct/" data-id="cju7nprmh0004shb7vuowkckt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
@@ -219,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/04/CocosPod/" data-id="cju7n6mmw0001rab7rudooz7z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/04/CocosPod/" data-id="cju7nprm90000shb7yw64z7cp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cju7n6mno000irab7poqaaa50" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cju7nprmo000cshb7geac117l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
@@ -524,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cju7n6mn8000brab7jfqyy4b0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cju7nprmx000ishb7s8ln0s59" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li></ul>
@@ -629,7 +636,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cju7n6mn40006rab7w6tjur4q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cju7nprmj0005shb7vb8ikhxo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -681,7 +688,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cju7n6mmy0002rab7fhrqoxy3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cju7nprmd0001shb7gawem3n1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li></ul>
@@ -752,7 +759,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cju7n6mn50007rab7rwtyv39s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cju7nprml0009shb7a4p8z9mo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
@@ -795,7 +802,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cju7n6mmr0000rab7c3nanwgw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cju7nprme0002shb7fli0aozi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -918,7 +925,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cju7n6mmz0003rab714sb346f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cju7nprmk0006shb7y1omr1h0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -956,7 +963,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cju7n6mna000crab7qqhga0zg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cju7nprmq000eshb7blmwy64s" class="article-share-link">Share</a>
       
       
     </footer>
