@@ -42,7 +42,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">为了更好的明天而努力</a>
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
         </h2>
       
     </div>
@@ -69,6 +69,84 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Cocoapods" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/10/Cocoapods/" class="article-date">
+  <time datetime="2019-04-10T06:21:32.078Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/Cocoapods/">使用cocoapod托管代码。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、新建一个项目"><a href="#一、新建一个项目" class="headerlink" title="一、新建一个项目"></a>一、新建一个项目</h3><p>1、在github上新建一个项目，新加项目是要<strong>勾选许可证类型</strong>。</p>
+<p><img src="https://github.com/zhongqing05/zhongqing05.github.io/blob/master/ScreenShot/github01.png?raw=true" alt></p>
+<p>注：如果是已有项目，可以从其他地方拷贝一个LICENSE文件，放到项目的跟目录下（与READEME.md同级）</p>
+<p>2、使用GitHub DeskTop 工具把代码克隆到本地。如果还没有安装的同学。赶紧去<a href="https://desktop.github.com/" target="_blank" rel="noopener">官方网站</a>下载。很好用的工具<br>注：这里也可以使用git命令行把远程代码clone到本地。我个人是比较习惯可视化工具</p>
+<p>3、在当前文件夹新建一个项目。</p>
+<p>到这里你的项目就已经准备好了。</p>
+<h3 id="二、构建版本"><a href="#二、构建版本" class="headerlink" title="二、构建版本"></a>二、构建版本</h3><p>注：我这里主要在github上构建release版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、进入你刚刚在github上创建的项目。如果你还没有构建过版本。release一定是0</span><br><span class="line">2、点击release。编写版本号.(这里填写的版本号要跟podspec文件里填的版本号一致，一般是从0.0.1开始填写)。</span><br><span class="line">3、然后填写release title 和 describe this release</span><br><span class="line">4、然后把你要发布的文件拖进来，或者点击进去选择文件。</span><br><span class="line">5、检查完成后，点击 Publish release 发布。</span><br></pre></td></tr></table></figure>
+<p>附：使用tag git命令来构建新版本</p>
+<p>重点（ tag 标记上传至 github ）:</p>
+<p>此处默认以上操作完成（终端完成以下操作,前提路径在该仓库下） </p>
+<ol>
+<li>git tag ‘xxx’（xxx必须是你在 .podspec 文件中的 version(版本号)）</li>
+<li>git add . (添加)</li>
+<li>git commit -m ‘提交内容’</li>
+<li>git push origin xxx（xxx是你的tag号）</li>
+</ol>
+<h3 id="三-创建podspec文件"><a href="#三-创建podspec文件" class="headerlink" title="三. 创建podspec文件"></a>三. 创建podspec文件</h3><p>1、打开终端，cd 到你当前文件夹下。比如：cd cd Desktop/JPAlbumPicker/</p>
+<p>2、创建.podspec文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod spec create &apos;项目名&apos;</span><br><span class="line">比如：pod spec create JPAlbumPicker JPAlbumPicker是我的项目名</span><br></pre></td></tr></table></figure>
+<p>3、打开你刚刚创建的podspec文件。并进行修改。</p>
+<p>我这里建议一下作为初学者，这里稍微花点心思去了解一下大概有哪些功能。然后全部给删了，把<a href="https://guides.cocoapods.org/syntax/podspec.html#specification" target="_blank" rel="noopener">官方写的</a>黏贴进来，进行对应的修改。这样相对简洁。</p>
+<p>常用的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- s.name : 类库的名称</span><br><span class="line">- s.version : 类库的版本号</span><br><span class="line">- s.summary : 类库的摘要(简介)</span><br><span class="line">- s.description : 描述, 用于生成标签和提高搜索结果, 主要是类库的功能等, 尽量简短; 注意, 需要写在两个DESC中间</span><br><span class="line">- s.homepage : 类库的地址链接</span><br><span class="line">- s.screenshots : 效果图链接</span><br><span class="line">- s.license: 许可类型, 常用的是 MIT</span><br><span class="line">- s.author :作者</span><br><span class="line">- s.social_media_url : 个人主页地址</span><br><span class="line">- s.platform : 平台 例如: iOS , tvOS, watchOS等,</span><br><span class="line">- s.resource = &quot;icon.png&quot;:单个资源</span><br><span class="line">- s.resources = &quot;Resources/*.png&quot; : 多个资源</span><br><span class="line">- s.source_files : 文件的相对路径</span><br><span class="line">- s.public_header_files : 公开的头文件, 如果不设置这个, 默认公开所有的头文件</span><br><span class="line">- s.exclude_files = &quot;Classes/Exclude&quot; 排除不需要的文件</span><br><span class="line">- s.requires_arc = true 需要ARC</span><br><span class="line">- s.xcconfig = &#123; &quot;HEADER_SEARCH_PATHS&quot; =&gt; &quot;$(SDKROOT)/usr/include/libxml2&quot; &#125; 项目配置</span><br><span class="line">- s.dependency &quot;JSONKit&quot;, &quot;~&gt; 1.4&quot; 需要其他第三方库的支持</span><br></pre></td></tr></table></figure>
+<p>4、编写完成之后校验一下你填写的podspec文件有没有问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint &apos;.podspec&apos;</span><br><span class="line">比如：pod lib lint JPAlbumPicker.podspec</span><br></pre></td></tr></table></figure>
+<p>这里可能出现错误。你根据错误从新打开podspec文件修改正确就好了。另外如果错误不明确的话，后面跟上 –verbose。输出的错误内容更详细</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint JPAlbumPicker.podspec --verbose</span><br></pre></td></tr></table></figure>
+<p>把错误改完之后基本上也就剩下一些警告了。如果是一些无关紧要的警告导致验证不通过。后面加上 —allow-warnings进行忽略即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint JPAlbumPicker.podspec --allow-warnings</span><br></pre></td></tr></table></figure>
+<p>基本上到这里podspec文件也就通过验证了。在终端上会打印 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">‘项目名’ passed validation</span><br></pre></td></tr></table></figure>
+<h3 id="四、注册cocoapods账户（已有账号可以忽略这步骤）"><a href="#四、注册cocoapods账户（已有账号可以忽略这步骤）" class="headerlink" title="四、注册cocoapods账户（已有账号可以忽略这步骤）"></a>四、注册cocoapods账户（已有账号可以忽略这步骤）</h3><p>输入 pod trunk me  检查你有没有注册过账号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Name:     zhongqing</span><br><span class="line">- Email:    zhongqing05@gmail.com</span><br><span class="line">- Since:    December 17th, 2018 20:34</span><br></pre></td></tr></table></figure>
+<p>首次使用。注册</p>
+<p>pod trunk register <a href="mailto:zhongqing05@gmail.com" target="_blank" rel="noopener">zhongqing05@gmail.com</a> ‘zhongqing’ –description=’test’</p>
+<p>正常情况下回收到邮件，根据提示验证即可：</p>
+<h3 id="五、上传代码"><a href="#五、上传代码" class="headerlink" title="五、上传代码"></a>五、上传代码</h3><p>注：这里还可以再次校验 podrepo文件。通过之后直接发布就好了。</p>
+<p>pod trunk push JPAlbumPicker.podrepo</p>
+<p>这里上传时间可能会有点久，耐心等待，上传成功。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/10/Cocoapods/" data-id="cjuayk8gr0002s2b7wihdfdzg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-data_struct" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -179,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/06/data_struct/" data-id="cju7nprmh0004shb7vuowkckt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/06/data_struct/" data-id="cjuayk8h4000ds2b7huv8bpul" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
@@ -191,9 +269,9 @@
 
 
   
-    <article id="post-CocosPod" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-CocosPodError" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/04/04/CocosPod/" class="article-date">
+    <a href="/2019/04/04/CocosPodError/" class="article-date">
   <time datetime="2019-04-04T02:58:41.572Z" itemprop="datePublished">2019-04-04</time>
 </a>
     
@@ -205,7 +283,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/04/CocosPod/">CocosPod 错误</a>
+      <a class="article-title" href="/2019/04/04/CocosPodError/">CocosPod 常见错误</a>
     </h1>
   
 
@@ -213,7 +291,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>从cocospod下载一个16年的老项目，然后pod install，安装一下第三方依赖。然后提示以下错误。</p>
+        <p><strong>从cocospod下载一个16年的老项目，然后pod install，安装一下第三方依赖。然后提示以下错误。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Re-creating CocoaPods due to major version update.</span><br><span class="line">Analyzing dependencies</span><br><span class="line">[!] The dependency `SnapKit (~&gt; 0.17.0)` is not used in any concrete target.</span><br><span class="line">The dependency `AVOSCloud (~&gt; 3.1.3.6)` is not used in any concrete target.</span><br><span class="line">The dependency `MJExtension` is not used in any concrete target.</span><br><span class="line">The dependency `Kingfisher (~&gt; 1.8)` is not used in any concrete target.</span><br><span class="line">The dependency `MJRefresh` is not used in any concrete target.</span><br></pre></td></tr></table></figure>
 <p>我老的podfile文件是这样的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line">platform :ios, &apos;8.0&apos;</span><br><span class="line"></span><br><span class="line">pod &apos;SnapKit&apos;, &apos;~&gt; 0.17.0&apos;</span><br><span class="line">pod &apos;AVOSCloud&apos;, &apos;~&gt; 3.1.3.6&apos;</span><br><span class="line">pod &apos;MJExtension&apos;</span><br><span class="line">pod &apos;Kingfisher&apos;, &apos;~&gt; 1.8&apos;</span><br><span class="line">pod &apos;MJRefresh&apos;</span><br></pre></td></tr></table></figure>
@@ -222,11 +300,29 @@
 <p>重新pod install 就能下载了。</p>
 <p>因为老的格式没有按下面的这个语法写。新的major版本不支持了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target  &quot;你的项目名&quot; do</span><br><span class="line">//这里填写你要添加的第三方依赖。</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p><strong>执行 pod setup 很慢很慢的解决方案</strong></p>
+<p>前期准备(安装过可以省略)：1.查看ruby 2.更新 gem 3.安装cocoapods。</p>
+<blockquote>
+<ol>
+<li><p>pod repo remove master</p>
+</li>
+<li><p>pod repo add master <a href="https://gitcafe.com/akuandev/Specs.git" target="_blank" rel="noopener">https://gitcafe.com/akuandev/Specs.git</a></p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p> 会出现 [!] To setup the master specs repo, please run `pod setup`这里不用管它，继续<br>这一步把https改成git 速度上会快一点</p>
+<ol>
+<li>git clone git://gitclub.cn/CocoaPods/Specs.git ~/.cocoapods/repos/master</li>
+<li>pod repo update</li>
+</ol>
+</blockquote>
+<p>//到这里结束大概20来分钟，你可以试一下 pod search masonry</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/04/CocosPod/" data-id="cju7nprm90000shb7yw64z7cp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/04/CocosPodError/" data-id="cjuayk8gm0000s2b7dd2sfarb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -415,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cju7nprmo000cshb7geac117l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/02/swift/" data-id="cjuayk8h7000gs2b7whi6d8ib" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
@@ -531,7 +627,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cju7nprmx000ishb7s8ln0s59" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/lock/" data-id="cjuayk8h0000as2b7di4v20cb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li></ul>
@@ -636,7 +732,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cju7nprmj0005shb7vb8ikhxo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cjuayk8gw0005s2b7eci31pgl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -688,7 +784,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cju7nprmd0001shb7gawem3n1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cjuayk8gt0003s2b7b9c7jmxx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li></ul>
@@ -759,7 +855,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cju7nprml0009shb7a4p8z9mo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cjuayk8h1000bs2b7il6zsskp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
@@ -802,7 +898,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cju7nprme0002shb7fli0aozi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cjuayk8gq0001s2b73ht01odg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -925,45 +1021,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cju7nprmk0006shb7y1omr1h0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-post-title" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/post-title/" class="article-date">
-  <time datetime="2019-03-22T04:15:52.000Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/post-title/">苹果证书如何转pem文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>openssl x509 -in apns_miaobozhibo.cer -inform der -out apns_miaobozhibo.pem<br>注：<br>apns_miaobozhibo.cer:推送证书<br>apns_miaobozhibo.pem:要生的pem文件</p>
-<p>p12转pem文件<br>openssl pkcs12 -nocerts -out apns_miaobozhiboKey.pem -in  apns_miaobozhibo.p12<br>注：<br>apns_miaobozhibo.p12文件<br>apns_miaobozhiboKey.pem 要生成的pem文件</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cju7nprmq000eshb7blmwy64s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cjuayk8gy0007s2b7axxn5b87" class="article-share-link">Share</a>
       
       
     </footer>
@@ -991,7 +1049,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
     </div>
   </div>
 
@@ -1001,7 +1059,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
     </div>
   </div>
 
@@ -1023,11 +1081,15 @@
       <ul>
         
           <li>
+            <a href="/2019/04/10/Cocoapods/">使用cocoapod托管代码。</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/06/data_struct/">数据结构的一些定义</a>
           </li>
         
           <li>
-            <a href="/2019/04/04/CocosPod/">CocosPod 错误</a>
+            <a href="/2019/04/04/CocosPodError/">CocosPod 常见错误</a>
           </li>
         
           <li>
@@ -1036,10 +1098,6 @@
         
           <li>
             <a href="/2019/04/01/lock/">iOS中几种常用的锁</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/01/GCD/">iOS 多线程实现 --GCD使用详解</a>
           </li>
         
       </ul>
