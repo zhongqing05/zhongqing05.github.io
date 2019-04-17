@@ -7,20 +7,20 @@
   
   <title>HTTP的简单总结 | 黑夜传说</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTP是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请">
+  <meta name="description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTPH (Hyper Text Transfer Protocol超文本传输协议)是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。">
 <meta name="keywords" content="Object-C 、Swift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP的简单总结">
 <meta property="og:url" content="http://yoursite.com/2019/04/13/HTTPIntroduce/index.html">
 <meta property="og:site_name" content="黑夜传说">
-<meta property="og:description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTP是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请">
+<meta property="og:description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTPH (Hyper Text Transfer Protocol超文本传输协议)是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/cmOLumrNib1cfBOtIMQ6JfSibJdd6QkQribgQuEeJaevuN9LRgQ9WR85hRiaVISeia7SDz1aU9hAAgO33XFaJ3FhmhQ/0?wx_fmt=png">
 <meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/cmOLumrNib1cfBOtIMQ6JfSibJdd6QkQribXL5PwzkqQdmyY9egu2hpzzMCgz2F5HhhkdSNc5eYJ9UGMDBGjeCGiag/0?wx_fmt=png">
-<meta property="og:updated_time" content="2019-04-15T02:08:52.232Z">
+<meta property="og:updated_time" content="2019-04-17T06:17:31.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP的简单总结">
-<meta name="twitter:description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTP是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请">
+<meta name="twitter:description" content="原文链接 https://juejin.im/entry/5981c5df518825359a2b9476 HTTP网络请求的基本介绍HTTPH (Hyper Text Transfer Protocol超文本传输协议)是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。">
 <meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_png/cmOLumrNib1cfBOtIMQ6JfSibJdd6QkQribgQuEeJaevuN9LRgQ9WR85hRiaVISeia7SDz1aU9hAAgO33XFaJ3FhmhQ/0?wx_fmt=png">
   
     <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
@@ -95,7 +95,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>原文链接 <a href="https://juejin.im/entry/5981c5df518825359a2b9476" target="_blank" rel="noopener">https://juejin.im/entry/5981c5df518825359a2b9476</a></p>
-<h2 id="HTTP网络请求的基本介绍"><a href="#HTTP网络请求的基本介绍" class="headerlink" title="HTTP网络请求的基本介绍"></a>HTTP网络请求的基本介绍</h2><p>HTTP是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。<br>对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请求，服务器返回结果，客户端解析结果，然后将结果展示在UI上，他们的之间的交互图如下</p>
+<h2 id="HTTP网络请求的基本介绍"><a href="#HTTP网络请求的基本介绍" class="headerlink" title="HTTP网络请求的基本介绍"></a>HTTP网络请求的基本介绍</h2><p>HTTPH (Hyper Text Transfer Protocol超文本传输协议)是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。<br>对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请求，服务器返回结果，客户端解析结果，然后将结果展示在UI上，他们的之间的交互图如下</p>
 <p>详细的交互步骤：</p>
 <ol>
 <li>客户端执行网络请求，从URL中解析出服务器的主机名</li>
@@ -111,6 +111,21 @@
 <h2 id="HTTP的请求方式"><a href="#HTTP的请求方式" class="headerlink" title="HTTP的请求方式"></a>HTTP的请求方式</h2><h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><p>GET是最常见的方法，它的作用是获取服务器中某个资源，下图显示了一个例子，在这个例子中，客户端用GET方法发起了一次HTTP请求，然后服务端将对应的资源返回给客户端</p>
 <p>注意：GET请求的参数都需要放到请求的URL中。</p>
 <h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><p>POST方法起初始用来向服务器传递数据的，实际上，POST请求通常会用来提交HTML的表单，表单中填好的数据会被传输给服务器，然后由服务器对这些数据进行处理，下图显示了一个用POST请求的执行流程。</p>
+<p><strong>比较</strong>：</p>
+<p>GET</p>
+<ul>
+<li>GET请求能够被缓存</li>
+<li>GET请求有长度限制</li>
+<li>GET请求会保存在浏览器的浏览记录中</li>
+<li>GET请求的URL能够保存为浏览器书签</li>
+</ul>
+<p>POST</p>
+<ul>
+<li>POST请求不能够被缓存</li>
+<li>POST请求没有长度限制</li>
+<li>POST请求不会保存在浏览器的浏览记录中</li>
+<li>POST请求的URL无法保存为浏览器书签</li>
+</ul>
 <h4 id="PUT请求"><a href="#PUT请求" class="headerlink" title="PUT请求"></a>PUT请求</h4><p>与GET从服务器中读取资源相反，PUT方法会向服务器写入资源，有些发布系统允许用户创建Web页面，并用PUT直接向其传输到Web服务器中。如下图所示</p>
 <p>PUT方法的语义就是让服务器用请求的主体部分来创建一个由所请求的URL命名的新文档，如果那个URL已经存在的话，就用这个资源来代替它。</p>
 <h4 id="DELETE请求"><a href="#DELETE请求" class="headerlink" title="DELETE请求"></a>DELETE请求</h4><p>顾名思义，DELETE方法所做的事情就是请求服务器删除请求URL所指定的资源，但是客户端应用程序无法保证删除操作一定会被执行，因为HTTP规范允许服务器在不通知的情况下撤销请求，下图显示了一个DELETE方法实例。</p>
@@ -165,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/13/HTTPIntroduce/" data-id="cjuhshuv700002pb8xv6roqxt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/13/HTTPIntroduce/" data-id="cjuktoh2i0005deb8eqqcgopz" class="article-share-link">Share</a>
       
       
     </footer>
