@@ -70,6 +70,275 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GCD" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/01/GCD/" class="article-date">
+  <time datetime="2019-04-01T01:15:12.474Z" itemprop="datePublished">2019-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/01/GCD/">iOS 多线程实现 --GCD使用详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文来自：</strong><a href="https://www.jianshu.com/p/33151a5bac28" target="_blank" rel="noopener">https://www.jianshu.com/p/33151a5bac28</a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>GCD,英文全称是Grand Central Dispatch（功能强悍的中央调度器），基于C语言编写的一套多线程开发机制，因此使用时会以函数形式出现，且大部分函数以dispatch开头，虽然是C语言的但对于苹果其他多线程实现方式，抽象层次更高，使用起来也更加方便。</p>
+<p>它是苹果为应对多核的并行运算提出的解决方案，它会自动利用多核并发处理和运算，它能提供系统级别的处理，而不再局限于某个进程、线程，官方声明会更快、更高效、更灵敏，且线程由系统自动管理（调度、运行），无需程序员参与，使用起来非常方便。</p>
+<h2 id="任务和队列"><a href="#任务和队列" class="headerlink" title="任务和队列"></a>任务和队列</h2><p>GCD有2个核心：任务和队列</p>
+<ul>
+<li>任务：要执行的操作或方法函数，</li>
+<li>队列：存放任务的集合，而我们要做的就是将任务添加到队列然后执行，GCD会自动将队列中的任务按先进先出的方式提取并交付给对应的线程。注意任务的取出是按照先进先出的方式，这也是队列的特性，但是取出后执行的顺序不一定，下面会详细讨论。</li>
+</ul>
+<p>1任务<br>任务是一个比较抽象的概念，可以简单的认为是一个操作、一个函数、一个方法等等。在实际的开发中大多是以block的形式，使用起来更加灵活。</p>
+<p>2队列queue</p>
+<ul>
+<li>有2种队列：串行队列和并行队列。串行队列：同步执行，在当前线程执行；并行队列：可由多个线程异步执行，但任务取出还是FIFO的。</li>
+</ul>
+<p>队列创建，根据函数的第二个参数来创建串行或并行队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 参数1 队列名称</span><br><span class="line">// 参数2 队列类型  DISPATCH_QUEUE_SERIAL/NULL 串行队列，DISPATCH_QUEUE_CONCURRENT代表并行队列</span><br><span class="line">dispatch_queue_t serialQ = dispatch_queue_create(&quot;队列名称&quot;,NULL);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>另外系统还提供了两种队列：全局队列和主队列</li>
+</ul>
+<p>全局队列属于并行队列，只不过由系统创建没有名字，且在全局可见（可用）。获取全局队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/* 取得全局队列</span><br><span class="line"> 第一个参数：线程的优先级，设为默认即可，个人习惯写0，等同于默认</span><br><span class="line"> 第二个参数：标记参数，目前没有用，一般传入0</span><br><span class="line">*/</span><br><span class="line">serialQ = dispatch_get_global_queue(DISPATCH_QUEQE_PRIORITY_DEFAULT, 0);</span><br></pre></td></tr></table></figure>
+<p>主队列属于串行队列，也由系统创建，只不过运行在主线程（UI线程）。获取主队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serialQ = dispatch_get_main_queue();</span><br></pre></td></tr></table></figure>
+<p>关于内存：queue属于一个对象，也是占用内存的，也会使用引用计数，当queue添加一个任务时就会将这个queue retain一下，引用计数+1，直到所有任务都完成内存才会释放。（我们在声明queue属性时要用strong）。</p>
+<p><strong>3执行方式–2种</strong><br>同步执行和异步执行<br>同步执行：不会开启新的线程，在当前线程执行。<br>异步执行：GCD管理的线程池中有空闲线程就会从队列中取出任务执行，会开启线程。</p>
+<p>下面为实现同步和异步的函数，函数功能为：将任务添加到队列并执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* 同步执行</span><br><span class="line">   第一个参数：执行任务的队列：串行、并行、全局、主队列</span><br><span class="line">   第二个参数：block任务</span><br><span class="line">*/</span><br><span class="line">void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</span><br><span class="line">//异步队列</span><br><span class="line">void dispatch_async(dispatch_queue_t queue, dispathc_block_t block);</span><br></pre></td></tr></table></figure>
+<p>注意：默认情况下，新线程都没有开启runloop，所有当block任务完成后，线程都会自动被回收，假设我们想在新开的线程中使用NSTimer，就必须启用runloop。可以使用[[NSRunLoop currentRunLoop] run] 开启当前线程，这时就需要自己管理线程的回收等工作。</p>
+<ul>
+<li>另外还用2个方法，实际开发中用的并不是太多<br><code>dispatch_barrier_sync(dispatch_queue_t queue, dispatch_block_t block);</code>和<br><code>dispatch_barrier_async(dispatch_queue_t queue, disaptch_block_t block);</code></li>
+</ul>
+<p>加了一个barrier，意义在于：队列之前的block处理完成之后才开始处理队列中barrier的block，且barrier的block必须处理完成之后，才能处理其他的block。</p>
+<h2 id="三、几种类型"><a href="#三、几种类型" class="headerlink" title="三、几种类型"></a>三、几种类型</h2><p>很明显两种执行方式，两种队列。那么就有4种情况：串行队列同步执行、<br>串行队列异步执行、并行队列同步执行、并行队列异步执行。哪一种会开启新的线程？开几条？是否并发？记忆起来比较绕，但是只要抓住基本的就可以，为了方便理解，现分析如下：</p>
+<ol>
+<li>串行队列，同步执行——串行队列意味着顺序执行，同步执行意味着不开启线程（在当前线程执行）</li>
+<li>串行队列，异步执行——串行队列意味着任务顺序执行，异步执行说明要开线程。（如果开多个线程的话，不能保证串行队列顺序执行，所以只能开一个线程）</li>
+<li>并行队列，异步执行——并行队列意味着执行顺序不确定，异步执行意味着会开启线程，而并行队列又不允许不按顺序执行，所以系统为了提高性能会开启多个线程，来队列提取任务（队列中的任务取出仍然要顺序取出的，只是线程执行无序）。</li>
+<li>并行队列，同步执行——同步执行意味着不开线程，责肯定是顺序执行的。</li>
+<li>死锁—-程序执行不出来</li>
+</ol>
+<h2 id="四、死锁举例"><a href="#四、死锁举例" class="headerlink" title="四、死锁举例"></a>四、死锁举例</h2><p>主队列死锁:<br>这种死锁最常见,问题也最严重,会造成主线程卡住.原因:主队列,如果主线程正在执行代码,就不调度任务;同步执行:一直执行第一个任务直到结束.两者相互等待造成死锁,示例代码如下.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (void)mainThreadDeadLockTest&#123;</span><br><span class="line">   NSLog(@&quot;begin&quot;);</span><br><span class="line">   dispatch_sync(dispatch_get_main_queue(),^&#123;</span><br><span class="line">   		// 发生死锁下面的代码不会执行</span><br><span class="line">   		NSLog(@&quot;middle&quot;);</span><br><span class="line">   &#125;);</span><br><span class="line">   // 发生死锁下面的代码不会执行,当然函数也不会返回,后果也最为严重</span><br><span class="line">   NSLog(@&quot;end&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他线程死锁,这种不会影响主线程:<br>原因: serialQueue 为串行队列,当代码执行到block1时正常,执行到dispatch_sync时.dispatch_sync等待block2执行完才能返回,而serialQueue是串行队列,它正在执行block1,只有等block1执行完毕之后才会去执行block2,相互等待造成死锁.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (void)deadLockTest &#123;</span><br><span class="line">   //其他线程死锁</span><br><span class="line">   dispatch_queue_t serialQueue = dispatch_queue_create(&quot;serial_queue&quot;,DISPATCH_QUEUE_SERIAL);</span><br><span class="line">   dispatch_async(serialQueue,^&#123;</span><br><span class="line">       //串行队列block1</span><br><span class="line">       NSLog(@&quot;begin&quot;);</span><br><span class="line">       dispatch_sync(serialQueue,^&#123;</span><br><span class="line">       	//串行队列block2 发生死锁,下面的代码不会执行</span><br><span class="line">       	NSLog(@&quot;middle&quot;);</span><br><span class="line">       &#125;);</span><br><span class="line">       // 不会打印</span><br><span class="line">       NSLog(@&quot;end&quot;);</span><br><span class="line">   &#125;);</span><br><span class="line">   //函数会返回,不影响主线程</span><br><span class="line">   NSLog(@&quot;return&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="五、常用举例"><a href="#五、常用举例" class="headerlink" title="五、常用举例"></a>五、常用举例</h2><ul>
+<li>线程间通讯</li>
+</ul>
+<p>比如,为了提高用户体验,我们一般在其他线程(非主线程)下载图片或其它网络资源,下载完成后我们要更新UI,而UI更新必须在主线程执行,所以我们经常会使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 同步执行,不阻塞直到下面block中的代码执行完毕</span><br><span class="line">diapatch_sync(dispatch_get_main_queue,^&#123;</span><br><span class="line">	// 主线程,UI更新</span><br><span class="line">&#125;);</span><br><span class="line">//异步执行</span><br><span class="line">dispatch_async(dispatc_get_main_queue,^&#123;</span><br><span class="line">	//主线程,UI更新</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>信号量的使用<br>也属于线程间通讯,下面的举例是经常使用到的场景,在网络访问中,NSURLSession类都是异步的(找了好久没有找到同步的方法),而有时我们希望能够像NSURLConnection一样可以同步访问,即在网络block调用完之后做一些操作.那我们可以使用dispatch的信号量来解决.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">///用于线程间通讯,下面是等待一个网络完成</span><br><span class="line">- (void)dispatchSemaphore &#123;</span><br><span class="line">    NSString *urlString = [@&quot;https:www.baidu.com&quot; stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];</span><br><span class="line">    //设置缓存策略为每次都从网络加载 超时时间30秒</span><br><span class="line">    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];</span><br><span class="line">    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);</span><br><span class="line">    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)&#123;</span><br><span class="line">        //处理完之后发,送信号量</span><br><span class="line">        NSLog(@&quot;正在处理&quot;);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;] resume];</span><br><span class="line">    //等待网络处理完成</span><br><span class="line">    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">    NSLog(@&quot;处理完成&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的举例中, dispatch_semaphore_signal 的调用必须是在另一个线程调用,因为当前线程已经 dispatch_semaphore_wait阻塞.另外,dispatch_semaphore_wait最好不要在主线程调用</p>
+<ul>
+<li><p>全局队列,实现并发:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(0,0), ^&#123;</span><br><span class="line"> //要执行相关代码</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六、Dispatch-Group"><a href="#六、Dispatch-Group" class="headerlink" title="六、Dispatch Group"></a>六、Dispatch Group</h2><p>使用调度组,可以轻松实现一下任务完成后,做一些操作.比如具有顺序性要求的生产者消费者等等.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)groupTest &#123;</span><br><span class="line">    // 创建一个组</span><br><span class="line">    dispatch_group_t group = dispatch_group_create();</span><br><span class="line">    NSLog(@&quot;开始执行&quot;);</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">        dispatch_group_async(group, dispatch_get_global_queue(0,0), ^&#123;</span><br><span class="line">            //任务1</span><br><span class="line">            //等等一段时间执行</span><br><span class="line">            [NSThread sleepForTimeInterval:1];</span><br><span class="line">            NSLog(@&quot;task1 runing in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">        dispatch_group_notify(group, dispatch_get_global_queue(0,0), ^&#123;</span><br><span class="line">            //任务2</span><br><span class="line">            NSLog(@&quot;task2 runing in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击屏幕后打印如下,可以看到任务1虽然等待了1s,任务2也不执行,只有任务1执行完成之后才去执行任务2.</p>
+<p>示例2:其实示例1并不常用,真正用到的是监控多个任务完成之后,回到主线程更新UI,或者做其它事情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">-(void)groupTest1 &#123;</span><br><span class="line">    dispatch_group_t group = dispatch_group_create();</span><br><span class="line">    NSLog(@&quot;开始执行&quot;);</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">        dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">            //关联任务1</span><br><span class="line">            NSLog(@&quot;task 1 running in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">        dispatch_group_async(group,dispatch_get_global_queue(0,0), ^&#123;</span><br><span class="line">            //关联任务2</span><br><span class="line">            NSLog(@&quot;task2 runing in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">        dispatch_group_async(group,dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">            //关联任务3</span><br><span class="line">            NSLog(@&quot;task3 runing in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">        dispatch_group_async(group,dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">            //关联任务4</span><br><span class="line">            [NSThread sleepForTimeInterval:1];</span><br><span class="line">            NSLog(@&quot;task4 runing in %@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">        dispatch_group_notify(group,dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            //回到主线程执行</span><br><span class="line">            NSLog(@&quot;mainTask running in%@&quot;,[NSThread currentThread]);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击屏幕打印如下,无论其他任务的执行完成顺序,mainTask等待他们执行完成后才执行.</p>
+<blockquote>
+<p>019-03-30 21:15:13.903164+0800 GDC[11358:631441] 开始执行<br>2019-03-30 21:15:13.903705+0800 GDC[11358:631487] task 1 running in &lt;NSThread: 0x600000b6d240&gt;{number = 4, name = (null)}<br>2019-03-30 21:15:13.903754+0800 GDC[11358:631488] task2 runing in &lt;NSThread: 0x600000b60340&gt;{number = 3, name = (null)}<br>2019-03-30 21:15:14.906108+0800 GDC[11358:631490] task4 runing in &lt;NSThread: 0x600000b6d340&gt;{number = 5, name = (null)}<br>2019-03-30 21:15:15.903843+0800 GDC[11358:631489] task3 runing in &lt;NSThread: 0x600000b6d480&gt;{number = 6, name = (null)}<br>2019-03-30 21:15:15.904085+0800 GDC[11358:631441] mainTask running in&lt;NSThread: 0x600000b3e900&gt;{number = 1, name = main}</p>
+</blockquote>
+<h2 id="关于GCD的内存管理问题"><a href="#关于GCD的内存管理问题" class="headerlink" title="关于GCD的内存管理问题"></a>关于GCD的内存管理问题</h2><p>根据上面的代码,可以看出有关dispatch的对象并不是OC对象,那么,用不用像对待Core Foundation框架的对象一样,使用retain、release来管理它呢?答案是不用的.</p>
+<p>如果是ARC环境,我们无需管理,会像对待OC对象一样自动内存管理.如果是MRC环境,不是使用retain、release,而是使用dispath_retain/dispatch_release 来管理.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/01/GCD/" data-id="cjutmlc23000502b84rxxjf77" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/Dictionary/" class="article-date">
+  <time datetime="2019-03-29T11:31:49.850Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/29/Dictionary/">NSDictionary 的实现原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="NSDictionary使用原理"><a href="#NSDictionary使用原理" class="headerlink" title="NSDictionary使用原理"></a>NSDictionary使用原理</h3><p>1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率</p>
+<p>2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现，</p>
+<h3 id="哈希原理"><a href="#哈希原理" class="headerlink" title="哈希原理"></a>哈希原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的是键值对。</span><br></pre></td></tr></table></figure>
+<h3 id="哈希表的存储过程："><a href="#哈希表的存储过程：" class="headerlink" title="哈希表的存储过程："></a>哈希表的存储过程：</h3><ol>
+<li>根据key计算出它的哈希值h。</li>
+<li>假设箱子的个数为n，那没这个键值对应该放在第（h % n）个箱子中。</li>
+<li>如果该箱子中已经有了键值对，就使用开放寻址法或者拉链法解决冲突</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在使用拉链法解决哈希冲突时，每个箱子其实是一个链表，属于同一个箱子的所用键值都会排列在链表中。</span><br><span class="line">哈希表还有一个重要的属性：负载因子（load foctor），它用来衡量哈希表的空、满程度，一定程度上也是可以体现查询效率，计算公式为</span><br><span class="line">负载因子 = 总键值对数/箱子个数</span><br><span class="line">负载因子越大，意味着哈希表越满，越容易导致冲突，性能也就越低。因此，一般来说，当负载因子大于某个常数（可能是1，或者0.75）时，哈希表将自动扩容。</span><br></pre></td></tr></table></figure>
+<h3 id="重哈希概念："><a href="#重哈希概念：" class="headerlink" title="重哈希概念："></a>重哈希概念：</h3><ol>
+<li><p>哈希表在自动扩容时，一般会创建两倍于原来个数的箱子，因此即使key的哈希值不变，对箱子个数取余结果也会发生改变，因此所有键值对的存放位置可能发生改变，这个过程称为重哈希（rehash）</p>
+</li>
+<li><p>哈希表的扩容并不是总能够有效的解决负载因子过大的问题。假设所有的key的哈希值都一样，那么即使扩容以后他们的位置也不会变化。因为负载因子会降低，但实际存储在每个箱子中的链表长度并不发送改变，因此也就不能提高哈希表的查询性能</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、如果哈希表中本来箱子就比较多，扩容时需要重新设计哈希并移动数据，性能影响较大。<br>2、如果哈希函数设计不合理，哈希表在极端情况下会变成线性表。性能极低。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/29/Dictionary/" data-id="cjutmlc20000302b89qlt1hkl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ios_memory" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/ios_memory/" class="article-date">
+  <time datetime="2019-03-29T06:10:02.001Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/29/ios_memory/">iOS 内存的几大区域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文参考：</strong><a href="https://www.jianshu.com/p/6fe8bf22acfb" target="_blank" rel="noopener">https://www.jianshu.com/p/6fe8bf22acfb</a></p>
+<h3 id="堆栈（stack）："><a href="#堆栈（stack）：" class="headerlink" title="堆栈（stack）："></a>堆栈（stack）：</h3><p>由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出）</p>
+<h3 id="堆区（heap）："><a href="#堆区（heap）：" class="headerlink" title="堆区（heap）："></a>堆区（heap）：</h3><p>由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，操作方式类似于链表</p>
+<h3 id="全局区（又称静态去）（static）"><a href="#全局区（又称静态去）（static）" class="headerlink" title="全局区（又称静态去）（static）"></a>全局区（又称静态去）（static）</h3><p>由编译器管理（分配和释放），程序结束后由系统释放。存放全局变量和static修饰的静态变量。静态区由2块区域组成，一块是存放未初始化的全局变量和静态变量，另一块是初始化已经完成的全局变量和静态变量，这两块是相邻的</p>
+<h3 id="文字常量区："><a href="#文字常量区：" class="headerlink" title="文字常量区："></a>文字常量区：</h3><p>由编译器管理（分配释放），程序结束后由系统存放。存放常量字符串。</p>
+<h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h3><p>存放函数的二进制代码</p>
+<p><strong>几大区域详解</strong></p>
+<ul>
+<li><strong>申请方式</strong><br>栈区：系统自动分配。例如，在函数申明中一个局部变量（int a;）,系统会自动在栈区开辟空间</li>
+</ul>
+<p>堆区：需要程序员自己申请，并指明大小，例如（char <em>p1 = (char </em>)malloc(10); char* p2 = new char[10];）注意p1、p2、本身是栈区，他俩指向地址是在堆区</p>
+<p><strong>申请后系统的响应</strong></p>
+<ul>
+<li>栈区：只要栈区的剩余空间大于所申请的空间，系统将为程序提供内存，否则将报异常提示栈溢出</li>
+<li>堆区：操作系统会有一个记录空闲内存地址的链表，当系统收到程序申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆节点。然后将该节点重空闲链表中删除，并将改节点的空间分配给程序。另外，对于大多数系统，会在这块内存空间中的首地处记录本次分配的空间的大小，这样，后续代码中的delete语句就可以正确的释放该内存空间。还有找到改堆节点的大小不一定正好等于申请的大小，系统会自动将多余的内存空间重新放入空闲链表中。</li>
+</ul>
+<p><strong>申请大小的限制</strong></p>
+<ul>
+<li>栈区：栈区是向低地址扩展的数据结构，是一块连续的内存。栈顶的地址和栈的最大容量是系统预先规定好的，是一个在编译是就确定的常数，如果申请的空间超过栈的剩余空间时，会有错误提示。因此，能从栈获得空间较小。</li>
+<li>堆区：堆区是搞地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储空内存地址的，自然不是连续的。而链表的遍历反向是由低地址向高地址。堆区的大小受限于计算机系统的虚拟内存，由此可见，堆区获得的空间较灵活，空间较大。</li>
+</ul>
+<p><strong>存取效率比较</strong></p>
+<ul>
+<li>堆区：堆区是运行时刻赋值的</li>
+<li>栈区：栈区也是运行时刻赋值的，栈区的读写速度比堆区块</li>
+<li>全局区：编译的时候就确定</li>
+<li>其余的现在不确定</li>
+</ul>
+<p><strong>申请效率的比较</strong><br>栈区：栈区由系统自动分配，速度快，但程序员无法控制<br>堆区：堆区是alloc（c++中使用，即创建新对象）分配的内存，一般速度较慢，而且容易产生内存碎片，不过使用起来方便。</p>
+<p><strong>结语：</strong></p>
+<ul>
+<li>栈区是点菜（只管吃，其他都不用管），堆区是自助餐（都自己来）</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cjutmlc2m000r02b8riuf6p27" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Data_persistence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/27/Data_persistence/" class="article-date">
+  <time datetime="2019-03-27T04:08:44.516Z" itemprop="datePublished">2019-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/Data_persistence/">数据持久化的方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文来自: <a href="https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html" target="_blank" rel="noopener">https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html</a></p>
+<h3 id="1-NSUserDefault"><a href="#1-NSUserDefault" class="headerlink" title="1 NSUserDefault"></a>1 NSUserDefault</h3><p>一般来说，小规模数据，弱业务相关数据，都可以放到NSUserDefault里面，内容比较多的数据，强业务相关的数据就不太适合NSUserDefault了。</p>
+<h3 id="2-keychain"><a href="#2-keychain" class="headerlink" title="2 keychain"></a>2 keychain</h3><p>KeyChain 是苹果提供的带有可逆加密的存储机制，普遍用在各种存密码的需求上。另外，由于App卸载只要系统不重装，KeyChain中的数据依旧能够的到保留，依旧可被iCloud同步特性，大家都会在这里存储用户唯一标识串。所有有需要加密，需要存储iCloud的敏感小数据，一般都会放在Keychain。</p>
+<h3 id="3-文件存储"><a href="#3-文件存储" class="headerlink" title="3 文件存储"></a>3 文件存储</h3><p>文件存储包括了Plist，archive，Stream等方式。一般结构化的数据或者需要方便查询的数据，都会以Plist的方式去持久化。Archive方式适合存储平时不太经常使用但很大量的数据，或者读取之后希望直接对对象的数据，因为Archive会将对数据及其对象关系序列化，以至于读取数据的时候需要Decode很花时间，Decode的过程是解压，也可以是序列化，这个可以根据具体<nscoding>中的实现来决定。Stream就是一般的文件存储了。一般用来存存图片啥的。适用于经常使用，然而数据量又不算非常大的那种。</nscoding></p>
+<h3 id="4-数据库存储"><a href="#4-数据库存储" class="headerlink" title="4 数据库存储"></a>4 数据库存储</h3><p>数据库存储，样式就比较多了。苹果自带了一个CoreData，当然业界也有无数代替可选的方案，不过真正用在iOS领域的除了CoreData外，就是FMDB比较多了。数据库方案主要是为了便于增删改查，当数据有状态和类别的时候最好还是采用数据库方案比较好，而且尤其是这些状态和类别都是强业务相关的时候，就更加采用数据库方案了。<br>因为你不可能通过文件系统遍历文件去甄别你需要获取某个状态或类别的数据，这么做成本太大了。当然，特别大量的数据也不合适直接存储数据库，比如图片或者文章这样的数据，一般来说，都是数据库存一个文件名，然后这个文件名指向的是某个图片或者文章的文件。如果真的要做全文索引这种需求，建议最好还是挂个API丢到服务端去做。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cjutmlc1x000102b8qfcyveul" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-MRC-ARC" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/26/MRC-ARC/" class="article-date">
@@ -183,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cjuktoh2m000adeb8c8gqsvvi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cjutmlc25000802b8qr9tcztr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,7 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cjuktoh2p000ddeb8tkgroqg5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cjutmlc2k000o02b8zm10z7i1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -266,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjuktoh2k0009deb8dbdyg1og" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjutmlc2g000k02b8b4t515pa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -294,7 +563,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
     </div>
   </div>
 
@@ -304,7 +573,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
     </div>
   </div>
 
@@ -326,23 +595,23 @@
       <ul>
         
           <li>
+            <a href="/2019/04/23/method_subscripte/">方法 下标</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/Swift-ClassAndStruct/">类和结构体  属性</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/17/closure/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/block/">浅谈iOS中的Block</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/13/HTTPIntroduce/">HTTP的简单总结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/10/Cocoapods/">使用cocoapod托管代码。</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/06/data_struct/">数据结构的一些定义</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/04/CocosPodError/">CocosPod 常见错误</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/02/swift/">Swift 相关面试题</a>
           </li>
         
       </ul>
