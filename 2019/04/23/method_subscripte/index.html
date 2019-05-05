@@ -5,19 +5,19 @@
   
 
   
-  <title>方法 下标 | 黑夜传说</title>
+  <title>方法 下标 继承 | 黑夜传说</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="方法方法是与某些特定类型相关联的函数。 实例方法（Instance Methods）实例方法是属于某个特定类、结构体或枚举类型实例的方法。 self属性类型的每一个属性都有一个隐含属性叫做self，self完全等同于该实例本身。 在实例方法中修改值类型结构体和枚举是值类型。默认情况下，值类型的属性不能在它的实例方法中被修改。 但是，如果你确实需要在某个特定的方法中修改结构体或者枚举属性，你可以为这">
 <meta name="keywords" content="Swift">
 <meta property="og:type" content="article">
-<meta property="og:title" content="方法 下标">
+<meta property="og:title" content="方法 下标 继承">
 <meta property="og:url" content="http://yoursite.com/2019/04/23/method_subscripte/index.html">
 <meta property="og:site_name" content="黑夜传说">
 <meta property="og:description" content="方法方法是与某些特定类型相关联的函数。 实例方法（Instance Methods）实例方法是属于某个特定类、结构体或枚举类型实例的方法。 self属性类型的每一个属性都有一个隐含属性叫做self，self完全等同于该实例本身。 在实例方法中修改值类型结构体和枚举是值类型。默认情况下，值类型的属性不能在它的实例方法中被修改。 但是，如果你确实需要在某个特定的方法中修改结构体或者枚举属性，你可以为这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T02:31:19.878Z">
+<meta property="og:updated_time" content="2019-04-24T09:10:47.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="方法 下标">
+<meta name="twitter:title" content="方法 下标 继承">
 <meta name="twitter:description" content="方法方法是与某些特定类型相关联的函数。 实例方法（Instance Methods）实例方法是属于某个特定类、结构体或枚举类型实例的方法。 self属性类型的每一个属性都有一个隐含属性叫做self，self完全等同于该实例本身。 在实例方法中修改值类型结构体和枚举是值类型。默认情况下，值类型的属性不能在它的实例方法中被修改。 但是，如果你确实需要在某个特定的方法中修改结构体或者枚举属性，你可以为这">
   
     <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      方法 下标
+      方法 下标 继承
     </h1>
   
 
@@ -112,11 +112,35 @@
 <p>Swift 中Dictionary类型的下标接受并返回可选类型的值。Dictionary之所如此实现，是因为不是每个键都有个对应的值。同时这也提供了一种通过键删除对应值的方式，只需要将键对应的值赋值为nil即可</p>
 <h4 id="下标选项"><a href="#下标选项" class="headerlink" title="下标选项"></a>下标选项</h4><p>下标可以接受任意数量的入参，并且这些入参可以是任意类型。下标的返回值也可以是任意类型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var list = [Double]()</span><br><span class="line">subscript(row: Int, column: Int) -&gt; Double &#123;</span><br><span class="line">	get&#123;</span><br><span class="line">		return list[row * column]</span><br><span class="line">	&#125;</span><br><span class="line">	set&#123;</span><br><span class="line">		list[row *column] = newValue</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>一个类可以继承另一个类的方法，属性和其他特性。继承是区分类与其它类型的基本特征。</p>
+<p>可以为类中继承来的属性添加属性观察器，无论它原本被定义为存储属性还是计算属性</p>
+<h4 id="定义一个基类"><a href="#定义一个基类" class="headerlink" title="定义一个基类"></a>定义一个基类</h4><p>不继承其它类的类，称之为基类</p>
+<h4 id="子类生成"><a href="#子类生成" class="headerlink" title="子类生成"></a>子类生成</h4><p>子类生成指的是在一个已有类的基础上创建一个新的类。子类继承父类的特性，并且可以进一步完善。</p>
+<h4 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h4><p>子类可以为继承来的实例方法，类方法，实例属性，或下标提供自己定制的实现。这种行为叫重写。</p>
+<p>如果要重新某个特性，你需要在定义的前面加上<code>override</code>关键字。</p>
+<h4 id="访问父类的方法，属性及下标"><a href="#访问父类的方法，属性及下标" class="headerlink" title="访问父类的方法，属性及下标"></a>访问父类的方法，属性及下标</h4><ul>
+<li>在方法 someMethod() 的重写实现中，可以通过 super.someMethod() 来调用父类版本的someMethod()方法</li>
+<li>在属性 someProperty() 的getter 或 setter实现中，可以通过 super.someProperty 来访问父类的属性</li>
+<li>在下标的重写实现中，可以通过 super[someindex]来访问父类版本中的相同下标</li>
+</ul>
+<h5 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h5><h5 id="重写属性"><a href="#重写属性" class="headerlink" title="重写属性"></a>重写属性</h5><p>你可以提供定制的getter或setter来重写任意继承来的属性，无论继承来的属性是存储型属性还是计算型属性。</p>
+<p><strong>注意</strong>：</p>
+<ul>
+<li><p>你可以将一个继承来的只读属性重写为一个读写属性，只需要在重新版本的属性里提供getter和setter即可。但是，你不可以将一个继承来的读写属性重写为一个只读属性</p>
+</li>
+<li><p>如果你的重写属性中提供了setter，那么你也一定要提供getter。如果你不想在重写版本中的getter里修改继承来的属性值，你可以通过super.someProperty来返回继承来的值。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Car : Vehicle &#123;</span><br><span class="line">	var gear = 1</span><br><span class="line">	override func someOverrideFunc()&#123;</span><br><span class="line">		//</span><br><span class="line">	&#125;</span><br><span class="line">	override var desciption: String &#123;</span><br><span class="line">		return super.description + &quot;in gear\(gear)&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="重写属性观察器"><a href="#重写属性观察器" class="headerlink" title="重写属性观察器"></a>重写属性观察器</h5><p>可以通过重写属性为一个继承来的属性添加属性观察器</p>
+<p><em>你不可以为继承来的常量存储型属性或继承来的只读计算型属性添加属性观察器。这些属性的值是不可以被设置的，所以为他们提供willSet或didSet实现是不恰当的。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class AutomaticCar :Car &#123;</span><br><span class="line">	 override var currentSpeed: Double&#123;</span><br><span class="line">	 	didSet &#123;</span><br><span class="line">	 		gear = Int(currentSpeed / 10.0) + 1</span><br><span class="line">	 	&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="防止重写"><a href="#防止重写" class="headerlink" title="防止重写"></a>防止重写</h4><p>你可以通过方法、属性、下标前面添加<code>final</code>关键字来防止他们被重写：<code>final var</code> 、<code>final func</code>、<code>final class func</code>、<code>final subscript</code></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/23/method_subscripte/" data-id="cjuundlf3000lzqb83mp10hu5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/23/method_subscripte/" data-id="cjvapjpl4000y6fb83931s00d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
@@ -126,6 +150,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/04/24/init/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          构造过程与析构过程
+        
+      </div>
+    </a>
   
   
     <a href="/2019/04/23/Swift-ClassAndStruct/" id="article-nav-older" class="article-nav-link-wrap">
@@ -181,23 +214,23 @@
       <ul>
         
           <li>
-            <a href="/2019/04/23/method_subscripte/">方法 下标</a>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/24/init/">构造过程与析构过程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/method_subscripte/">方法 下标 继承</a>
           </li>
         
           <li>
             <a href="/2019/04/23/Swift-ClassAndStruct/">类和结构体  属性</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/17/closure/">闭包</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/block/">浅谈iOS中的Block</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/HTTPIntroduce/">HTTP的简单总结</a>
           </li>
         
       </ul>
