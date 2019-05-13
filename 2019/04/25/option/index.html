@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="黑夜传说">
 <meta property="og:description" content="可选链（Optional Chaining）式调用是一种可以在当前值为nil的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是nil，那么调用将返回nil 使用可选链式调用代替强制展开通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-05T09:27:26.572Z">
+<meta property="og:updated_time" content="2019-05-07T15:15:03.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可选链 、错误处理、类型转换、嵌套类型">
 <meta name="twitter:description" content="可选链（Optional Chaining）式调用是一种可以在当前值为nil的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是nil，那么调用将返回nil 使用可选链式调用代替强制展开通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只">
@@ -111,12 +111,12 @@
 <p>在调用一个能抛出错误的函数、方法或者构造器之前，加上 <code>try</code> 关键字，或者 try？ 或 try！ 这种变体。</p>
 <h5 id="用-throwing函数-传递错误"><a href="#用-throwing函数-传递错误" class="headerlink" title="用 throwing函数 传递错误"></a>用 throwing函数 传递错误</h5><p>为了标识一个函数、方法或构造器可以抛出错误，在函数声明的参数列表之后加上 <code>throws</code> 关键字。一个标有 <code>throws</code>关键字的函数称做 <strong>throwing</strong>函数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func canThrowErrors() throws -&gt; String</span><br></pre></td></tr></table></figure>
-<p>一个throwing 函数可以在其内部抛出错误，并将错误传递到函数被调用的作用域。</p>
+<p>一个throwing函数可以在其内部抛出错误，并将错误传递到函数被调用的作用域。</p>
 <p><strong>注意：</strong>只有throwing 函数可以传递错误。任何在某个非throwing函数内部抛出的错误只能在函数内部处理</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func vend(name: String) throws &#123;</span><br><span class="line">	guard name.isEmpty else &#123;</span><br><span class="line">		throw VendingMachineError.invalidSelection</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因为vend(name:)方法会传递出它抛出的任何错误。在你的代码中调用此方法要么直接处理这些错误（使用do-catch，try？或try！）；要么继续将错误传递下去。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func buyFavouriteSnack(person: String, vendingMachine: VendingMachine) throws &#123;</span><br><span class="line">	try vendingMachine.vend(name: snackName)</span><br><span class="line">&#125;</span><br><span class="line">//将错误继续传递下去</span><br></pre></td></tr></table></figure>
-<h5 id="用Do-Catch处理错误"><a href="#用Do-Catch处理错误" class="headerlink" title="用Do-Catch处理错误"></a>用Do-Catch处理错误</h5><p>如果在do子语句中的代码抛出了一个错误，这个错误会与catch子语句做匹配。从而决定哪条字句能处理它</p>
+<h5 id="用Do-Catch处理错误"><a href="#用Do-Catch处理错误" class="headerlink" title="用Do-Catch处理错误"></a>用Do-Catch处理错误</h5><p>如果在do子语句中的代码抛出了一个错误，这个错误会与catch子语句做匹配。从而决定哪条子句能处理它</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">	try expression </span><br><span class="line">	statements</span><br><span class="line">&#125; catch pattern 1 &#123;</span><br><span class="line">	statements</span><br><span class="line">&#125; catch pattern 2 where condition &#123;</span><br><span class="line">	statements</span><br><span class="line">&#125;</span><br><span class="line">如果do代码块有错误抛出，相应的执行会马上转移到catch子句中，并判断这个错误是否要继续传递下去。如果没有错误抛出，do子句中余下的语句会被执行</span><br></pre></td></tr></table></figure>
 <h5 id="将错误转换成可选值"><a href="#将错误转换成可选值" class="headerlink" title="将错误转换成可选值"></a>将错误转换成可选值</h5><p>可以使用try？通过错误转换成一个可选值来处理。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func someThrowingFunction() throws -&gt; Int &#123;</span><br><span class="line">	//...</span><br><span class="line">&#125;</span><br><span class="line">let x = try? someThrowingFunction()</span><br><span class="line"></span><br><span class="line">let y: Int?</span><br><span class="line">do &#123;</span><br><span class="line">	y = try someThrowingFunction()</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">	y = nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -131,7 +131,7 @@
 <h5 id="为类型转换定义类的层次"><a href="#为类型转换定义类的层次" class="headerlink" title="为类型转换定义类的层次"></a>为类型转换定义类的层次</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">class Movie: MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">class Song: MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">let library = [</span><br><span class="line">	Movie()</span><br><span class="line">	Song()</span><br><span class="line">]</span><br><span class="line">//数组 library 的类型被推断为[MediaItem]</span><br></pre></td></tr></table></figure>
 <h5 id="检查类型"><a href="#检查类型" class="headerlink" title="检查类型"></a>检查类型</h5><p>用<code>is</code>来检查实例是否属于某个特定的子类。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for item in  library &#123;</span><br><span class="line">	if item is Movie &#123;</span><br><span class="line">		// is Movie</span><br><span class="line">	&#125;else if item is Song &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h5><p>某类型的一个常量或变量可能在幕后实际上是属于一个子类。当确定这种情况时，你可以尝试向下转到他的子类型。用 <code>as?</code> 或 <code>as!</code></p>
+<h5 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h5><p>某类型的一个常量或变量可能在幕后实际上是属于一个子类。当确定这种情况时，你可以尝试向下转到它的子类型。用 <code>as?</code> 或 <code>as!</code></p>
 <p>向下转型可能会失败。as？返回一个你试图向下转成的类型的可选类型。as！是试图向下转型和强制解包转换结果结为一体。如果失败会触发运行时错误</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for item in library &#123;</span><br><span class="line">	if let movie = item as? Movie &#123;</span><br><span class="line">		//is Movie</span><br><span class="line">	&#125;else if let song = item as? Song &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="Any-和-AnyObject"><a href="#Any-和-AnyObject" class="headerlink" title="Any 和 AnyObject"></a>Any 和 AnyObject</h4><p>Swift 中提供了2中特殊的类型别名：</p>
@@ -147,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/25/option/" data-id="cjvapjpl3000w6fb8wd3rrxeg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/25/option/" data-id="cjvlqkh6i0014uib8xrsfivqy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
@@ -208,7 +208,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -221,6 +221,14 @@
       <ul>
         
           <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/28/extension/">扩展</a>
           </li>
         
@@ -230,14 +238,6 @@
         
           <li>
             <a href="/2019/04/24/init/">构造过程与析构过程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/23/method_subscripte/">方法 下标 继承</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/23/Swift-ClassAndStruct/">类和结构体  属性</a>
           </li>
         
       </ul>

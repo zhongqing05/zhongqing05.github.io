@@ -70,6 +70,167 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-MRC-ARC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/26/MRC-ARC/" class="article-date">
+  <time datetime="2019-03-26T06:23:42.292Z" itemprop="datePublished">2019-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/26/MRC-ARC/">内存管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MRC-与-ARC"><a href="#MRC-与-ARC" class="headerlink" title="MRC 与 ARC"></a>MRC 与 ARC</h1><p>Objective-C中提供了两种内存管理机制：MRC（MannulReference Counting）和 ARC(Automatic Reference Counting)，分别提供对内存的手动和自动管理，来满足不同的需求。现在苹果推荐使用 ARC 来进行内存管理。</p>
+<h2 id="MRC"><a href="#MRC" class="headerlink" title="MRC"></a>MRC</h2><p><strong>对象操作的四个类别</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作对象</th>
+<th>OC中对应的方法</th>
+<th>对应的retainCount变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>持有并生成对象</td>
+<td>alloc/new/mutableCopy等</td>
+<td>+1</td>
+<td></td>
+</tr>
+<tr>
+<td>持有对象</td>
+<td>retain</td>
+<td>+1</td>
+<td></td>
+</tr>
+<tr>
+<td>释放对象</td>
+<td>release.</td>
+<td>-1</td>
+<td></td>
+</tr>
+<tr>
+<td>废弃对象</td>
+<td>dealloc</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>注意<br>1 这些对象操作的方法并不包含在OC中，而是包含在cocoa框架下的Foundation框架中。从iOS7开始，这些方法被移到Runtime当中，可以<a href="https://apple-opensource.s3-website-us-east-1.amazonaws.com/source/objc4/objc4-680/runtime/NSObject.h" target="_blank" rel="noopener">objc4-680 NSObject.h</a> 找到<br>2 对象的 reatinCount 属性并没有实际上的参考价值，参考苹果官方文档<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html" target="_blank" rel="noopener">《Practical Memory Management》</a>.</p>
+<h3 id="四个法则"><a href="#四个法则" class="headerlink" title="四个法则"></a>四个法则</h3><ol>
+<li>自己生成的对象，自己持有</li>
+<li>非自己生成的对象，自己也能持有</li>
+<li>不在需要自己持有的对象的时候，释放</li>
+<li>非自己持有的对象无需释放</li>
+</ol>
+<p><code>autorelease</code>使得对象在超出生命周期后能正确的释放（通过调用release方法）调用release后对象会被立即释放，而调用<code>outorelease</code>后对象不会立即释放，而是注册到<code>autoreleasepool</code>中，经过一段时间后pool结束，此时调用release方法，对象被释放。</p>
+<p>在MRC的内存管理模式下，对变量的相关的方法有：<code>reatin</code> ，<code>release</code>和 <code>autorelease</code>。reatin和release方法操作是引用计数，当引用计数为0时，便自动释放内存。并且可以用NSAutoreleasePool对象，对加入自动释放池（autorelease调用）的变量进行管理，当drain时回收内存</p>
+<h2 id="ARC"><a href="#ARC" class="headerlink" title="ARC"></a>ARC</h2><p>ARC是苹果引入的自动内存管理机制。会根据引用计数自动监测对象的生命周期，实现方式是编译时期自动在已有代码中合适的内存管理代码以以及在Runtime做一些优化。</p>
+<h3 id="变量标识符"><a href="#变量标识符" class="headerlink" title="变量标识符"></a>变量标识符</h3><ol>
+<li>__strong</li>
+<li>__weak</li>
+<li>___unsafe_unretained</li>
+<li>__autoreleasing</li>
+</ol>
+<p><code>__strong</code>是默认使用标识符 只要还有一个强指针指向某个对象，这个对象就会一直存活</p>
+<p><code>__weak</code> 声明这个引用不会保存被引用对象的存活，如果对象没有强引用了，弱引用会被置为nil</p>
+<p><code>__unsafe_unretained</code>声明这个引用不会保存引用对象的存活，如果对象没有强引用了，它不会被置为nil。如果它引用的对象被回收掉了，该指针就变成野指针。</p>
+<p><code>__autoreleasing</code> 用于标识使用引用传值的参数（id*），在函数返回时会被自动释放掉。</p>
+<p>变量标识用法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number* __strong num = [[Number alloc] init];</span><br></pre></td></tr></table></figure>
+<p>注意 __strong 的位置应该放到 * 和变量名中间，放到其它位置严格上说不正确的，但编译不会报错</p>
+<h3 id="属性标识符"><a href="#属性标识符" class="headerlink" title="属性标识符"></a>属性标识符</h3><p><code>assign</code> 表明setter仅仅是一个简单的赋值操作，通常用于基本数据类型。</p>
+<p><code>strong</code>表明属性定义一个拥有者关系。当给属性设定一个新值的时候，首先这个值进行retain，旧值进行release，然后进行赋值操作</p>
+<p><code>weak</code>表明属性定义一个非拥有者关系，当给属性定义一个新值的时候，这个值不会进行retain，旧值也不会进行release，而是进行类似assign的操作。不过当属性指向的对象被销毁时，该属性会被置为nil</p>
+<p><code>unsafe_unreatained</code> 的语义和assign类似，不过是用于对象类型。表示一个非拥有（unretained）的，同时也不会在对象销毁时置nil的（unsafe）关系</p>
+<p><code>copy</code>类似strong，不过赋值是进行copy操作不是retain操作。通常在需要保留某个可变对象（NSString最常见），并且防止它被意外的串改。</p>
+<p><strong>unsafe_unretained 的用处</strong><br>unsafe_unretained 差不多是实际使用最少的一个标识符了，在使用中它的用处主要有下面几点：<br>1 兼容性考虑。iOS4以及之前还没有引入weak，这种情况下表达弱引用的语义只能使用unsafe_unretained。现在这种情况很少使用了。<br>2 性能考虑。使用weak对性能有一些影响，因此对性能要求高的话可以考虑使用unsafe_unretained 替换weak。</p>
+<h3 id="引用循环"><a href="#引用循环" class="headerlink" title="引用循环"></a>引用循环</h3><p>当2个对象相互持有对方的强引用，并且这2个对象的引用计数都不是0的时候，便造成了引用循环。要想破除引用循环，可以从以下几点入手</p>
+<blockquote>
+<ol>
+<li>注意变量作用域，使用autorelease 让编译器来处理引用。</li>
+<li>使用弱引用weak</li>
+<li>当实例变量完成工作后，将其置为nil</li>
+</ol>
+</blockquote>
+<h3 id="AutoRelease-Pool"><a href="#AutoRelease-Pool" class="headerlink" title="AutoRelease Pool"></a>AutoRelease Pool</h3><p>AutoRelease Pool 提供一种可以允许你向一个对象延迟发送release操作的机制。当你想放弃一个对象的所有权，同时又不希望这个对象立马被释放掉（例如在一个方法中返回一个对象时），AutoRelease Pool的作用就显现出来了</p>
+<p>所谓延迟发送 release 消息是指，当我们把一个对象标记为autorelease时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString* str = [[[NSString alloc] initWithString:@&quot;hello&quot;] autorelease];</span><br></pre></td></tr></table></figure></p>
+<p>这个对象的retainCount会+1，但并不会发送release。当这段语句所处的autoreleasepool 进行drain操作时，所标记了autorelease的对象的retainCount会被-1。即release消息发送被延迟到pool释放的时候。</p>
+<p>在ARC环境下，苹果引入了@autoreleasepool 语法，不再需要手动调用autorelease 和 drain 等方法。</p>
+<h4 id="AutoReleasePool的用处"><a href="#AutoReleasePool的用处" class="headerlink" title="AutoReleasePool的用处"></a>AutoReleasePool的用处</h4><p>在ARC下，我们并不需要手动调用autorelease有关的方法，甚至可以完全不知道autorelease的存在，就可以真确的管理好内存。因为Cocos Touch的RunLoop中，每个runloop circle中系统都自动加入AutoReleasePool的创建和释放。</p>
+<p>当我们创建和销毁大量对象时，使用手动创建AutoReleasePool 可以有效的避免内存峰值的出现。在这种情况不手动创建的话，外层系统创建的pool会在整个runloop circel结束之后drain，手动创建的话，会在block结束之后进行drain操作。下面是一个普遍的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> for (int i = 0; i &lt; 100000000; i++)</span><br><span class="line">&#123;</span><br><span class="line">    @autoreleasepool</span><br><span class="line">    &#123;</span><br><span class="line">        NSString* string = @&quot;abc&quot;;</span><br><span class="line">        NSArray* array = [string componentsSeparatedByString:string];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果不使用autoreleasepool，需要在循环结束之后释放100000000个字符串，如果使用的话，则会在每次循环结束的时候都进行release操作。</p>
+<h4 id="AutoRelease-Pool-drain的时机"><a href="#AutoRelease-Pool-drain的时机" class="headerlink" title="AutoRelease Pool drain的时机"></a>AutoRelease Pool drain的时机</h4><p>如上面所说，系统在runloop 中创建的autoreleasepool 会在runloop一个event结束时进行释放操作。我们手动创建的autoreleasepool会在block执行完成之后进行drain操作。需要注意的是：</p>
+<ul>
+<li>当block以异常（exception）结束时，pool不会被drain，</li>
+<li>pool的drain操作会把所用标记为autorelase的对象进行引用计数-1，但并不意味着这个对象一定会被释放掉，我们可以在autorelease pool中手动retain 对象，以延长它的生命周期（在MRC中）。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cjvlqkh5y0005uib8y48xs9s8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-post-title" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/post-title/" class="article-date">
+  <time datetime="2019-03-22T04:15:52.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/post-title/">苹果证书如何转pem文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>openssl x509 -in apns_miaobozhibo.cer -inform der -out apns_miaobozhibo.pem<br>注：<br>apns_miaobozhibo.cer:推送证书<br>apns_miaobozhibo.pem:要生的pem文件</p>
+<p>p12转pem文件<br>openssl pkcs12 -nocerts -out apns_miaobozhiboKey.pem -in  apns_miaobozhibo.p12<br>注：<br>apns_miaobozhibo.p12文件<br>apns_miaobozhiboKey.pem 要生成的pem文件</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cjvlqkh6h000zuib8pxqcqvp9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/22/hello-world/" class="article-date">
@@ -105,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjvapjpkw000m6fb8meb0da1x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjvlqkh6a000juib87skwim86" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +313,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -165,6 +326,14 @@
       <ul>
         
           <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/28/extension/">扩展</a>
           </li>
         
@@ -174,14 +343,6 @@
         
           <li>
             <a href="/2019/04/24/init/">构造过程与析构过程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/23/method_subscripte/">方法 下标 继承</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/23/Swift-ClassAndStruct/">类和结构体  属性</a>
           </li>
         
       </ul>
