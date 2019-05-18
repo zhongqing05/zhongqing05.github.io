@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>iOS 内存的几大区域 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文参考：https://www.jianshu.com/p/6fe8bf22acfb 堆栈（stack）：由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出） 堆区（heap）：由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 内存的几大区域">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/ios_memory/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="本文参考：https://www.jianshu.com/p/6fe8bf22acfb 堆栈（stack）：由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出） 堆区（heap）：由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-29T06:35:51.445Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 内存的几大区域">
+<meta name="twitter:description" content="本文参考：https://www.jianshu.com/p/6fe8bf22acfb 堆栈（stack）：由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出） 堆区（heap）：由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ios_memory" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/ios_memory/" class="article-date">
+  <time datetime="2019-03-29T06:10:02.001Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 内存的几大区域
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文参考：</strong><a href="https://www.jianshu.com/p/6fe8bf22acfb" target="_blank" rel="noopener">https://www.jianshu.com/p/6fe8bf22acfb</a></p>
+<h3 id="堆栈（stack）："><a href="#堆栈（stack）：" class="headerlink" title="堆栈（stack）："></a>堆栈（stack）：</h3><p>由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出）</p>
+<h3 id="堆区（heap）："><a href="#堆区（heap）：" class="headerlink" title="堆区（heap）："></a>堆区（heap）：</h3><p>由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，操作方式类似于链表</p>
+<h3 id="全局区（又称静态去）（static）"><a href="#全局区（又称静态去）（static）" class="headerlink" title="全局区（又称静态去）（static）"></a>全局区（又称静态去）（static）</h3><p>由编译器管理（分配和释放），程序结束后由系统释放。存放全局变量和static修饰的静态变量。静态区由2块区域组成，一块是存放未初始化的全局变量和静态变量，另一块是初始化已经完成的全局变量和静态变量，这两块是相邻的</p>
+<h3 id="文字常量区："><a href="#文字常量区：" class="headerlink" title="文字常量区："></a>文字常量区：</h3><p>由编译器管理（分配释放），程序结束后由系统存放。存放常量字符串。</p>
+<h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h3><p>存放函数的二进制代码</p>
+<p><strong>几大区域详解</strong></p>
+<ul>
+<li><strong>申请方式</strong><br>栈区：系统自动分配。例如，在函数申明中一个局部变量（int a;）,系统会自动在栈区开辟空间</li>
+</ul>
+<p>堆区：需要程序员自己申请，并指明大小，例如（char <em>p1 = (char *)malloc(10); char</em> p2 = new char[10];）注意p1、p2、本身是栈区，他俩指向地址是在堆区</p>
+<p><strong>申请后系统的响应</strong></p>
+<ul>
+<li>栈区：只要栈区的剩余空间大于所申请的空间，系统将为程序提供内存，否则将报异常提示栈溢出</li>
+<li>堆区：操作系统会有一个记录空闲内存地址的链表，当系统收到程序申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆节点。然后将该节点重空闲链表中删除，并将改节点的空间分配给程序。另外，对于大多数系统，会在这块内存空间中的首地处记录本次分配的空间的大小，这样，后续代码中的delete语句就可以正确的释放该内存空间。还有找到改堆节点的大小不一定正好等于申请的大小，系统会自动将多余的内存空间重新放入空闲链表中。</li>
+</ul>
+<p><strong>申请大小的限制</strong></p>
+<ul>
+<li>栈区：栈区是向低地址扩展的数据结构，是一块连续的内存。栈顶的地址和栈的最大容量是系统预先规定好的，是一个在编译是就确定的常数，如果申请的空间超过栈的剩余空间时，会有错误提示。因此，能从栈获得空间较小。</li>
+<li>堆区：堆区是搞地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储空内存地址的，自然不是连续的。而链表的遍历反向是由低地址向高地址。堆区的大小受限于计算机系统的虚拟内存，由此可见，堆区获得的空间较灵活，空间较大。</li>
+</ul>
+<p><strong>存取效率比较</strong></p>
+<ul>
+<li>堆区：堆区是运行时刻赋值的</li>
+<li>栈区：栈区也是运行时刻赋值的，栈区的读写速度比堆区块</li>
+<li>全局区：编译的时候就确定</li>
+<li>其余的现在不确定</li>
+</ul>
+<p><strong>申请效率的比较</strong><br>栈区：栈区由系统自动分配，速度快，但程序员无法控制<br>堆区：堆区是alloc（c++中使用，即创建新对象）分配的内存，一般速度较慢，而且容易产生内存碎片，不过使用起来方便。</p>
+<p><strong>结语：</strong></p>
+<ul>
+<li>栈区是点菜（只管吃，其他都不用管），堆区是自助餐（都自己来）</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/29/ios_memory/" data-id="cjvtnavye0011tyb85l6rczk4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/29/Dictionary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NSDictionary 的实现原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/27/Data_persistence/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据持久化的方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

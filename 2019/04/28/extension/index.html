@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>扩展 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="扩展就是为一个已有的类、结构体、枚举或者协议添加新功能。 Swift中的扩展  添加计算型属性和计算型类型属性 定义实例方法和类方法 提供新的构造器 定义下标 定义和使用新的嵌套类型 使一个已有类型符合某个协议  扩展语法使用关键字 extension来声明扩展 123extension SomeType &amp;#123;	// 为 SomeType扩展的新功能写到这里&amp;#125;  通过扩展一个已有">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="扩展">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/extension/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="扩展就是为一个已有的类、结构体、枚举或者协议添加新功能。 Swift中的扩展  添加计算型属性和计算型类型属性 定义实例方法和类方法 提供新的构造器 定义下标 定义和使用新的嵌套类型 使一个已有类型符合某个协议  扩展语法使用关键字 extension来声明扩展 123extension SomeType &amp;#123;	// 为 SomeType扩展的新功能写到这里&amp;#125;  通过扩展一个已有">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-05T09:05:21.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="扩展">
+<meta name="twitter:description" content="扩展就是为一个已有的类、结构体、枚举或者协议添加新功能。 Swift中的扩展  添加计算型属性和计算型类型属性 定义实例方法和类方法 提供新的构造器 定义下标 定义和使用新的嵌套类型 使一个已有类型符合某个协议  扩展语法使用关键字 extension来声明扩展 123extension SomeType &amp;#123;	// 为 SomeType扩展的新功能写到这里&amp;#125;  通过扩展一个已有">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-extension" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/28/extension/" class="article-date">
+  <time datetime="2019-04-28T12:28:53.957Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      扩展
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>扩展就是为一个已有的类、结构体、枚举或者协议添加新功能。</p>
+<p>Swift中的扩展</p>
+<ul>
+<li>添加计算型属性和计算型类型属性</li>
+<li>定义实例方法和类方法</li>
+<li>提供新的构造器</li>
+<li>定义下标</li>
+<li>定义和使用新的嵌套类型</li>
+<li>使一个已有类型符合某个协议</li>
+</ul>
+<h4 id="扩展语法"><a href="#扩展语法" class="headerlink" title="扩展语法"></a>扩展语法</h4><p>使用关键字 <code>extension</code>来声明扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension SomeType &#123;</span><br><span class="line">	// 为 SomeType扩展的新功能写到这里</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过扩展一个已有类型，使其采纳一个或多个协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension SomeType : SomeProtocol, AnotherProtocol &#123;</span><br><span class="line">	//协议实现写到这里</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="计算型属性"><a href="#计算型属性" class="headerlink" title="计算型属性"></a>计算型属性</h5><p>扩展可以为已有类型添加计算型实例属性和计算型类型属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Double &#123;</span><br><span class="line">	var km: Double &#123; return self * 1000.0 &#125;</span><br><span class="line">	var m: Double &#123; return self &#125;</span><br><span class="line">	var cm: Double &#123; return self / 100.0 &#125;</span><br><span class="line">	var mm: Double &#123; return self / 1000.0 &#125;</span><br><span class="line">	var ft: Double &#123; return self / 3.28084 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let oneInch = 25.4.mm</span><br><span class="line">let aMarathon = 42.km + 19.5m</span><br></pre></td></tr></table></figure>
+
+<h5 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h5><p>扩展可以为已有类型添加新的构造器。扩展能为类添加新的<strong>便利构造器</strong>，但不能为类添加新的指定构造器。指定构造器必须总是由原始的类来实现提供</p>
+<p><strong>注意</strong><br>如果你使用扩展为一个值类型添加构造器，同时该值类型的原始实现中未定义任何指定构造器且所有存储属性提供了默认值，那么我们可以再扩展中的构造里调用默认构造器和逐一成员构造器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct Size &#123;</span><br><span class="line">	var width = 0.0, height = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Point&#123;</span><br><span class="line">	var x = 0.0, y = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Rect &#123;</span><br><span class="line">	var origin = Point()</span><br><span class="line">	var size = Size()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let defaultRect = Rect()</span><br><span class="line">let memberRect = Rect(origin: Point(x: 0.0, y: 2.0), size: Size(width: 5.0, height: 5.0 ))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extension Rect &#123;</span><br><span class="line">	init(center: Point, size: Size) &#123;</span><br><span class="line">		let originX = center.x - size.width / 2</span><br><span class="line">		let orginY = center.y - size.height / 2</span><br><span class="line">		self.init(origin: Point(x: orginX, y: originY), size: size)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">let centerRect = Rect(center: Point(x: 4.0, y: 4.0), size: Size(x: 5.0, y: 5.0))</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>扩展可以为已有类型添加实例方法和类型方法</p>
+<h5 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h5><p>通过扩展添加的实例方法也可以修改该实例本身。结构体和枚举类型中修改self或其属性方法方法必须将改实例方法标注<code>mutating</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	mutating func square ()&#123;</span><br><span class="line">		return self * self</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var someInt = 3</span><br><span class="line">somInt.square()</span><br></pre></td></tr></table></figure>
+
+<h5 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h5><p>扩展可以为已有类型添加新下标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	subscript(digitIndex: Int) -&gt; Int &#123;</span><br><span class="line">		var decimalBase = 1</span><br><span class="line">		for _ in 0..&lt;digitIndex &#123;</span><br><span class="line">			decimalBase *= 10</span><br><span class="line">		&#125;</span><br><span class="line">		return (self / decimalBase) %10</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">746[0]</span><br></pre></td></tr></table></figure>
+
+<h5 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h5><p>扩展可以为已有类型的类、结构体和枚举添加新的嵌套类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	enum Kind &#123;</span><br><span class="line">		case negative, zero, positive</span><br><span class="line">	&#125;</span><br><span class="line">	var kind: Kind &#123;</span><br><span class="line">		switch self &#123;</span><br><span class="line">			case 0:</span><br><span class="line">				return .zero</span><br><span class="line">			case let x where x &gt; 0 :</span><br><span class="line">				return .positve</span><br><span class="line">			default:</span><br><span class="line">				reutrn .negative</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子为Int添加了嵌套类型，这个名为Kind的枚举表示特定整数的类型。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/28/extension/" data-id="cjvtnavyd000ytyb8iszx7tw0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/30/Protocol/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          协议
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/25/option/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">可选链 、错误处理、类型转换、嵌套类型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

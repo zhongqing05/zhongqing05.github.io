@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>协议 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="协议定义了一个蓝图，规定了用来实现某一特定任务或者功能的方法、属性、以及其他需要的东西。 协议的语法 12345678910protocol SomeProtocol &amp;#123;	//协议的定义部分&amp;#125;//某个自定义类型遵循协议struct SomeStructure : SomeProtocol, AnotherProtocol &amp;#123;&amp;#125;拥有父类的类在遵循协议时，应该将">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="协议">
+<meta property="og:url" content="http://yoursite.com/2019/04/30/Protocol/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="协议定义了一个蓝图，规定了用来实现某一特定任务或者功能的方法、属性、以及其他需要的东西。 协议的语法 12345678910protocol SomeProtocol &amp;#123;	//协议的定义部分&amp;#125;//某个自定义类型遵循协议struct SomeStructure : SomeProtocol, AnotherProtocol &amp;#123;&amp;#125;拥有父类的类在遵循协议时，应该将">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-04T07:05:16.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="协议">
+<meta name="twitter:description" content="协议定义了一个蓝图，规定了用来实现某一特定任务或者功能的方法、属性、以及其他需要的东西。 协议的语法 12345678910protocol SomeProtocol &amp;#123;	//协议的定义部分&amp;#125;//某个自定义类型遵循协议struct SomeStructure : SomeProtocol, AnotherProtocol &amp;#123;&amp;#125;拥有父类的类在遵循协议时，应该将">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Protocol" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/30/Protocol/" class="article-date">
+  <time datetime="2019-04-30T06:36:55.014Z" itemprop="datePublished">2019-04-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      协议
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>协议定义了一个蓝图，规定了用来实现某一特定任务或者功能的方法、属性、以及其他需要的东西。</p>
+<p>协议的语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	//协议的定义部分</span><br><span class="line">&#125;</span><br><span class="line">//某个自定义类型遵循协议</span><br><span class="line">struct SomeStructure : SomeProtocol, AnotherProtocol &#123;</span><br><span class="line">&#125;</span><br><span class="line">拥有父类的类在遵循协议时，应该将父类名放在协议名之前</span><br><span class="line">class SomeClass : SomeSuperClass, FirstProtocol, AnotherProtocol &#123;</span><br><span class="line">	// 这里是类的定义部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h4><p>协议可以要求遵循的类型提供特定名称和类型的实例属性或类型属性。协议不知道是存储属性还是计算属性，它指定属性的名称和类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	var mustBeSetterble: Int &#123; get set&#125;</span><br><span class="line">	var doseNotNeedToBeSettable: Int &#123;get&#125;</span><br><span class="line">&#125;</span><br><span class="line">协议定义类型属性时，总是使用static关键字做前缀。当类类型遵循协议时，除了static关键字，还可以使用class关键字来声明类型属性</span><br><span class="line"></span><br><span class="line">protocol AnotherProtocol &#123;</span><br><span class="line">	static var someTypeProtocol: Int &#123; get set&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//遵循次协议必须有一个可读String类型的实例属性fullName</span><br><span class="line">protocl FullyName &#123;</span><br><span class="line">	var fullName: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">struct Person: FullyNamed &#123;</span><br><span class="line">	var fullName: String</span><br><span class="line">&#125;</span><br><span class="line">let john = Person(fullName: &quot;John&quot;)</span><br><span class="line">//john.fullName 为 “John”</span><br><span class="line"></span><br><span class="line">class StarShip: FullyNamed &#123;</span><br><span class="line">	var prefix: String?</span><br><span class="line">	var name: String</span><br><span class="line">	init(name: String, prefix: String? = nil)&#123;</span><br><span class="line">		self.name = name</span><br><span class="line">		self.prefix = prefix</span><br><span class="line">	&#125;</span><br><span class="line">	var fullName: String &#123;</span><br><span class="line">		return (prefix != nil ? prefix! + &quot;&quot;:&quot;&quot;) + name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h4><p>在协议中定义类方法的时候，总是使用static 关键字作为前缀。当类类型遵循协议时，除了static关键字，还可以使用class关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	static func someTypeMethod()</span><br><span class="line">&#125;</span><br><span class="line">//定义一个只含有实例方法的协议</span><br><span class="line">protocol RandomNumberGenerator &#123;</span><br><span class="line">	func someFun() -&gt; Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="异变方法要求"><a href="#异变方法要求" class="headerlink" title="异变方法要求"></a>异变方法要求</h5><p>有时候需要在方法中改变方法所属的实例。例如，在值类型的实例方法中，将<code>mutating</code>关键字作为方法的前缀，写在func关键字之前，表示可以在该方法中修改所属的实例以及实例任意属性的值。</p>
+<p><strong>注意：</strong><br>实现协议中的mutating方法时，若是类类型，则不用写mutating关键字。而对于结构体和枚举，则必须mutating关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">protocol Togglable &#123;</span><br><span class="line">	mutating func toggle()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum OnOffSwitch: Togglable &#123;</span><br><span class="line">	cass off , on</span><br><span class="line">	mutating func toggle()&#123;</span><br><span class="line">		switch self &#123;</span><br><span class="line">		case .off</span><br><span class="line">			self = .on</span><br><span class="line">		case .on </span><br><span class="line">			self = .off</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var lightSwitch = OnOffSwitch.off</span><br><span class="line">lightSwitch.toggle()</span><br><span class="line">//lightSwitch 现在是 .on</span><br></pre></td></tr></table></figure>
+
+<h5 id="构造器要求"><a href="#构造器要求" class="headerlink" title="构造器要求"></a>构造器要求</h5><p>协议可以要求遵循协议类型实现指定构造器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	init(someParameter: Int)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="协议构造器要求的类实现"><a href="#协议构造器要求的类实现" class="headerlink" title="协议构造器要求的类实现"></a>协议构造器要求的类实现</h5><p>你可以遵循协议的类中实现构造器，无论作为指定构造器还是便利构造器，都必须为构造器标上required修饰符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class SomeClass : SomeProtocol &#123;</span><br><span class="line">	required init(someParameter: Int)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">//required 修饰符可以确保所有子类也必须提供此构造器实现，从而也能符合协议。</span><br><span class="line">//如果类已经标记为final，那么不需要在协议构造器的实现中使用required修饰符。因为final类不能有子类</span><br><span class="line"></span><br><span class="line">//如果一个子类重写了父类的指定构造器，并且该构造器满足了某个协议的要求，那么该构造器的实现需要同时标注 required 和 override</span><br><span class="line"></span><br><span class="line">protocol SomeProtocol&#123;</span><br><span class="line">   init()</span><br><span class="line">&#125;</span><br><span class="line">class SomeSuperClass&#123;</span><br><span class="line">	init()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class SomeSubClass: SomeSuperClass, SomeProtocol &#123;</span><br><span class="line">	//因为遵循协议，需要加上required</span><br><span class="line">	//因为继承自父类，需要加上override</span><br><span class="line">	required override init()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="可失败构造器要求"><a href="#可失败构造器要求" class="headerlink" title="可失败构造器要求"></a>可失败构造器要求</h5><p>协议还可为遵循协议类型的类型定义可失败构造器</p>
+<h4 id="协议作为类型"><a href="#协议作为类型" class="headerlink" title="协议作为类型"></a>协议作为类型</h4><p>协议本身并不实现任何功能，但是协议可以被当做一个成熟的类型来使用。协议可以像其他普通类型一样使用。</p>
+<ul>
+<li>作为函数、方法或构造器中的参数类型或返回值类型</li>
+<li>作为常量、变量或属性的类型</li>
+<li>作为数组、字典或其他容器的元素类型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">protocol RandomNumberGenerator &#123;</span><br><span class="line">	func random() -&gt; Double</span><br><span class="line">&#125;</span><br><span class="line">class Dice &#123;</span><br><span class="line">	let sides: Int</span><br><span class="line">	let generator: RandomNumberGenerator</span><br><span class="line">	init(sides: Int, generator: RandomNumberGenerator)&#123;</span><br><span class="line">		self.sides = sides</span><br><span class="line">		self.generator = generator</span><br><span class="line">	&#125;</span><br><span class="line">	func roll() -&gt; Int &#123;</span><br><span class="line">		return Int(generator.random * Double(sides))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="委托-现实中最常见的用法"><a href="#委托-现实中最常见的用法" class="headerlink" title="委托 现实中最常见的用法"></a>委托 现实中最常见的用法</h4><p>委托是一种设计模式，它允许类或结构体将一些需要它们负责的功能委托给其他类型的实例。</p>
+<h4 id="在扩展里添加协议遵循"><a href="#在扩展里添加协议遵循" class="headerlink" title="在扩展里添加协议遵循"></a>在扩展里添加协议遵循</h4><p>扩展可以为已有类型添加属性（计算属性）、方法、下标以及构造器，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extersion SomeClass: SomeProtocol &#123;</span><br><span class="line">	//实现遵循的协议</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="有条件地遵循协议"><a href="#有条件地遵循协议" class="headerlink" title="有条件地遵循协议"></a>有条件地遵循协议</h4><p>泛型类型可能只在某些情况下满足一个协议的要求，比如当类类型的泛型形式参数遵循对应协议时。你可以通过扩展类型列出限制泛型类型有条件的遵循某协议。在你采纳协议的名字后面写泛型where分句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	var textOutput: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">extension Array : SomeProtocol where Element: String &#123;</span><br><span class="line">	//</span><br><span class="line">	var textOutput: String&#123;</span><br><span class="line">		let text = self.map &#123; $0.textOutput &#125;</span><br><span class="line">		return &quot;[&quot; + text + &quot;]&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在扩展里声明采纳协议"><a href="#在扩展里声明采纳协议" class="headerlink" title="在扩展里声明采纳协议"></a>在扩展里声明采纳协议</h5><p>当一个类型已经符合了某个协议中的所有要求，却还没有声明采纳该协议时。可以通过空扩展体的扩展采纳该协议。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Hamster &#123;</span><br><span class="line">	//完全实现了协议 SomeProtocol</span><br><span class="line">&#125;</span><br><span class="line">//这里显示的声明</span><br><span class="line">extersion Hamster : SomeProtocol&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：即使满足了协议的所有要求，类型也不会自动遵循协议，必须显示地遵循协议</p>
+<h5 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//集合中的3个元素都遵循SomeProtocol协议的实例</span><br><span class="line">let things: [SomeProtocol] = [param1,param2,param3]</span><br></pre></td></tr></table></figure>
+
+<h5 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h5><p>协议能够继承一个或多个其他协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol: FirstProtocol,AnthorProtocol &#123;</span><br><span class="line">	//定义部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="类专属的协议"><a href="#类专属的协议" class="headerlink" title="类专属的协议"></a>类专属的协议</h4><p>通过添加AnyObject 关键字到协议的继承列表，就可以限制协议只能被类类型采纳。<br>protocol SomeClassProtcol: class {<br>    //专属类的协议定义部分<br>}</p>
+<h4 id="协议合成"><a href="#协议合成" class="headerlink" title="协议合成"></a>协议合成</h4><p>要求一个类型同时遵循多个协议是很有用的。你可以使用协议组合来复合多个协议到一个要求里。</p>
+<p>协议组合使用 SomeProtocol &amp; AnotherProtocol 的形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">protocol Named &#123;</span><br><span class="line">	var name: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">protocol Aged &#123;</span><br><span class="line">	var age: Int &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">struct Person: Named, Aged &#123;</span><br><span class="line">	var name: String</span><br><span class="line">	var age: Int</span><br><span class="line">&#125;</span><br><span class="line">//函数参数 celebrator 类型为 Name &amp; Aged。这意味着同时要遵循这2个协议</span><br><span class="line">func wishHappyBirthday(to celebrator: Name &amp; Aged)&#123;</span><br><span class="line">	 print(&quot;Happy birthday, \(celebrator.name), you&apos;re \(celebrator.age)!&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Location &#123;</span><br><span class="line">&#125;</span><br><span class="line">class City: Location, Named &#123;</span><br><span class="line">&#125;</span><br><span class="line">//这意味这方法只接受 Location &amp; Named 的参数</span><br><span class="line">func beginConcert(in location: Location &amp; Named)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查协议一致性"><a href="#检查协议一致性" class="headerlink" title="检查协议一致性"></a>检查协议一致性</h4><p><code>is</code> 和<code>as</code>操作符来检查协议一致性，即是否复合某协议，并且可以转换到指定的协议类型。</p>
+<ul>
+<li>is 用来检查实例是否复合某个协议</li>
+<li>as? 返回一个可选值，当实例复合某个协议是，返回类型为协议类型的可选值。</li>
+<li>as! 将实例强制向下转换到某个协议，如果转换失败，会引发运行时错误</li>
+</ul>
+<h4 id="可选的协议要求"><a href="#可选的协议要求" class="headerlink" title="可选的协议要求"></a>可选的协议要求</h4><p>协议可以定义可选要求，遵循协议类型可以选择是否实现这些要求。协议中使用 <strong>optional</strong> 关键字作为前缀来定义可选要求。可选要求用在你需要和Objective-C打交道的代码中。协议和可选要求都必须带上 <code>@objc</code> 属性。标记 <code>@objc</code>特性的协议只能被继承自 Objective-C类或者遵循。</p>
+<p>使用可选要求时，他们的类型会自动变成可选的。比如，一个类型为 (Int) -&gt; String 的方法会变成 ((Int) -&gt; String)? ，这里是函数类型可选，不是函数的返回值可选</p>
+<h4 id="协议扩展"><a href="#协议扩展" class="headerlink" title="协议扩展"></a>协议扩展</h4><p>协议可以通过扩展来为遵循协议的类型提供属性、方法以及下标的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension RandomNumberGenerator &#123;</span><br><span class="line">	func randomBool() -&gt; Bool &#123;</span><br><span class="line">		retrun random() &gt; 0.5</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过协议扩展，所有遵循协议的类型，都能自动获得这个扩展所增加的方法实现，无需任何额外的修改</p>
+<h5 id="提供默认实现"><a href="#提供默认实现" class="headerlink" title="提供默认实现"></a>提供默认实现</h5><p>可以通过协议扩展来为协议的属性、方法以及下标提供默认的实现。如果遵循协议的类型为这些要求提供了自己的实现，那么这些自定义实现将会替代扩展的默认实现被使用。</p>
+<h4 id="为协议扩展添加限制条件"><a href="#为协议扩展添加限制条件" class="headerlink" title="为协议扩展添加限制条件"></a>为协议扩展添加限制条件</h4><p>在扩展协议的时候，可以指定一些限制条件，只有遵循协议的类型满足某些限制条件，才能获得协议扩展提供的默认实现。使用<code>where</code>字句来描述</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Collection where Element: Equatable &#123;</span><br><span class="line">	func allEqual() -&gt; Bool &#123;</span><br><span class="line">		for element in self &#123;</span><br><span class="line">			if element != self.first &#123;</span><br><span class="line">				return false </span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">		return true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/30/Protocol/" data-id="cjvtnavy5000ktyb8sje5l3ym" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/05/fanxing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          泛型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/28/extension/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">扩展</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

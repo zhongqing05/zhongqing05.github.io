@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Swift 相关面试题 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文复制 https://www.jianshu.com/p/23d99f434281 class 和 struct 的区别 class 为类，struct 为结构体，类是引用类型，结构体是值类型。结构体不可以继承 不通过继承，代码复用（共享）的方式有哪些 扩展，全局函数 Set 独有的方法有哪些？ 1234567891011//定义一个setlet setA: Set&amp;lt;Int&amp;gt; =">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 相关面试题">
+<meta property="og:url" content="http://yoursite.com/2019/04/02/Swift/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="本文复制 https://www.jianshu.com/p/23d99f434281 class 和 struct 的区别 class 为类，struct 为结构体，类是引用类型，结构体是值类型。结构体不可以继承 不通过继承，代码复用（共享）的方式有哪些 扩展，全局函数 Set 独有的方法有哪些？ 1234567891011//定义一个setlet setA: Set&amp;lt;Int&amp;gt; =">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-05T09:32:26.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 相关面试题">
+<meta name="twitter:description" content="本文复制 https://www.jianshu.com/p/23d99f434281 class 和 struct 的区别 class 为类，struct 为结构体，类是引用类型，结构体是值类型。结构体不可以继承 不通过继承，代码复用（共享）的方式有哪些 扩展，全局函数 Set 独有的方法有哪些？ 1234567891011//定义一个setlet setA: Set&amp;lt;Int&amp;gt; =">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Swift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/02/Swift/" class="article-date">
+  <time datetime="2019-04-02T09:11:33.590Z" itemprop="datePublished">2019-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Swift 相关面试题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文复制 <a href="https://www.jianshu.com/p/23d99f434281" target="_blank" rel="noopener">https://www.jianshu.com/p/23d99f434281</a></p>
+<p><strong>class 和 struct 的区别</strong></p>
+<p>class 为类，struct 为结构体，类是引用类型，结构体是值类型。结构体不可以继承</p>
+<p><strong>不通过继承，代码复用（共享）的方式有哪些</strong></p>
+<p>扩展，全局函数</p>
+<p><strong>Set 独有的方法有哪些？</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//定义一个set</span><br><span class="line">let setA: Set&lt;Int&gt; = [1, 2, 3, 4, 4]  //&#123;1, 2, 3, 4&#125; 顺序可能不一致，同一个元素只有一个值</span><br><span class="line">set setB: Set&lt;Int&gt; = [1, 3, 5, 7, 9]  //&#123;1, 3, 5, 7, 9&#125;</span><br><span class="line">//取并集</span><br><span class="line">let setUnion = setA.union(setB) //&#123;1, 2, 3, 4, 5, 7, 9&#125;</span><br><span class="line">//取交集</span><br><span class="line">let setIntersect  = setA.intersection(setB) //&#123;1, 3&#125;</span><br><span class="line">//取差集 A - B</span><br><span class="line">let setRevers = setA.subtraction(setB). //&#123;2, 4&#125;</span><br><span class="line">//取对称差集</span><br><span class="line">let setXor = letA.symmentricDifference(setB)  //&#123;2, 4, 5, 7, 9&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现一个 min 函数，返回两个元素较小的元素</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func myMin&lt;T: Comparable&gt;(_a: T, _ b: T) -&gt; T &#123;</span><br><span class="line">	return a&lt;b ? a:b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map、filter、reduce 的作用</strong><br>map 用于映射，可以将一个列表转换为另一个列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].map&#123;&quot;\($0)&quot;&#125; //数字数组转换为字符串数组</span><br><span class="line">[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>filter 用于过滤，可以筛选出想要的元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].filter&#123;$0 %2 == 0&#125; //筛选偶数</span><br><span class="line">//[2]</span><br></pre></td></tr></table></figure>
+
+<p>reduce 合并</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].reduce(&quot;&quot;)&#123;$0 + &quot;\($1)&quot;&#125; //转换为字符串拼接</span><br><span class="line">// &quot;123&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map 与 flatmap 的区别</strong><br>flatmap 有两个实现函数实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public func flatMap&lt;ElementOfResult&gt;(_ transform: (Element) throws -&gt; ElementOfResult ?) -&gt; rethrows -&gt; [ElementOfResult]</span><br><span class="line">//这个方法，中间的函数返回值为一个可选类型，而flatmap会丢掉那些返回值为nil的值，例如</span><br><span class="line">[&quot;1&quot;, &quot;@&quot;, &quot;2&quot;, &quot;3&quot;, &quot;a&quot;].flatMap&#123;Int($0)&#125;</span><br><span class="line">// [1, 2, 3]</span><br><span class="line">[&quot;1&quot;, &quot;@&quot;, &quot;2&quot;, &quot;3&quot;, &quot;a&quot;].map&#123;Int($0) ?? -1&#125;</span><br><span class="line">//[Optional(1), nil, Optional(2), Optional(3), nil]</span><br></pre></td></tr></table></figure>
+
+<p>另一个实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public func flatMap&lt;SegmentOfResult&gt;(_ transform: (Element) throws -&gt;SegmentOfResult) rethrows -&gt; [SegmentOfResult.Iterator.Element] where SegmentOfResult : Sequence</span><br><span class="line">//中间的函数，返回值为一个数组，而这个flatmap返回的对象则是一个与自己元素类型相同的数组</span><br><span class="line">func someFunc(_ array:[Int]) -&gt; [Int] &#123;</span><br><span class="line">   return array</span><br><span class="line">&#125;</span><br><span class="line">[[1],[2,3],[4,5,6]].map(someFunc)</span><br><span class="line">// [[1], [2, 3], [4, 5, 6]]</span><br><span class="line">[[1], [2, 3], [4, 5, 6]].flatMap(someFunc)</span><br><span class="line">// [1, 2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<p><strong>什么事copy on write时候</strong></p>
+<p>写时复制，指的是swift中的值类型，并不会一开始赋值的时候就去复制，只有再需要修改的时候，才去复制。<br>这里有相关说明<br><a href="http://www.jianshu.com/p/7e8ba0659646" target="_blank" rel="noopener">http://www.jianshu.com/p/7e8ba0659646</a></p>
+<p><strong>如何获取当前代码的函数名和行号</strong></p>
+<p><code>#file</code> 用于获取当前文件文件名<br><code>#line</code> 用于获取当前行号<br><code>#column</code> 用于获取当前编号<br><code>function</code> 用于获取当前函数名<br>以上这些都是特殊的字面量，多用于调试输出日志。<br>具体app文档<br><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Expressions.html" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Expressions.html
+</a><br>这里有中文翻译<br><a href="http://wiki.jikexueyuan.com/project/swift/chapter3/04_Expressions.html" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/swift/chapter3/04_Expressions.html</a></p>
+<p><strong>如何声明一个只能被类conform的protocol</strong><br>申明协议的时候，加一个class即可：如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeClassProtocl : class &#123;</span><br><span class="line">	func someFunction()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>guard使用场景</strong><br>guard和if类似，不同的是，guard总是有一个else语句，如果表达是假或绑定失败的时候，就会执行else语句，而在else语句中一定要停止函数调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guard 1+1 == 2 ? else &#123;</span><br><span class="line">	fatalError(&quot;something wrong&quot;)</span><br><span class="line">&#125;</span><br><span class="line">//常使用场景为，用户登录的时候，验证用户是否有输入用户名密码等</span><br></pre></td></tr></table></figure>
+
+<p><strong>defer使用场景</strong></p>
+<p>defer语句块使用中的代码，会在当前作用域结束前调用，常用场景如异常退出后，关闭数据库连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func someQuery() -&gt; ([Result], [Result])&#123;</span><br><span class="line">	let db = DBOpen(&quot;xxx&quot;)</span><br><span class="line">	defer&#123;</span><br><span class="line">		db.close()</span><br><span class="line">	&#125;</span><br><span class="line">	guard results1 = db.query(&quot;query1&quot;) else&#123;</span><br><span class="line">		return nil</span><br><span class="line">	&#125;</span><br><span class="line">	guard results2 = db.query(&quot;query2&quot;) elee&#123;</span><br><span class="line">		return nil</span><br><span class="line">	&#125;</span><br><span class="line">	return (results1, results2)</span><br><span class="line">&#125;</span><br><span class="line">**注意，如果有多个defer，那么后加入的先执行**</span><br></pre></td></tr></table></figure>
+
+<p><strong>String 与 NSString 的关系与区别</strong></p>
+<p>String 是结构体，值类型，NSStirng 是类，引用类型<br>NSString 与 String之间可以随意转换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let someString = &quot;123&quot;</span><br><span class="line">let someNSSting = NSString(string: &quot;123&quot;)</span><br><span class="line">let stirngToNSString = someString as NSString</span><br><span class="line">let nsstringToString = someNSSting as String</span><br></pre></td></tr></table></figure>
+
+<p><strong>怎么获取一个 String 的长度</strong></p>
+<p>不考虑编码，只是想知道字符的数量，用 characters.count</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;hello&quot;.count</span><br><span class="line">//如果想知道在某个编码下占多少字节，可以用</span><br><span class="line">&quot;hello&quot;.lengthOfBytes(using: .utf8)</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何截取 String 的某段字符串</strong></p>
+<p>swift中，有三个取字符串函数<br>substring:to,  substring:from, substring:with</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let simpleString = &quot;Hello,world&quot;</span><br><span class="line">simpleString.substring(to: simpleString.index(simpleString.startIndex, offsetBy:5))</span><br><span class="line">// hello</span><br><span class="line">simpleString.substring(from: simpleString.endIndex, offsetBy:-5)</span><br><span class="line">// world</span><br><span class="line">simpleString.substring(with: simpleString.index(simpleString.startIndex, ofsetBy: 5) ..&lt; simpleString.index(simpleString.endIndex, ofsetBy: -5))</span><br><span class="line">// ,</span><br></pre></td></tr></table></figure>
+
+<p><strong>throws 和 rethrows 的用法与作用</strong></p>
+<p>throws 用在函数上，表示这个函数会抛出异常<br>有两种情况下会抛出错误，一种是直接使用throw抛出，另一种是调用其他抛出异常的函数时，直接使用try xx没有处理异常。如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">enum DivideError: Error &#123;</span><br><span class="line">	case EqualZeroError</span><br><span class="line">&#125;</span><br><span class="line">func divide(_ a: Double, _ b: Double) throws -&gt; Double&#123;</span><br><span class="line">	guard b! = Double(0) else &#123;</span><br><span class="line">	//throw 抛出一定要实现Error 协议</span><br><span class="line">		throw DivideError.EqualZeroError</span><br><span class="line">	&#125;</span><br><span class="line">	return a / b</span><br><span class="line">&#125;</span><br><span class="line">func split(pieces: Int) throws -&gt; Double &#123;</span><br><span class="line">	retrun try divide(1, Double(pieces))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>rethrows 与 throws 类似，不过只适用于参数中有函数，且函数会抛出异常的情况下，rethrows 可以用throws替换，反过来不行.如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func processNumber(a: Double, b: Double, function: (Double, Double) throws -&gt; Double) rethrows -&gt; Double &#123;</span><br><span class="line">	return try function(a, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>try? 和 try! 是什么意思</strong></p>
+<p>这两个都用于处理可抛出异常的函数，使用这两个关键字不用写 do catch，区别在于 try？在用于处理可抛出异常函数时，如果函数抛出异常，则可以返回nil，否则返回函数值的可选值，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(try? divide(2, 1))</span><br><span class="line">// Optional(2.0)</span><br><span class="line">print(try? divide(2, 0))</span><br><span class="line">// nil</span><br></pre></td></tr></table></figure>
+
+<p>而try! 则在函数抛出异常的时候奔溃。否则则返回函数的返回值。如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(try! divide(2, 1))</span><br><span class="line">// 2.0</span><br><span class="line">print(try! divide(2, 0))</span><br><span class="line">// 奔溃</span><br></pre></td></tr></table></figure>
+
+<p><strong>associatedtype 的作用</strong></p>
+<p>简单来说就是protocol 使用的泛型</p>
+<p>例如定义一个列表协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">protocol ListProtocol&#123;</span><br><span class="line">	associatedtype Element</span><br><span class="line">	func push( _ element: Element)</span><br><span class="line">	func pop(_ element: Element) -&gt; Element?</span><br><span class="line">&#125;</span><br><span class="line">被associatedtype关键字修饰的变量，相当于一个占位符，而不能表示具体的类型。具体的类型需要让实现的类来指定。</span><br></pre></td></tr></table></figure>
+
+<p>实现协议的时候，可以使用typealias 指定特定的类型，也可以自动推断，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class IntList: ListProtocol &#123;</span><br><span class="line">	typealias Element = Int //使用 typealias 指定为 Int</span><br><span class="line">	var list = [Element]()</span><br><span class="line">	func push (_ element: Element) &#123;</span><br><span class="line">		self.list.append(element)</span><br><span class="line">	&#125;</span><br><span class="line">	func pop(_ element: Int) -&gt; Int? &#123;</span><br><span class="line">       return self.list.popLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class DoubleList : ListProtocol &#123;</span><br><span class="line">	var list = [Double]()</span><br><span class="line">	func push (_ element: Double) &#123;//自动推断</span><br><span class="line">		self.list.append(element)</span><br><span class="line">	&#125;</span><br><span class="line">	func pop(_ element: Double) -&gt; Double? &#123;</span><br><span class="line">		return self.list.popLast()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用泛型也可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class AnyList&lt;T&gt;: ListProtocol&#123;</span><br><span class="line">    var list = [T]()</span><br><span class="line">    func push(_ element: T)&#123;</span><br><span class="line">        self.list.append(element)</span><br><span class="line">    &#125;</span><br><span class="line">    func pop(_ element: T) -&gt; T? &#123;</span><br><span class="line">        return self.list.popLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用where字句限定Element类型，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension ListProtocol where Element == Int &#123;</span><br><span class="line">	func isInt() -&gt; Bool &#123;</span><br><span class="line">		return true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>什么时候使用 final</strong></p>
+<p>final用于限制继承和重写，如果只是需要在某一个属性前加一个final。如果需要限制整个类无法被继承，那么可用用类名之前加一个final</p>
+<p><strong>public 和 open 的区别</strong></p>
+<p>这两个都用于模块声明需要对外界暴露的函数，区别在于，public 修饰的类，在模块外无法被继承，而open则可以任意继承，公开度来说，open&gt;public</p>
+<p><strong>声明一个只有一个参数没有返回值闭包的别名</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typealias SomeClosuerType = (Stirng) -&gt; ()</span><br><span class="line">let somClosuer: SomeClosuerType = &#123; (name: String) in</span><br><span class="line">	print(&quot;hello,&quot; name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Self 的使用场景</strong></p>
+<p>self 通常在协议中使用，用来表明实现者或者实现者的子类类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol CopyProtocol &#123;</span><br><span class="line">	func copy() -&gt; Self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果是结构体去实现，要将Self转换为具体类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct SomeStruct : CopyProtocol&#123;</span><br><span class="line">	let value: Int</span><br><span class="line">	func copy() -&gt; SomeStruct&#123;</span><br><span class="line">		return SomeStruct(value: self.value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果是类去实现，则有点复杂，需要有一个required初始化方法，具体可以看<a href="https://swifter.tips/use-self/" target="_blank" rel="noopener">这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class SomeCopyableClass : CopyProtocol &#123;</span><br><span class="line">	func copySelf()  -&gt; Self &#123;</span><br><span class="line">		return type(of: self).init()</span><br><span class="line">	&#125;</span><br><span class="line">	required init()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>dynamic的作用</strong></p>
+<p>由于swift是一个静态语言，所以没有Objective-C中的消息发送这些动态机制，dynamic的作用就是让swift代码也能有Object-C中的动态机制，常用的方法就是KVO了，如果要监控这一个属性，则必须要标记dynamic。可以参考这篇文字<a href="http://www.jianshu.com/p/ae26100b9edf" target="_blank" rel="noopener">http://www.jianshu.com/p/ae26100b9edf
+</a></p>
+<p><strong>什么时候使用 @objc</strong></p>
+<p>@objc 用途是为了在Objective-C 和Swift混编的时候，能够正常的调用Swift代码，可以修饰类，协议，方法，属性。</p>
+<p>常用的地方是在定义deleagte 协议中，会将协议中部分方法申明为可选方法，需要用到 @objc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@objc protocol OptionalProtocol &#123;</span><br><span class="line">	@objc optional func optionalFunc()</span><br><span class="line">	func normalFunc()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class OptionProtocolClass : OptionalProtocol &#123;</span><br><span class="line">	func normalFunc()&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">let someOptionalDeleagte: OptionalProtocol = OptionProtocolClass()</span><br><span class="line">someOptionalDeleagte.optionalFunc?()</span><br></pre></td></tr></table></figure>
+
+<p><strong>Optional（可选型） 是用什么实现的</strong></p>
+<p>Optional 是一个泛型枚举，大致定义如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum Optional&lt;Wrapped&gt; &#123;</span><br><span class="line">	cass none</span><br><span class="line">	case some(Wrapped)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何自定义下标获取</strong></p>
+<p>实现subscript即可，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">extension AnyList &#123;</span><br><span class="line">	subscript(index: Int) -&gt; T &#123;</span><br><span class="line">		return self.list[index]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	subscript(indexString: String) -&gt; T? &#123;</span><br><span class="line">		guard let index = Int(indexString) else &#123;</span><br><span class="line">			return nil</span><br><span class="line">		&#125;</span><br><span class="line">		return self.list[index]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">除了索引数字外，其他类型也是可以的</span><br></pre></td></tr></table></figure>
+
+<p><strong>?? 的作用</strong></p>
+<p>可选类型的默认值，但可选类型为nil的时候，会返回后面的值，如<br><code>let someValue = optional1 ？？ 0</code></p>
+<p><strong>lazy 的作用</strong></p>
+<p>懒加载，当属性要使用的时候，才去完成初始化。如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class LazyClass &#123;</span><br><span class="line">	lazy var someLazyValue: Int = &#123;</span><br><span class="line">		print(&quot;lazy init value&quot;)</span><br><span class="line">		return 1</span><br><span class="line">	&#125;()</span><br><span class="line">	</span><br><span class="line">	var someNormalValue : Int = &#123;</span><br><span class="line">		print(&quot;normal inti value&quot;)</span><br><span class="line">		return 2</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line">let lazyInstance = LazyClass()</span><br><span class="line">print(lazyInstance.someNormalValue)</span><br><span class="line">print(lazyInstance.someLazyValue)</span><br><span class="line">// 打印输出</span><br><span class="line">// normal init value</span><br><span class="line">// 2</span><br><span class="line">// lazy init value</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个类型表示选项，可以同时表示有几个选项选中（类似UIViewAnimationOptions ），用什么类型表示</strong></p>
+<p>需要实现自OptionSet，一般使用struct实现，由于OptionSet要求有一不可失败的构造器init(rawValue:),而枚举无法做到这一点（枚举的原始值构造器是失败的，而且有些组合值，是没有办法用一个枚举值表示的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct SomeOption: OptionSet&#123;</span><br><span class="line">	let rawValue: Int</span><br><span class="line">	static let option1 = SomeOption(rawValue: 1 &lt;&lt; 0)</span><br><span class="line">	static let option2 = SomeOption(rawValue: 1 &lt;&lt; 1)</span><br><span class="line">	static let option3 = SomeOption(rawValue: 1 &lt;&lt; 2)</span><br><span class="line">&#125;</span><br><span class="line">let options: SomeOption = [.option1, .option2]</span><br></pre></td></tr></table></figure>
+
+<p><strong>inout 的作用</strong></p>
+<p>输入输出参数</p>
+<p><strong>Error 如果要兼容 NSError 需要做什么操作</strong></p>
+<p>其实直接转换就可以，例如：SomeError.someError as NSError 但是这样没有错误码，描述等等，如果想和NSError一样有这些东西，只需要实现LocalizedError 和 CustomNSError协议，有些方法有默认实现，可以略过。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">enum SomeError : Error , LocalizedError, CustomNSError &#123;</span><br><span class="line">	case error1, error2</span><br><span class="line">	public var errorDescription: String? &#123;</span><br><span class="line">		switch self &#123;</span><br><span class="line">		case .error1:</span><br><span class="line">			return &quot;error description error1&quot;</span><br><span class="line">		case .error2:</span><br><span class="line">			return &quot;error description error2&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	var errorCode: Int &#123;</span><br><span class="line">		switch self&#123;</span><br><span class="line">		case .error1:</span><br><span class="line">			return 1</span><br><span class="line">		case .error2:</span><br><span class="line">			return 2</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static var errorDomain: String &#123;</span><br><span class="line">		return &quot;error domain SomeError&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	public var errorUserInfo: [String : Any] &#123;</span><br><span class="line">		switch self&#123;</span><br><span class="line">		case  .error1:</span><br><span class="line">			return [&quot;info&quot; :&quot;error1&quot;]</span><br><span class="line">		case  .error2:</span><br><span class="line">			return [&quot;info&quot; :&quot;error2&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(SomeError.error1 as NSError)</span><br><span class="line">//Error Domain=error domain SomeError Code=1 &quot;error description error1&quot; UserInfo=&#123;info=error1&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>下面的代码都用了哪些语法糖</strong></p>
+<p>[1, 2, 3].map{ $0 * 2 }</p>
+<blockquote>
+<p>[1, 2, 3]使用了Array实现的ExpressibleByArrayLiteral 协议，用于接收数组的字面值。</p>
+<p>map{***} 使用了闭包作为最后一个参数时，可以直接写在调用后面，而且，如果是唯一参数的话，圆括号也可以省略。</p>
+<p>闭包没有声明函数参数，返回值类型，数量，依靠的是闭包类型的自动推断。</p>
+<p>闭包中语句只有一句时，自动将这一句的结果作为返回值</p>
+<p>$0 没有声明参数列表的时候，第一个参数名称为$0,后续参数以此类推</p>
+</blockquote>
+<p><strong>什么是高阶函数</strong></p>
+<p>一个函数如果可以以某一个函数作为参数，或者返回值，那么这个函数就称之为高阶函数，如 map, reduce, filter</p>
+<p><strong>如何解决引用循环</strong></p>
+<ol>
+<li>转换为值类型，只有类会存在引用循环，所以如果能不用类，是可以解决引用循环的。</li>
+<li>deleagte 使用 weak属性</li>
+<li>闭包中，对有可能发生循环引用的对象，使用weak或者unowned修饰</li>
+</ol>
+<p><strong>下面的代码会不会崩溃，说出原因</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var mutableArray = [1, 2, 3]</span><br><span class="line">for _ in mutalbeArray &#123;</span><br><span class="line">	mutalbeArray.removeLast()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不会，原理不清楚，就算是把removeLast(),换成removeAll(),这个循环也会执行三次，估计是一开始，for in就对mutalbeArray进行了一次值捕获，而Array是一个值类型，removeLast() 并不能修改捕获值</p>
+<p><strong>给集合中元素是字符串的类型增加一个扩展方法，应该怎么声明</strong></p>
+<p>使用where子句，限制 Element为String </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">指定Array集合元素类型为String的扩展。如果Array集合的元素非String类型，扩展里的方法就不能使用</span><br><span class="line">extension Array where Element == Stirng &#123;</span><br><span class="line">	var isStringElement: :Bool &#123;</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>定义静态方法时关键字 static 和 class 有什么区别</strong></p>
+<p>static 定义的方法不可以被子类继承，class则可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class AnotherClass &#123;</span><br><span class="line">	static func staticMethod()&#123;&#125;</span><br><span class="line">	class func classMethod()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ChildOfAnotherClass : AnotherClass&#123;</span><br><span class="line">	ovveride class func classMethod()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个Sequence的索引是不是一定从0开始</strong><br>不一定，两个for in 并不能保证都是从0开始，且输出结果一致，官方文档如下</p>
+<blockquote>
+<p><strong>Repeated Access</strong></p>
+<p>The Sequence protocol makes no requirement on conforming types regarding<br>whether they will be destructively consumed by iteration. As a<br>consequence, don’t assume that multiple for-in loops on a sequence<br>will either resume iteration or restart from the beginning:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; for element in sequence &#123;</span><br><span class="line">&gt;     if ... some condition &#123; break &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; for element in sequence &#123;</span><br><span class="line">&gt;     // No defined behavior</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Countdown: Sequence, InteratorProtocol &#123;</span><br><span class="line">	var count: Int </span><br><span class="line">	init(count: Int)&#123;</span><br><span class="line">		self.count = count</span><br><span class="line">	&#125;</span><br><span class="line">	func next() -&gt; Int?&#123;</span><br><span class="line">		if count == 0 &#123;</span><br><span class="line">			return nil</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			differ &#123;</span><br><span class="line">				count -=1</span><br><span class="line">			&#125;</span><br><span class="line">			return count;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var countDown = Countdown(count:5)</span><br><span class="line">print(&quot;begin for in 1&quot;)</span><br><span class="line">for c in countDown &#123;</span><br><span class="line">	print(c)</span><br><span class="line">&#125;</span><br><span class="line">print(&quot;end for in 1&quot;)</span><br><span class="line">print(&quot;begin for in 2&quot;)</span><br><span class="line">for c in countDown &#123;</span><br><span class="line">    print(c)</span><br><span class="line">&#125;</span><br><span class="line">print(&quot;end for in 2&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>最后输出结果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">begin for in 1</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">end for in 1</span><br><span class="line">begin for in 2</span><br><span class="line">end for in 2</span><br></pre></td></tr></table></figure>
+
+<p>很明显，第二次没有输出任何结果，原因就是第二次for in的时候，并没有将 count 重值。</p>
+<p><strong>数组都实现了哪些协议</strong></p>
+<p>mutableCollection ,实现了可修改的数组，如 a[1] = 2<br>ExpressibleByArrayLiteral 实现了数组可一次从[1,2,3]这种字面初始化的能力</p>
+<p><strong>如何自定义模式匹配</strong></p>
+<p>这部分不太懂，贴个链接吧 <a href="http://swifter.tips/pattern-match/" target="_blank" rel="noopener">http://swifter.tips/pattern-match/</a></p>
+<p><strong>autoclosure 的作用</strong></p>
+<p>自动闭包，会自动将某一个表达式封装为闭包，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func autoClosureFunction(_ closure: @autoclosure () -&gt; Int)&#123;</span><br><span class="line">	closure()</span><br><span class="line">&#125;</span><br><span class="line">autoClosureFunction(1)</span><br></pre></td></tr></table></figure>
+
+<p>详细可参考<a href="http://swifter.tips/autoclosure/" target="_blank" rel="noopener">http://swifter.tips/autoclosure/</a></p>
+<p><strong>编译选项 whole module optmization 优化了什么</strong></p>
+<p>编译器可以跨文件优化编译代码，不局限于一个文件<br><a href="http://www.jianshu.com/p/8dbf2bb05a1c" target="_blank" rel="noopener">http://www.jianshu.com/p/8dbf2bb05a1c</a></p>
+<p><strong>下面代码中mutating的作用是什么</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct Person&#123;</span><br><span class="line">	var name: String&#123;</span><br><span class="line">		mutating get &#123;</span><br><span class="line">			return store</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>让不可变对象无法访问属性name</p>
+<p><strong>如何让自定义对象支持字面量初始化</strong><br>有几个协议，分别是<br><code>ExpresssibleByArrayLiteral</code> 可以由数组形式初始化<br><code>ExpressibleByDictionaryLiteral</code>可以由字典形式初始化<br><code>ExpressibleByNilLiteral</code> 可以由nil值初始化<br><code>ExpressibleByIntegerLiteral</code> 可以由整数型初始化<br><code>ExpressibleByFloatLiteral</code>  可以由浮动数初始化<br><code>ExpressibleByBooleanLiteral</code> 可以由布尔值初始化</p>
+<p><strong>dynamic framework 和 static framework 的区别是什么</strong></p>
+<p>静态库是每一个程序单独打包一份，而动态库则是多个程序之间共享</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/02/Swift/" data-id="cjvtnavy6000mtyb80wu6un5l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/04/CocosPodError/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CocosPod 常见错误
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/01/lock/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS中几种常用的锁</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

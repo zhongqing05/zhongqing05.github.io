@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>可选链 、错误处理、类型转换、嵌套类型 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="可选链（Optional Chaining）式调用是一种可以在当前值为nil的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是nil，那么调用将返回nil 使用可选链式调用代替强制展开通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可选链 、错误处理、类型转换、嵌套类型">
+<meta property="og:url" content="http://yoursite.com/2019/04/25/option/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="可选链（Optional Chaining）式调用是一种可以在当前值为nil的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是nil，那么调用将返回nil 使用可选链式调用代替强制展开通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-07T15:15:03.259Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="可选链 、错误处理、类型转换、嵌套类型">
+<meta name="twitter:description" content="可选链（Optional Chaining）式调用是一种可以在当前值为nil的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是nil，那么调用将返回nil 使用可选链式调用代替强制展开通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-option" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/25/option/" class="article-date">
+  <time datetime="2019-04-25T08:40:03.058Z" itemprop="datePublished">2019-04-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      可选链 、错误处理、类型转换、嵌套类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>可选链（Optional Chaining）式调用</strong>是一种可以在当前值为<code>nil</code>的可选值上请求和调用属性、方法及下标的方法。如果可选值有值，那么会调用成功；如果可选值是<code>nil</code>，那么调用将返回<code>nil</code></p>
+<h5 id="使用可选链式调用代替强制展开"><a href="#使用可选链式调用代替强制展开" class="headerlink" title="使用可选链式调用代替强制展开"></a>使用可选链式调用代替强制展开</h5><p>通过调用的属性、方法或下标的可选值后面放一个问号 ‘？‘，可以定义一个可选链。这一点很像在可选值后面放一个叹号’!‘来强制展开它的值。它们主要的区别在于可选值为空时可选链式调用只会调用失败，然后强制展开会将触发运行时错误。</p>
+<h5 id="可选链式调用定义模型"><a href="#可选链式调用定义模型" class="headerlink" title="可选链式调用定义模型"></a>可选链式调用定义模型</h5><p>通过使用可选链式调用可以调用多层属性、方法和下标。这样可以在复杂的模型中向下访问各种子属性，并且判断能否访问子属性的属性、方法或下标</p>
+<h5 id="通过可选链式调用访问属性"><a href="#通过可选链式调用访问属性" class="headerlink" title="通过可选链式调用访问属性"></a>通过可选链式调用访问属性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//这里没有去创建相关的类。</span><br><span class="line">let john = Person()</span><br><span class="line">if let roomCount = john.residence?.numberOfRooms &#123;</span><br><span class="line"></span><br><span class="line">&#125;else &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过可选链式调用方法"><a href="#通过可选链式调用方法" class="headerlink" title="通过可选链式调用方法"></a>通过可选链式调用方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if john.residence?.printNumberOfRooms() != nil &#123;</span><br><span class="line">	print(&quot;It was possible to print the number of rooms&quot;)</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	print(&quot;It was not possible to print teh number of rooms&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过可选链式调用访问下标"><a href="#通过可选链式调用访问下标" class="headerlink" title="通过可选链式调用访问下标"></a>通过可选链式调用访问下标</h5><p>通过可选链式调用，我们可以在一个可选值上访问下标，并且判断下标调用是否成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if let firstRoomName = john.residence?[0].name &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">//用可选链调用来赋值</span><br><span class="line">john.residence?[0] = Room(name: &quot;Bathroom&quot;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="链接多层可选链式调用"><a href="#链接多层可选链式调用" class="headerlink" title="链接多层可选链式调用"></a>链接多层可选链式调用</h5><p>可选通过连接多个可选链式调用在更深的模型层次中访问属性、方法以及下标。然而，多层可选链式调用不会增加返回可选值的可选层次。</p>
+<p>通过可可选链式访问一个Int值，将返回Int？，无论使用了多层可选链式调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if let johnsStreet = john. john.residence?.address?.street &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>错误处理是响应错误以及从错误中恢复的过程。</p>
+<h4 id="表示并抛出错误"><a href="#表示并抛出错误" class="headerlink" title="表示并抛出错误"></a>表示并抛出错误</h4><p>在Swift中，错误用符合<code>Error</code>协议的类型的值来表示。这个空协议表明该类型可以用于错误处理</p>
+<p>Swift枚举类型尤为适合构建一组相关的错误状态，枚举的关联值还可以提供错误状态的额外信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum VendingMachineError : Error &#123;</span><br><span class="line">	case invalidSelection  		//选择无效</span><br><span class="line">	case insufficientFunds( coinsNeeded: Int)  //金额不足</span><br><span class="line">	case outOfStock 				//缺货</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>抛出错误使用 <code>throw</code>关键字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">throw  VendingMachineError.insufficientFunds(coinsNeeded: 5)</span><br></pre></td></tr></table></figure>
+
+<h4 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h4><p>Swift中有4种处理错误的方式。你可以把函数抛出的错误传递给调用此函数的代码、用 do-catch 语句处理错误、 将错误作为可选类型、或者断言此错误根本就不会发生。</p>
+<p>在调用一个能抛出错误的函数、方法或者构造器之前，加上 <code>try</code> 关键字，或者 try？ 或 try！ 这种变体。</p>
+<h5 id="用-throwing函数-传递错误"><a href="#用-throwing函数-传递错误" class="headerlink" title="用 throwing函数 传递错误"></a>用 throwing函数 传递错误</h5><p>为了标识一个函数、方法或构造器可以抛出错误，在函数声明的参数列表之后加上 <code>throws</code> 关键字。一个标有 <code>throws</code>关键字的函数称做 <strong>throwing</strong>函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func canThrowErrors() throws -&gt; String</span><br></pre></td></tr></table></figure>
+
+<p>一个throwing函数可以在其内部抛出错误，并将错误传递到函数被调用的作用域。</p>
+<p><strong>注意：</strong>只有throwing 函数可以传递错误。任何在某个非throwing函数内部抛出的错误只能在函数内部处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func vend(name: String) throws &#123;</span><br><span class="line">	guard name.isEmpty else &#123;</span><br><span class="line">		throw VendingMachineError.invalidSelection</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为vend(name:)方法会传递出它抛出的任何错误。在你的代码中调用此方法要么直接处理这些错误（使用do-catch，try？或try！）；要么继续将错误传递下去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func buyFavouriteSnack(person: String, vendingMachine: VendingMachine) throws &#123;</span><br><span class="line">	try vendingMachine.vend(name: snackName)</span><br><span class="line">&#125;</span><br><span class="line">//将错误继续传递下去</span><br></pre></td></tr></table></figure>
+
+<h5 id="用Do-Catch处理错误"><a href="#用Do-Catch处理错误" class="headerlink" title="用Do-Catch处理错误"></a>用Do-Catch处理错误</h5><p>如果在do子语句中的代码抛出了一个错误，这个错误会与catch子语句做匹配。从而决定哪条子句能处理它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">	try expression </span><br><span class="line">	statements</span><br><span class="line">&#125; catch pattern 1 &#123;</span><br><span class="line">	statements</span><br><span class="line">&#125; catch pattern 2 where condition &#123;</span><br><span class="line">	statements</span><br><span class="line">&#125;</span><br><span class="line">如果do代码块有错误抛出，相应的执行会马上转移到catch子句中，并判断这个错误是否要继续传递下去。如果没有错误抛出，do子句中余下的语句会被执行</span><br></pre></td></tr></table></figure>
+
+<h5 id="将错误转换成可选值"><a href="#将错误转换成可选值" class="headerlink" title="将错误转换成可选值"></a>将错误转换成可选值</h5><p>可以使用try？通过错误转换成一个可选值来处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func someThrowingFunction() throws -&gt; Int &#123;</span><br><span class="line">	//...</span><br><span class="line">&#125;</span><br><span class="line">let x = try? someThrowingFunction()</span><br><span class="line"></span><br><span class="line">let y: Int?</span><br><span class="line">do &#123;</span><br><span class="line">	y = try someThrowingFunction()</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">	y = nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果someThrowingFunction() 抛出错误，x和y的值都是nil。否则x和y的值是函数的返回值。无论someThrowingFunction()的返回值是什么类型，x，y都是这个类型的可选类型。</p>
+<h5 id="禁用错误传递"><a href="#禁用错误传递" class="headerlink" title="禁用错误传递"></a>禁用错误传递</h5><p>有时你知道某个throwing函数实际上运行时是不会抛出错误的，在这种情况下，你可以再表达式前面写try!来禁止用错误传递，这会把调用包装在一个不会有错误抛出的运行时断言中。如果有错误抛出，你会得到一个运行时错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let phone = try! loadImage(atPath: &quot;./Resources/John&quot;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h5><p>你可以使用 <code>defer</code>语句<strong>在即将离开当前代码块是执行一系列语句</strong>。该语句能执行一些必要清理工作。</p>
+<p>defer语句块将代码的执行延迟到当前作用域退出之前。延迟执行的语句不能包含任何控制转换语句，例如break、return语句或是抛出一个错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func processFile(filename: String) throws &#123;</span><br><span class="line">	if exists(filename) &#123;</span><br><span class="line">		let file = open(filename)</span><br><span class="line">		defer &#123;</span><br><span class="line">			close(file)</span><br><span class="line">		&#125;</span><br><span class="line">		while let line = try fiel.readline() &#123;</span><br><span class="line">			// 处理文件</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>类型转换可以判定实例的类型，也可以将实例看做是其父类或者子类的实例。</p>
+<p>类型转换在Swift中使用<code>is</code>和<code>as</code>操作符实现。你可以用这2个操作符去检查值的类型和转换它的类型，也可以用它来检查是否实现了某个协议</p>
+<h5 id="为类型转换定义类的层次"><a href="#为类型转换定义类的层次" class="headerlink" title="为类型转换定义类的层次"></a>为类型转换定义类的层次</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">class Movie: MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">class Song: MediaItem &#123;&#125;</span><br><span class="line"></span><br><span class="line">let library = [</span><br><span class="line">	Movie()</span><br><span class="line">	Song()</span><br><span class="line">]</span><br><span class="line">//数组 library 的类型被推断为[MediaItem]</span><br></pre></td></tr></table></figure>
+
+<h5 id="检查类型"><a href="#检查类型" class="headerlink" title="检查类型"></a>检查类型</h5><p>用<code>is</code>来检查实例是否属于某个特定的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for item in  library &#123;</span><br><span class="line">	if item is Movie &#123;</span><br><span class="line">		// is Movie</span><br><span class="line">	&#125;else if item is Song &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h5><p>某类型的一个常量或变量可能在幕后实际上是属于一个子类。当确定这种情况时，你可以尝试向下转到它的子类型。用 <code>as?</code> 或 <code>as!</code></p>
+<p>向下转型可能会失败。as？返回一个你试图向下转成的类型的可选类型。as！是试图向下转型和强制解包转换结果结为一体。如果失败会触发运行时错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for item in library &#123;</span><br><span class="line">	if let movie = item as? Movie &#123;</span><br><span class="line">		//is Movie</span><br><span class="line">	&#125;else if let song = item as? Song &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Any-和-AnyObject"><a href="#Any-和-AnyObject" class="headerlink" title="Any 和 AnyObject"></a>Any 和 AnyObject</h4><p>Swift 中提供了2中特殊的类型别名：</p>
+<ul>
+<li>Any 可以表示任何类型，包括函数类型</li>
+<li>AnyObject 可以表示任何类类型的实例</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var things = [Any]()</span><br><span class="line">things.append(0)</span><br><span class="line">things.append(0.0)</span><br><span class="line">things.append(&quot;hello&quot;)</span><br><span class="line"></span><br><span class="line">let optionalInt : Int? = 3</span><br><span class="line">things.append(optionalInt) //有警告</span><br><span class="line">things.append(optionalInt as Any) //没有警告</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><br>Any类型可以表示所有类型的值，包括可选类型。Swift会在你用Any类型来表示一个可选类型的时候，会给你一个警告。如果你确实想使用Any类型来承载一个可选值，你可以使用as 操作符显示转换为Any</p>
+<h4 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h4><p>枚举被常用于为特定的类或结果实现某些功能。类似的，枚举可以方便的定义工具类或结构体。Swift 允许定义嵌套类型，可以在支持的类型中定义嵌套的枚举、类和结构体</p>
+<h5 id="嵌套类型实践"><a href="#嵌套类型实践" class="headerlink" title="嵌套类型实践"></a>嵌套类型实践</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">struct BlackjackCard &#123;</span><br><span class="line">	//嵌套的 Suit 枚举</span><br><span class="line">	enum Suit: Character &#123;</span><br><span class="line">		case spades = &quot;♠&quot;, hearts = &quot;♡&quot;, diamonds = &quot;♢&quot;, clubs = &quot;♣&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//嵌套的Rank类型</span><br><span class="line">	enum Rank: Int &#123;</span><br><span class="line">		case two = 2, three, four, five, six, seven, eight, nine, ten </span><br><span class="line">		case jack , queen, king, ace</span><br><span class="line">		</span><br><span class="line">		struct Values &#123;</span><br><span class="line">			let first: Int, second: Int?</span><br><span class="line">		&#125;</span><br><span class="line">		var values: Values &#123;</span><br><span class="line">			switch self &#123;</span><br><span class="line">				case  .ace:</span><br><span class="line">					return Values(first: 1 ,second: 11)</span><br><span class="line">				case: .jack, .queen, .king</span><br><span class="line">					return Values(first: 10, second: nil)</span><br><span class="line">				default:</span><br><span class="line">					return Values(first: self.rawValue, second: nil)</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	let rank: Rank, suit: Suit</span><br><span class="line">	var description: String &#123;</span><br><span class="line">		var output = &quot;suit is \(suit.rawValue),&quot;</span><br><span class="line">		output += &quot;values is \(rank.values.first)&quot;</span><br><span class="line">		if let second = rank.values.second &#123;</span><br><span class="line">			output += &quot;or\(second)&quot;</span><br><span class="line">		&#125;</span><br><span class="line">		return output</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let theAceOfSpades = BlackjackCard(rank: .ace, suit:.spades);</span><br><span class="line">print(&quot;\(theAceOfSpades.description)&quot;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/25/option/" data-id="cjvtnavyk0019tyb8kcjinyvv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/28/extension/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          扩展
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/24/init/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">构造过程与析构过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

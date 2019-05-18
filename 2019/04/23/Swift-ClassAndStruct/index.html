@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>类和结构体  属性 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="类和结构体类和结构体的对比共同点：  定义属性用于存储值 定义方法用于提供功能 定义下标操作通过下标语法可以访问它们的值 定义构造器用于生成初始化值 通过扩展增加默认实现的功能 遵循协议提供某种标准功能  与结构体相比，类还有如下附加功能：  继承：允许一个类继承另一个类的特征 类型转换：允许在运行时检查和解释一个类实例的的类型 析构器：运行一个类实例释放任何其所被分配的资源 引用计数：允许对一个">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类和结构体  属性">
+<meta property="og:url" content="http://yoursite.com/2019/04/23/Swift-ClassAndStruct/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="类和结构体类和结构体的对比共同点：  定义属性用于存储值 定义方法用于提供功能 定义下标操作通过下标语法可以访问它们的值 定义构造器用于生成初始化值 通过扩展增加默认实现的功能 遵循协议提供某种标准功能  与结构体相比，类还有如下附加功能：  继承：允许一个类继承另一个类的特征 类型转换：允许在运行时检查和解释一个类实例的的类型 析构器：运行一个类实例释放任何其所被分配的资源 引用计数：允许对一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-24T02:22:21.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="类和结构体  属性">
+<meta name="twitter:description" content="类和结构体类和结构体的对比共同点：  定义属性用于存储值 定义方法用于提供功能 定义下标操作通过下标语法可以访问它们的值 定义构造器用于生成初始化值 通过扩展增加默认实现的功能 遵循协议提供某种标准功能  与结构体相比，类还有如下附加功能：  继承：允许一个类继承另一个类的特征 类型转换：允许在运行时检查和解释一个类实例的的类型 析构器：运行一个类实例释放任何其所被分配的资源 引用计数：允许对一个">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Swift-ClassAndStruct" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/23/Swift-ClassAndStruct/" class="article-date">
+  <time datetime="2019-04-23T08:01:27.777Z" itemprop="datePublished">2019-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      类和结构体  属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="类和结构体"><a href="#类和结构体" class="headerlink" title="类和结构体"></a>类和结构体</h3><h4 id="类和结构体的对比"><a href="#类和结构体的对比" class="headerlink" title="类和结构体的对比"></a>类和结构体的对比</h4><p>共同点：</p>
+<ul>
+<li>定义属性用于存储值</li>
+<li>定义方法用于提供功能</li>
+<li>定义下标操作通过下标语法可以访问它们的值</li>
+<li>定义构造器用于生成初始化值</li>
+<li>通过扩展增加默认实现的功能</li>
+<li>遵循协议提供某种标准功能</li>
+</ul>
+<p>与结构体相比，类还有如下附加功能：</p>
+<ul>
+<li>继承：允许一个类继承另一个类的特征</li>
+<li>类型转换：允许在运行时检查和解释一个类实例的的类型</li>
+<li>析构器：运行一个类实例释放任何其所被分配的资源</li>
+<li>引用计数：允许对一个类多次引用</li>
+</ul>
+<h4 id="定义语法"><a href="#定义语法" class="headerlink" title="定义语法"></a>定义语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class SomeClass&#123;</span><br><span class="line">	//在这里定义类</span><br><span class="line">&#125;</span><br><span class="line">struct SomeStructure&#123;</span><br><span class="line">	//</span><br><span class="line">&#125;</span><br><span class="line">注意命名风格</span><br></pre></td></tr></table></figure>
+
+<h4 id="类和结构体实例"><a href="#类和结构体实例" class="headerlink" title="类和结构体实例"></a>类和结构体实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Resolution&#123;</span><br><span class="line">	var width = 0</span><br><span class="line">	var height = 0</span><br><span class="line">&#125;</span><br><span class="line">let someResolution = Resolution()</span><br><span class="line">let someVideoMode = VideoMode()</span><br></pre></td></tr></table></figure>
+
+<p>结构体和类都使用构造器来生成新的实例。构造器最简单的形式就是在后面跟随一对空括号。通过这种方式其属性均会被初始化默认值。</p>
+<h4 id="属性访问"><a href="#属性访问" class="headerlink" title="属性访问"></a>属性访问</h4><p>通过点语法访问实例的属性。也可通过点语法为变量属性进行赋值</p>
+<h4 id="结构体类型的成员逐一构造器"><a href="#结构体类型的成员逐一构造器" class="headerlink" title="结构体类型的成员逐一构造器"></a>结构体类型的成员逐一构造器</h4><p>所有的结构体都有一个<strong>自动生成</strong>的成员逐一构造器，用于初始化新构体实例中成员的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let var = Resolution(width: 640, height: 4800)</span><br></pre></td></tr></table></figure>
+
+<h4 id="结构体和枚举是值类型"><a href="#结构体和枚举是值类型" class="headerlink" title="结构体和枚举是值类型"></a>结构体和枚举是值类型</h4><p>值类型被赋予一个变量、常量或者被传递给一个函数的时候，其值会被拷贝。</p>
+<h4 id="类是引用类型"><a href="#类是引用类型" class="headerlink" title="类是引用类型"></a>类是引用类型</h4><p>引用类型被赋予到一个变量、常量或者被传递到一个函数时，其值不会被拷贝。因此引用的是已存在的实例本身，不是其拷贝。</p>
+<h4 id="恒等运算符"><a href="#恒等运算符" class="headerlink" title="恒等运算符"></a>恒等运算符</h4><p>因为类是引用类型，有可能多个常量和变量在幕后同时引用同一个类实例。运用以下2个运算符检测两个常量或者变量是否引用同一个实例</p>
+<ul>
+<li>等价于（===）</li>
+<li>不等价于（!==）</li>
+</ul>
+<h4 id="类和结构体的选择"><a href="#类和结构体的选择" class="headerlink" title="类和结构体的选择"></a>类和结构体的选择</h4><p>当符合一条或者多条以下条件时，请考虑构建结构体</p>
+<ul>
+<li>该数据结构的主要目的是用来封装少量相关简单数据值</li>
+<li>有理由预计该数据结构的实例在被赋值或传递时，封装的数据将会被拷贝而不是被引用</li>
+<li>该数据结构不需要去继承另一个既有类型的属性或者行为</li>
+</ul>
+<p>注意：Swift中拷贝行为看起来总会发生，然而，Swift在幕后只用在决定必要时才执行实际拷贝。Swift管理所有的值拷贝以确保性能最优化，所以你没必要去回避赋值来保证性能最优化</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="存储属性"><a href="#存储属性" class="headerlink" title="存储属性"></a>存储属性</h4><p>存储属性就是存储在特定类或结构体实例里的一个常量或变量。可以在定义存储属性的时候指定特定默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct FixedLengthRange &#123;</span><br><span class="line">	var firstValue: Int</span><br><span class="line">	let length: Int</span><br><span class="line">&#125;</span><br><span class="line">var rangeOfThreeItems = FixedLengthRange(firstValue: 0, length: 3)</span><br><span class="line">rangeOfThreeItems.firstValue = 6</span><br></pre></td></tr></table></figure>
+
+<h5 id="常量结构体的存储属性"><a href="#常量结构体的存储属性" class="headerlink" title="常量结构体的存储属性"></a>常量结构体的存储属性</h5><p>如果创建了一个结构体的实例并将其赋值给一个常量，则无法修改该实例的任何属性，即使有属性被声明为变量也不行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)</span><br><span class="line">rangeOfFourItems.firtValue=6//这里会报错</span><br></pre></td></tr></table></figure>
+
+<p>这种行为由于结构体属于值类型。当值类型的实例被声明为常量的时候，它的所有属性也就成了常量</p>
+<h5 id="延迟存储属性"><a href="#延迟存储属性" class="headerlink" title="延迟存储属性"></a>延迟存储属性</h5><p>延迟存储属性是值当第一次调用的时候才会去计算其初始值的属性。在属性声明前使用<code>lazy</code>关键字。</p>
+<p>必须将延迟存储属性声明成变量，因为属性的初始值可能在实例构造完成后才会得到。而常量属性在构造过程完成之前必须要有初始值，因此无法声明成延迟属性。</p>
+<h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><p>除存储属性外，类、结构体、和枚举可以定义计算属性。计算属性不直接存储值，而是通过一个getter和一个可选的setter来间接获取和设置其他属性或变量的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">struct Point &#123;</span><br><span class="line">	var x = 0.0, y = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Size &#123;</span><br><span class="line">	Var width = 0.0, height = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Rect &#123;</span><br><span class="line">	var origin = Point()</span><br><span class="line">	var size = Size()</span><br><span class="line">	var center: Point&#123;</span><br><span class="line">		get &#123;</span><br><span class="line">			let centerX = orign.x + (size.width / 2)</span><br><span class="line">			let centerY = orign.y + (size.height / 2)</span><br><span class="line">			return Point(x: centerX, y: centerY)</span><br><span class="line">		&#125;</span><br><span class="line">		set(newCenter)&#123;</span><br><span class="line">			orign.x = newCenter.x - (size.width / 2)</span><br><span class="line">			orign.y = newCenter.y - (size.height / 2)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var square = Rect(origin: Point(x: 0.0, y0.0), size: Size(width: 10.0, height: 10.0))</span><br><span class="line">let initCenter = square.center</span><br><span class="line">square.center = Point(x: 15.0, y: 15.0)</span><br></pre></td></tr></table></figure>
+
+<h5 id="简化Setter声明"><a href="#简化Setter声明" class="headerlink" title="简化Setter声明"></a>简化Setter声明</h5><p>如果计算属性的setter没有定义表示新值的参数名，则可以使用默认名称 newValue。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct AlternativeRect&#123;</span><br><span class="line">	var orign = Point()</span><br><span class="line">	var size = Size()</span><br><span class="line">	var center: Point &#123;</span><br><span class="line">		get &#123;</span><br><span class="line">			let centerX = origin.x + (size.width / 2)</span><br><span class="line">			let centerY = origin.y + (size.height / 2)</span><br><span class="line">			return Point(x: centerX, y: centerY)</span><br><span class="line">		&#125;</span><br><span class="line">		set &#123;</span><br><span class="line">			orign.x = newValue.x - (size.width / 2)</span><br><span class="line">			orign.y = newValue.y - (size.height / 2)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="只读计算属性"><a href="#只读计算属性" class="headerlink" title="只读计算属性"></a>只读计算属性</h5><p>只有geter 没有setter 的计算属性就是只读计算属性。只读计算属性总是返回一个值。<br>只读计算属性的声明可以去掉 <code>get</code>关键字和大括号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Clubid&#123;</span><br><span class="line">	var width = 0.0, height = 0.0, depth = 0.0</span><br><span class="line">	var volume: Double &#123;</span><br><span class="line">		return  width * height * depth</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性观察器"><a href="#属性观察器" class="headerlink" title="属性观察器"></a>属性观察器</h4><p>属性观察器监控和响应属性值的变化，每次属性设置的时候都会调用属性观察器。</p>
+<p><code>willSet</code>在新的值被设置之前调用</p>
+<p><code>didSet</code>在新的被设置之后立即调用</p>
+<p><em>注意：<br>父类的属性在子类的构造器中被赋值时，它在父类中的willSet 和didSet 观察器会被调用，随后才会调用子类的观察器</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class SetpCounter &#123;</span><br><span class="line">	var totalSteps: Int = 0 &#123;</span><br><span class="line">		willSet(newTotalSteps)&#123;</span><br><span class="line">			print(&quot;About to set totalSteps to \(newTotalSteps)&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		didSet&#123;</span><br><span class="line">			if</span><br><span class="line">			totalSteps &gt; oldValue &#123;</span><br><span class="line">				print(&quot;Added \(totalSteps - oldValue) steps&quot;)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="全局变量和局部变量"><a href="#全局变量和局部变量" class="headerlink" title="全局变量和局部变量"></a>全局变量和局部变量</h4><p>计算属性和属性观察器所描述的功能也可以用于<code>全局变量</code>和<code>局部变量</code></p>
+<p>全局变量和局部变量都属于存储型变量，跟存储属性类似。另外全局和局部范围都可以定义计算型变量和为存储型变量定义观察器。计算型变量跟计算属性一样，返回一个计算结果而不是存储值，声明格式也一样</p>
+<blockquote>
+<p>注意</p>
+<p>全局的常量或变量都是延迟计算的，跟延迟存储属性相似，不同的地方在于，全局常量或变量不需要标记lazy修饰符。</p>
+<p>局部范围的常量或变量从不延迟计算</p>
+</blockquote>
+<h4 id="类型属性"><a href="#类型属性" class="headerlink" title="类型属性"></a>类型属性</h4><p>给类型定义属性，无论你创建多少个该类型的实例，这些属性都只有唯一一份。这种属性就是<code>类型属性</code></p>
+<p>存储型类型属性可以是变量或常量，计算行类型属性跟实例的计算型属性一样只能定义成变量属性</p>
+<h5 id="类型属性语法"><a href="#类型属性语法" class="headerlink" title="类型属性语法"></a>类型属性语法</h5><p>使用关键字 <code>static</code>定义类型属性。在为类定义计算型类型属性时，可以改用关键字 <code>class</code>来支持子类对父类的实现进行重写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">struct SomeStructure &#123;</span><br><span class="line">	static var storedTypeProperty = &quot;Some Value&quot;</span><br><span class="line">	static var computedTypeProperty: Int &#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum SomeEnumeration &#123;</span><br><span class="line">	static var storedTypeProterty = &quot;Some Value&quot;</span><br><span class="line">	static var computedTypeProperty: Int &#123;</span><br><span class="line">		return 6</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">class SomeClass &#123;</span><br><span class="line">	static var storedTypeProperty = &quot;SomeValue&quot;</span><br><span class="line">	static var computedTypeProperty: Int &#123;</span><br><span class="line">		return 27</span><br><span class="line">	&#125;</span><br><span class="line">	cass var overridebaleProperty: Int &#123;</span><br><span class="line">		return 107</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">注意：</span><br><span class="line">跟实例的存储属性不同，必须给存储属性指定默认值。因为类型本身没有构造器，也就无法在初始化过程中使用构造器给类型属性赋值。</span><br><span class="line">存储型类型属性是延迟初始化的，他们只有再第一次访问的时候才会被初始化。即使他们被多个线程同时访问，系统也保证只会对其进行一次初始化，并且不需要对其使用`lazy`修饰符</span><br></pre></td></tr></table></figure>
+
+<h5 id="获取和设置类型属性的值"><a href="#获取和设置类型属性的值" class="headerlink" title="获取和设置类型属性的值"></a>获取和设置类型属性的值</h5><p>跟实例属性一样，类型属性也是通过点语法访问。但是，类型属性是通过类型本身来访问，而不是通过实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let type = SomeClass.computedTypeProperty</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/23/Swift-ClassAndStruct/" data-id="cjvtnavxz000atyb8zex68tw7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/23/method_subscripte/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          方法 下标 继承
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/19/enum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">枚举</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

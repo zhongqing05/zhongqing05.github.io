@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>闭包 | 黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="闭包定义闭包是自包含的函数代码块，可以在代码中被传递和使用。 闭包可以捕获和存储所在上下文任意的常量和变量的引用 全局和嵌套函数实际上也是特殊的闭包，闭包采取如下三种形式之一  全局函数是一个有名字但不会捕捉任何值的闭包 嵌套函数是一个有名字可以捕获其封闭函数域内值的闭包 闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量的匿名闭包  闭包表达式语法1234//闭包表达式语法有如下的">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闭包">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/closure/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="闭包定义闭包是自包含的函数代码块，可以在代码中被传递和使用。 闭包可以捕获和存储所在上下文任意的常量和变量的引用 全局和嵌套函数实际上也是特殊的闭包，闭包采取如下三种形式之一  全局函数是一个有名字但不会捕捉任何值的闭包 嵌套函数是一个有名字可以捕获其封闭函数域内值的闭包 闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量的匿名闭包  闭包表达式语法1234//闭包表达式语法有如下的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-23T10:05:45.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="闭包">
+<meta name="twitter:description" content="闭包定义闭包是自包含的函数代码块，可以在代码中被传递和使用。 闭包可以捕获和存储所在上下文任意的常量和变量的引用 全局和嵌套函数实际上也是特殊的闭包，闭包采取如下三种形式之一  全局函数是一个有名字但不会捕捉任何值的闭包 嵌套函数是一个有名字可以捕获其封闭函数域内值的闭包 闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量的匿名闭包  闭包表达式语法1234//闭包表达式语法有如下的">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-closure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/17/closure/" class="article-date">
+  <time datetime="2019-04-17T10:38:17.728Z" itemprop="datePublished">2019-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      闭包
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="闭包定义"><a href="#闭包定义" class="headerlink" title="闭包定义"></a>闭包定义</h4><p>闭包是自包含的函数代码块，可以在代码中被传递和使用。</p>
+<p>闭包可以捕获和存储所在上下文任意的常量和变量的引用</p>
+<p>全局和嵌套函数实际上也是特殊的闭包，闭包采取如下三种形式之一</p>
+<ul>
+<li>全局函数是一个有名字但不会捕捉任何值的闭包</li>
+<li>嵌套函数是一个有名字可以捕获其封闭函数域内值的闭包</li>
+<li>闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量的匿名闭包</li>
+</ul>
+<h4 id="闭包表达式语法"><a href="#闭包表达式语法" class="headerlink" title="闭包表达式语法"></a>闭包表达式语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//闭包表达式语法有如下的一般形式：</span><br><span class="line">&#123; (parameters) -&gt; return type in</span><br><span class="line">	statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>闭包表达是可以是in-out参数，但不能设定默认值</p>
+<h4 id="单表达式闭包隐式返回"><a href="#单表达式闭包隐式返回" class="headerlink" title="单表达式闭包隐式返回"></a>单表达式闭包隐式返回</h4><p>单行表达式闭包可以省略 <code>return</code>关键字来隐士的返回单行表达式的结果。</p>
+<p>sorted(by:{s1, s2 in s1 &gt; s2})<br>因为这里只包含了一个单一表达式 s1&gt;s2</p>
+<h4 id="尾随闭包："><a href="#尾随闭包：" class="headerlink" title="尾随闭包："></a>尾随闭包：</h4><p>尾随闭包是一个写在函数括号之后的闭包表达式，函数将其作为最后一个参数调用。在使用尾随闭包时，你不用写出它的参数标签：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">someFunctionThatTakesAClosure()&#123;</span><br><span class="line">	//闭包主体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="闭包是引用类型"><a href="#闭包是引用类型" class="headerlink" title="闭包是引用类型"></a>闭包是引用类型</h4><h4 id="逃逸闭包："><a href="#逃逸闭包：" class="headerlink" title="逃逸闭包："></a>逃逸闭包：</h4><p>当一个闭包作为参数传到一个函数中，但是这个闭包在函数返回后才被执行，我们称该改闭包从函数中逃逸。@escaping 标记这个闭包是允许“逃逸”出这个函数的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var completeionHandles: [() -&gt; Void] = []</span><br><span class="line">func someFunctionWithEscapingClosure(completionHandler: @escaping () -&gt; Void)&#123;</span><br><span class="line">	completeionHandles.append(completionHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将一个闭包标记为 @escaping 意味着你必须在闭包中显式地引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func someFunctionWithNonescapingClosure(closure: () -&gt; Void)&#123;</span><br><span class="line">	closure()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SomeClass&#123;</span><br><span class="line">	var x = 10</span><br><span class="line">	func doSomething()&#123;</span><br><span class="line">		someFunctonWithEscapingClosure&#123; self.x = 100 &#125;</span><br><span class="line">		someFunctionWithNonescapingClosure&#123; x = 200 &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动闭包"><a href="#自动闭包" class="headerlink" title="自动闭包"></a>自动闭包</h4><p>自动闭包是一种自动创建的闭包，用于包装传递给函数作为参数的表达式。这种闭包不接受任何参数，当它被调用的时候会返回被包装在其中的表达式</p>
+<p>自动闭包让你能够延迟求值，因为直到你调用这个闭包，代码段才会被执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var customersInLine = [&quot;Chris&quot;,&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;,&quot;Daniella]</span><br><span class="line">print(customersInLine.count)</span><br><span class="line">// 打印出 &quot;5&quot;</span><br><span class="line">let customerProvider = &#123; customersInLine.remove(at: 0) &#125;</span><br><span class="line">print(customersInLine.count)</span><br><span class="line">// 打印出 &quot;5&quot;</span><br><span class="line">print(&quot;Now serving&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>如果你想让一个自动闭包可以“逃逸”，则应该同时使用 <code>@autoclosure</code>和 <code>@escaping</code>属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var customersInLine = [&quot;Barry&quot;,&quot;Daniella&quot;]</span><br><span class="line">var customerProviders: [() -&gt; String] = []</span><br><span class="line">func collectCustomerProviders(_ customerProvider: @autoclosure @escaping () -&gt; String)&#123;</span><br><span class="line">	customerProviders.append(customerProvider)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">collectCustomerProviders(customersInLine.remove(at: 0))</span><br><span class="line">collectCustomerProviders(customersInLine.remove(at: 0))</span><br><span class="line">print(&quot;Collected \(customerProviders.count) closures.&quot;)</span><br><span class="line">// 打印 &quot;Collected 2 closures.&quot;</span><br><span class="line">for customerProvider in customerProviders &#123;</span><br><span class="line">    print(&quot;Now serving \(customerProvider())!&quot;)</span><br><span class="line">&#125;</span><br><span class="line">// 打印 &quot;Now serving Barry!&quot;</span><br><span class="line">// 打印 &quot;Now serving Daniella!&quot;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/17/closure/" data-id="cjvtnavy3000gtyb8cre1uqeu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/19/enum/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          枚举
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/16/block/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">浅谈iOS中的Block</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

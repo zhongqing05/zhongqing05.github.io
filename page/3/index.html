@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>黑夜传说</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta name="keywords" content="Object-C 、Swift">
+<meta property="og:type" content="website">
+<meta property="og:title" content="黑夜传说">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="黑夜传说">
+<meta property="og:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="黑夜传说">
+<meta name="twitter:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+  
+    <link rel="alternate" href="/atom.xml" title="黑夜传说" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">黑夜传说</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">机会都是留给有准备的人！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Data_persistence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/27/Data_persistence/" class="article-date">
+  <time datetime="2019-03-27T04:08:44.516Z" itemprop="datePublished">2019-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/Data_persistence/">数据持久化的方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文来自: <a href="https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html" target="_blank" rel="noopener">https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html</a></p>
+<h3 id="1-NSUserDefault"><a href="#1-NSUserDefault" class="headerlink" title="1 NSUserDefault"></a>1 NSUserDefault</h3><p>一般来说，小规模数据，弱业务相关数据，都可以放到NSUserDefault里面，内容比较多的数据，强业务相关的数据就不太适合NSUserDefault了。</p>
+<h3 id="2-keychain"><a href="#2-keychain" class="headerlink" title="2 keychain"></a>2 keychain</h3><p>KeyChain 是苹果提供的带有可逆加密的存储机制，普遍用在各种存密码的需求上。另外，由于App卸载只要系统不重装，KeyChain中的数据依旧能够的到保留，依旧可被iCloud同步特性，大家都会在这里存储用户唯一标识串。所有有需要加密，需要存储iCloud的敏感小数据，一般都会放在Keychain。</p>
+<h3 id="3-文件存储"><a href="#3-文件存储" class="headerlink" title="3 文件存储"></a>3 文件存储</h3><p>文件存储包括了Plist，archive，Stream等方式。一般结构化的数据或者需要方便查询的数据，都会以Plist的方式去持久化。Archive方式适合存储平时不太经常使用但很大量的数据，或者读取之后希望直接对对象的数据，因为Archive会将对数据及其对象关系序列化，以至于读取数据的时候需要Decode很花时间，Decode的过程是解压，也可以是序列化，这个可以根据具体<nscoding>中的实现来决定。Stream就是一般的文件存储了。一般用来存存图片啥的。适用于经常使用，然而数据量又不算非常大的那种。</nscoding></p>
+<h3 id="4-数据库存储"><a href="#4-数据库存储" class="headerlink" title="4 数据库存储"></a>4 数据库存储</h3><p>数据库存储，样式就比较多了。苹果自带了一个CoreData，当然业界也有无数代替可选的方案，不过真正用在iOS领域的除了CoreData外，就是FMDB比较多了。数据库方案主要是为了便于增删改查，当数据有状态和类别的时候最好还是采用数据库方案比较好，而且尤其是这些状态和类别都是强业务相关的时候，就更加采用数据库方案了。<br>因为你不可能通过文件系统遍历文件去甄别你需要获取某个状态或类别的数据，这么做成本太大了。当然，特别大量的数据也不合适直接存储数据库，比如图片或者文章这样的数据，一般来说，都是数据库存一个文件名，然后这个文件名指向的是某个图片或者文章的文件。如果真的要做全文索引这种需求，建议最好还是挂个API丢到服务端去做。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/27/Data_persistence/" data-id="cjvtnavxe0000tyb8g76v7h8l" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-MRC-ARC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/26/MRC-ARC/" class="article-date">
+  <time datetime="2019-03-26T06:23:42.292Z" itemprop="datePublished">2019-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/26/MRC-ARC/">内存管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MRC-与-ARC"><a href="#MRC-与-ARC" class="headerlink" title="MRC 与 ARC"></a>MRC 与 ARC</h1><p>Objective-C中提供了两种内存管理机制：MRC（MannulReference Counting）和 ARC(Automatic Reference Counting)，分别提供对内存的手动和自动管理，来满足不同的需求。现在苹果推荐使用 ARC 来进行内存管理。</p>
+<h2 id="MRC"><a href="#MRC" class="headerlink" title="MRC"></a>MRC</h2><p><strong>对象操作的四个类别</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作对象</th>
+<th>OC中对应的方法</th>
+<th>对应的retainCount变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>持有并生成对象</td>
+<td>alloc/new/mutableCopy等</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>持有对象</td>
+<td>retain</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>释放对象</td>
+<td>release.</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>废弃对象</td>
+<td>dealloc</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>注意<br>1 这些对象操作的方法并不包含在OC中，而是包含在cocoa框架下的Foundation框架中。从iOS7开始，这些方法被移到Runtime当中，可以<a href="https://apple-opensource.s3-website-us-east-1.amazonaws.com/source/objc4/objc4-680/runtime/NSObject.h" target="_blank" rel="noopener">objc4-680 NSObject.h</a> 找到<br>2 对象的 reatinCount 属性并没有实际上的参考价值，参考苹果官方文档<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html" target="_blank" rel="noopener">《Practical Memory Management》</a>.</p>
+<h3 id="四个法则"><a href="#四个法则" class="headerlink" title="四个法则"></a>四个法则</h3><ol>
+<li>自己生成的对象，自己持有</li>
+<li>非自己生成的对象，自己也能持有</li>
+<li>不在需要自己持有的对象的时候，释放</li>
+<li>非自己持有的对象无需释放</li>
+</ol>
+<p><code>autorelease</code>使得对象在超出生命周期后能正确的释放（通过调用release方法）调用release后对象会被立即释放，而调用<code>outorelease</code>后对象不会立即释放，而是注册到<code>autoreleasepool</code>中，经过一段时间后pool结束，此时调用release方法，对象被释放。</p>
+<p>在MRC的内存管理模式下，对变量的相关的方法有：<code>reatin</code> ，<code>release</code>和 <code>autorelease</code>。reatin和release方法操作是引用计数，当引用计数为0时，便自动释放内存。并且可以用NSAutoreleasePool对象，对加入自动释放池（autorelease调用）的变量进行管理，当drain时回收内存</p>
+<h2 id="ARC"><a href="#ARC" class="headerlink" title="ARC"></a>ARC</h2><p>ARC是苹果引入的自动内存管理机制。会根据引用计数自动监测对象的生命周期，实现方式是编译时期自动在已有代码中合适的内存管理代码以以及在Runtime做一些优化。</p>
+<h3 id="变量标识符"><a href="#变量标识符" class="headerlink" title="变量标识符"></a>变量标识符</h3><ol>
+<li>__strong</li>
+<li>__weak</li>
+<li>___unsafe_unretained</li>
+<li>__autoreleasing</li>
+</ol>
+<p><code>__strong</code>是默认使用标识符 只要还有一个强指针指向某个对象，这个对象就会一直存活</p>
+<p><code>__weak</code> 声明这个引用不会保存被引用对象的存活，如果对象没有强引用了，弱引用会被置为nil</p>
+<p><code>__unsafe_unretained</code>声明这个引用不会保存引用对象的存活，如果对象没有强引用了，它不会被置为nil。如果它引用的对象被回收掉了，该指针就变成野指针。</p>
+<p><code>__autoreleasing</code> 用于标识使用引用传值的参数（id*），在函数返回时会被自动释放掉。</p>
+<p>变量标识用法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number* __strong num = [[Number alloc] init];</span><br></pre></td></tr></table></figure>
+
+<p>注意 __strong 的位置应该放到 * 和变量名中间，放到其它位置严格上说不正确的，但编译不会报错</p>
+<h3 id="属性标识符"><a href="#属性标识符" class="headerlink" title="属性标识符"></a>属性标识符</h3><p><code>assign</code> 表明setter仅仅是一个简单的赋值操作，通常用于基本数据类型。</p>
+<p><code>strong</code>表明属性定义一个拥有者关系。当给属性设定一个新值的时候，首先这个值进行retain，旧值进行release，然后进行赋值操作</p>
+<p><code>weak</code>表明属性定义一个非拥有者关系，当给属性定义一个新值的时候，这个值不会进行retain，旧值也不会进行release，而是进行类似assign的操作。不过当属性指向的对象被销毁时，该属性会被置为nil</p>
+<p><code>unsafe_unreatained</code> 的语义和assign类似，不过是用于对象类型。表示一个非拥有（unretained）的，同时也不会在对象销毁时置nil的（unsafe）关系</p>
+<p><code>copy</code>类似strong，不过赋值是进行copy操作不是retain操作。通常在需要保留某个可变对象（NSString最常见），并且防止它被意外的串改。</p>
+<p><strong>unsafe_unretained 的用处</strong><br>unsafe_unretained 差不多是实际使用最少的一个标识符了，在使用中它的用处主要有下面几点：<br>1 兼容性考虑。iOS4以及之前还没有引入weak，这种情况下表达弱引用的语义只能使用unsafe_unretained。现在这种情况很少使用了。<br>2 性能考虑。使用weak对性能有一些影响，因此对性能要求高的话可以考虑使用unsafe_unretained 替换weak。</p>
+<h3 id="引用循环"><a href="#引用循环" class="headerlink" title="引用循环"></a>引用循环</h3><p>当2个对象相互持有对方的强引用，并且这2个对象的引用计数都不是0的时候，便造成了引用循环。要想破除引用循环，可以从以下几点入手</p>
+<blockquote>
+<ol>
+<li>注意变量作用域，使用autorelease 让编译器来处理引用。</li>
+<li>使用弱引用weak</li>
+<li>当实例变量完成工作后，将其置为nil</li>
+</ol>
+</blockquote>
+<h3 id="AutoRelease-Pool"><a href="#AutoRelease-Pool" class="headerlink" title="AutoRelease Pool"></a>AutoRelease Pool</h3><p>AutoRelease Pool 提供一种可以允许你向一个对象延迟发送release操作的机制。当你想放弃一个对象的所有权，同时又不希望这个对象立马被释放掉（例如在一个方法中返回一个对象时），AutoRelease Pool的作用就显现出来了</p>
+<p>所谓延迟发送 release 消息是指，当我们把一个对象标记为autorelease时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString* str = [[[NSString alloc] initWithString:@&quot;hello&quot;] autorelease];</span><br></pre></td></tr></table></figure>
+
+<p>这个对象的retainCount会+1，但并不会发送release。当这段语句所处的autoreleasepool 进行drain操作时，所标记了autorelease的对象的retainCount会被-1。即release消息发送被延迟到pool释放的时候。</p>
+<p>在ARC环境下，苹果引入了@autoreleasepool 语法，不再需要手动调用autorelease 和 drain 等方法。</p>
+<h4 id="AutoReleasePool的用处"><a href="#AutoReleasePool的用处" class="headerlink" title="AutoReleasePool的用处"></a>AutoReleasePool的用处</h4><p>在ARC下，我们并不需要手动调用autorelease有关的方法，甚至可以完全不知道autorelease的存在，就可以真确的管理好内存。因为Cocos Touch的RunLoop中，每个runloop circle中系统都自动加入AutoReleasePool的创建和释放。</p>
+<p>当我们创建和销毁大量对象时，使用手动创建AutoReleasePool 可以有效的避免内存峰值的出现。在这种情况不手动创建的话，外层系统创建的pool会在整个runloop circel结束之后drain，手动创建的话，会在block结束之后进行drain操作。下面是一个普遍的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> for (int i = 0; i &lt; 100000000; i++)</span><br><span class="line">&#123;</span><br><span class="line">    @autoreleasepool</span><br><span class="line">    &#123;</span><br><span class="line">        NSString* string = @&quot;abc&quot;;</span><br><span class="line">        NSArray* array = [string componentsSeparatedByString:string];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不使用autoreleasepool，需要在循环结束之后释放100000000个字符串，如果使用的话，则会在每次循环结束的时候都进行release操作。</p>
+<h4 id="AutoRelease-Pool-drain的时机"><a href="#AutoRelease-Pool-drain的时机" class="headerlink" title="AutoRelease Pool drain的时机"></a>AutoRelease Pool drain的时机</h4><p>如上面所说，系统在runloop 中创建的autoreleasepool 会在runloop一个event结束时进行释放操作。我们手动创建的autoreleasepool会在block执行完成之后进行drain操作。需要注意的是：</p>
+<ul>
+<li>当block以异常（exception）结束时，pool不会被drain，</li>
+<li>pool的drain操作会把所用标记为autorelase的对象进行引用计数-1，但并不意味着这个对象一定会被释放掉，我们可以在autorelease pool中手动retain 对象，以延长它的生命周期（在MRC中）。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/26/MRC-ARC/" data-id="cjvtnavy2000etyb8z097ddbo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-post-title" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/post-title/" class="article-date">
+  <time datetime="2019-03-22T04:15:52.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/post-title/">苹果证书如何转pem文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>openssl x509 -in apns_miaobozhibo.cer -inform der -out apns_miaobozhibo.pem<br>注：<br>apns_miaobozhibo.cer:推送证书<br>apns_miaobozhibo.pem:要生的pem文件</p>
+<p>p12转pem文件<br>openssl pkcs12 -nocerts -out apns_miaobozhiboKey.pem -in  apns_miaobozhibo.p12<br>注：<br>apns_miaobozhibo.p12文件<br>apns_miaobozhiboKey.pem 要生成的pem文件</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/post-title/" data-id="cjvtnavyh0014tyb8mbv31veb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/hello-world/" class="article-date">
+  <time datetime="2019-03-22T02:32:46.486Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjvtnavy4000ityb8rknn9ty9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSDictionary的内部实现原理/">NSDictionary的内部实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github上的项目拖管到cocoapod/">github上的项目拖管到cocoapod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/">iOS中的锁	信号量和互斥锁的区别  @synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/">oc中为什么会用copy修饰block、block和deleagte的区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构相关定义/">数据结构相关定义</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/NSDictionary的内部实现原理/" style="font-size: 10px;">NSDictionary的内部实现原理</a> <a href="/tags/Swift/" style="font-size: 20px;">Swift</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/github上的项目拖管到cocoapod/" style="font-size: 10px;">github上的项目拖管到cocoapod</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中的锁信号量和互斥锁的区别-synchronized/" style="font-size: 10px;">iOS中的锁	信号量和互斥锁的区别  @synchronized</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" style="font-size: 10px;">oc中为什么会用copy修饰block、block和deleagte的区别</a> <a href="/tags/数据结构相关定义/" style="font-size: 10px;">数据结构相关定义</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/18/title/">title</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/fanxing/">泛型</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/Protocol/">协议</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/extension/">扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/25/option/">可选链 、错误处理、类型转换、嵌套类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 ZQing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
