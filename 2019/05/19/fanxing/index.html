@@ -38,6 +38,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
 
 
 
@@ -75,7 +79,7 @@
     sidebar: {"position":"right","width":300,"display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
     back2top_sidebar: false,
-    fancybox: false,
+    fancybox: true,
     fastclick: false,
     lazyload: false,
     tabs: true,
@@ -100,11 +104,11 @@
 <meta name="keywords" content="Swift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="泛型">
-<meta property="og:url" content="http://yoursite.com/2019/05/05/fanxing/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/19/fanxing/index.html">
 <meta property="og:site_name" content="黑夜传说">
 <meta property="og:description" content="泛型代码让你能够自定义要求，编写出适用于任意类型、灵活可重用的函数及类型。它能够让你避免代码重复，用一种清晰抽象的方式来表达意图。 泛型函数12345func swapTwoValues&amp;lt;T&amp;gt;(_ a: inout T, _ b: inout T)&amp;#123;	let temporaryA = a	a = b	b = temporaryA&amp;#125;  这个尖括号告诉Swift那个T是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-07T13:31:25.671Z">
+<meta property="og:updated_time" content="2019-05-19T06:01:08.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="泛型">
 <meta name="twitter:description" content="泛型代码让你能够自定义要求，编写出适用于任意类型、灵活可重用的函数及类型。它能够让你避免代码重复，用一种清晰抽象的方式来表达意图。 泛型函数12345func swapTwoValues&amp;lt;T&amp;gt;(_ a: inout T, _ b: inout T)&amp;#123;	let temporaryA = a	a = b	b = temporaryA&amp;#125;  这个尖括号告诉Swift那个T是">
@@ -115,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/05/fanxing/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/19/fanxing/">
 
 
 
@@ -391,7 +395,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/fanxing/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/fanxing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
@@ -434,25 +438,9 @@
                 
               
 
-              <time title="Created: 2019-05-05 00:10:21" itemprop="dateCreated datePublished" datetime="2019-05-05T00:10:21+08:00">2019-05-05</time>
+              <time title="Created: 2019-05-19 14:01:08" itemprop="dateCreated datePublished" datetime="2019-05-19T14:01:08+08:00">2019-05-19</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-07 21:31:25" itemprop="dateModified" datetime="2019-05-07T21:31:25+08:00">2019-05-07</time>
-              
             
           </span>
 
@@ -491,7 +479,7 @@
 <p><t>这个尖括号告诉Swift那个T是swapTwoValues函数定义的一个占位类型名，因此Swift不会去查找名为T的实际类型</t></p>
 <h5 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h5><p>你可以提供多个类型参数，将他们都写在尖括号中，用逗号隔开</p>
 <h5 id="命名类型参数"><a href="#命名类型参数" class="headerlink" title="命名类型参数"></a>命名类型参数</h5><p>大多数情况下，命名参数具有一个描述性名字，例如 Dictionary&lt;Key, Value&gt; 中的Key和Value，以及Array<element>中的Element</element></p>
-<h4 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h4><p>除了泛型函数，Swift还允许你定义泛型类型</p>
+<h4 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h4><p>除了泛型函数，Swift还允许你定义泛型类型.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct Stack&lt;Element&gt; &#123;</span><br><span class="line">	var items = [Element]()</span><br><span class="line">	mutating func push(_ item: Element)&#123;</span><br><span class="line">		items.append(item)</span><br><span class="line">	&#125;</span><br><span class="line">	mutating func pop() -&gt; Element &#123;</span><br><span class="line">		return items.removeLast()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Element 为待提供的类型定义了一个占位名。</p>
@@ -591,8 +579,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/30/Protocol/" rel="next" title="协议">
-                <i class="fa fa-chevron-left"></i> 协议
+              <a href="/2019/05/18/title/" rel="next" title="title">
+                <i class="fa fa-chevron-left"></i> title
               </a>
             
           </div>
@@ -600,10 +588,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/18/title/" rel="prev" title="title">
-                title <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -886,6 +870,8 @@
 
 
 
+  
+
 
 
 
@@ -908,6 +894,9 @@
 
   
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
 
 
   
