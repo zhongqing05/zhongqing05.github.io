@@ -101,16 +101,16 @@
 
 
   <meta name="description" content="block 的修饰符为什么选copy想必很多开发人员知道一般用copy修饰block,接下来讲解为什么需要用copy,甚至会讲到其实用strong修身符也是可以的.在Objective-C 语言中,一共有3中类型的block:  _NSConcreteGlobalBlock 全局静态block,不会访问外部局部变量 _NSConcreteStackBlock 保存在栈区中的block,但函数返回时">
-<meta name="keywords" content="oc中为什么会用copy修饰block、block和deleagte的区别">
+<meta name="keywords" content="Objective-C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈iOS中的Block">
+<meta property="og:title" content="浅谈iOS中的Block、oc中为什么会用copy修饰block、block和deleagte的区别">
 <meta property="og:url" content="http://yoursite.com/2019/04/16/block/index.html">
 <meta property="og:site_name" content="黑夜传说">
 <meta property="og:description" content="block 的修饰符为什么选copy想必很多开发人员知道一般用copy修饰block,接下来讲解为什么需要用copy,甚至会讲到其实用strong修身符也是可以的.在Objective-C 语言中,一共有3中类型的block:  _NSConcreteGlobalBlock 全局静态block,不会访问外部局部变量 _NSConcreteStackBlock 保存在栈区中的block,但函数返回时">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-17T06:47:58.513Z">
+<meta property="og:updated_time" content="2019-05-19T14:26:06.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈iOS中的Block">
+<meta name="twitter:title" content="浅谈iOS中的Block、oc中为什么会用copy修饰block、block和deleagte的区别">
 <meta name="twitter:description" content="block 的修饰符为什么选copy想必很多开发人员知道一般用copy修饰block,接下来讲解为什么需要用copy,甚至会讲到其实用strong修身符也是可以的.在Objective-C 语言中,一共有3中类型的block:  _NSConcreteGlobalBlock 全局静态block,不会访问外部局部变量 _NSConcreteStackBlock 保存在栈区中的block,但函数返回时">
 
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>浅谈iOS中的Block | 黑夜传说</title>
+  <title>浅谈iOS中的Block、oc中为什么会用copy修饰block、block和deleagte的区别 | 黑夜传说</title>
   
 
 
@@ -412,7 +412,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浅谈iOS中的Block
+          <h1 class="post-title" itemprop="name headline">浅谈iOS中的Block、oc中为什么会用copy修饰block、block和deleagte的区别
 
               
             
@@ -455,11 +455,29 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-17 14:47:58" itemprop="dateModified" datetime="2019-04-17T14:47:58+08:00">2019-04-17</time>
+                <time title="Modified: 2019-05-19 22:26:06" itemprop="dateModified" datetime="2019-05-19T22:26:06+08:00">2019-05-19</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Objective-C/" itemprop="url" rel="index"><span itemprop="name">Objective-C</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -542,7 +560,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/oc中为什么会用copy修饰block、block和deleagte的区别/" rel="tag"># oc中为什么会用copy修饰block、block和deleagte的区别</a>
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
           
         </div>
       
@@ -555,8 +573,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/13/HTTPIntroduce/" rel="next" title="HTTP的简单总结">
-                <i class="fa fa-chevron-left"></i> HTTP的简单总结
+              <a href="/2019/04/13/HTTPIntroduce/" rel="next" title="HTTP的简单介绍">
+                <i class="fa fa-chevron-left"></i> HTTP的简单介绍
               </a>
             
           </div>
@@ -638,7 +656,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -657,7 +675,27 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -692,7 +730,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
