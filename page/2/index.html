@@ -100,17 +100,17 @@
 
 
 
-  <meta name="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+  <meta name="description" content="平时学习的小笔记。">
 <meta name="keywords" content="Object-C 、Swift">
 <meta property="og:type" content="website">
-<meta property="og:title" content="黑夜传说">
+<meta property="og:title" content="钟晴">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
-<meta property="og:site_name" content="黑夜传说">
-<meta property="og:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta property="og:site_name" content="钟晴">
+<meta property="og:description" content="平时学习的小笔记。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="黑夜传说">
-<meta name="twitter:description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+<meta name="twitter:title" content="钟晴">
+<meta name="twitter:description" content="平时学习的小笔记。">
 
 
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title>黑夜传说</title>
+  <title>钟晴</title>
   
 
 
@@ -188,13 +188,13 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">黑夜传说</span>
+        <span class="site-title">钟晴</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
       
-        <p class="site-subtitle">机会都是留给有准备的人！</p>
+        <p class="site-subtitle">当你的实力撑不起你的梦想，就更应该脚踏实地！</p>
       
     
     
@@ -395,16 +395,209 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/closure/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/enum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/19/enum/" class="post-title-link" itemprop="url">枚举</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-19 16:22:25" itemprop="dateCreated datePublished" datetime="2019-04-19T16:22:25+08:00">2019-04-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-19 22:37:30" itemprop="dateModified" datetime="2019-05-19T22:37:30+08:00">2019-05-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>枚举为一组关联的值定义了一个共同的类型，使你可以在你的代码中以<strong>类型安全</strong>的方式来使用这些值</p>
+<h4 id="枚举语法"><a href="#枚举语法" class="headerlink" title="枚举语法"></a>枚举语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum someEnumration&#123;</span><br><span class="line">	// 枚举定义放在这里</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">注：与 C 和 Objective-C 不同，Swift 的枚举成员在被创建时不会被赋予一个默认的整型值。</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Switch-语句匹配枚举值"><a href="#使用-Switch-语句匹配枚举值" class="headerlink" title="使用 Switch 语句匹配枚举值"></a>使用 Switch 语句匹配枚举值</h4><h4 id="关联值"><a href="#关联值" class="headerlink" title="关联值"></a>关联值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//表示两种商品条形码的枚举</span><br><span class="line">enum Barcode &#123;</span><br><span class="line">	case  upc(Int, Int, Int, Int)</span><br><span class="line">	case  qrCode(String)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var productBarcode = Barcode.upc(8, 32342, 1323, 3)</span><br><span class="line">productBarcode = .qrCode(&quot;ABCDEFGHIJKLMNOP&quot;)</span><br><span class="line">//这时，原始的 Barcode.upc 和其整数关联值被新的 Barcode.qrCode 和其字符串关联值所替代</span><br><span class="line"></span><br><span class="line">//用swift case 提取关联值</span><br><span class="line">switch productBarcode &#123;</span><br><span class="line">	case .cup(let numberSystem, let manufacturer, let product, let check):</span><br><span class="line">		print(&quot;UPC: \(numberSystem), \(manufacturer), \(product), \(check).&quot;)</span><br><span class="line">	case .qrCode(let productCode):</span><br><span class="line">		print(&quot;QR code: \(productCode).&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//为了简洁，也可以在成员名称前标注一个let或者var</span><br><span class="line">switch productBarcode &#123;</span><br><span class="line">case let .upc(numberSystem, manufacturer, product, check):</span><br><span class="line">    print(&quot;UPC: \(numberSystem), \(manufacturer), \(product), \(check).&quot;)</span><br><span class="line">case let .qrCode(productCode):</span><br><span class="line">    print(&quot;QR code: \(productCode).&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="原始值"><a href="#原始值" class="headerlink" title="原始值"></a>原始值</h4><p>使用 ASCII 码作为原始值的枚举：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">enum ASCIIControlCharacter: Character &#123;</span><br><span class="line">    case tab = &quot;\t&quot;</span><br><span class="line">    case lineFeed = &quot;\n&quot;</span><br><span class="line">    case carriageReturn = &quot;\r&quot;</span><br><span class="line">&#125;</span><br><span class="line"> 注意：原始值和关联值是不同的，原始值在定义枚举是被预先填充的值，像上述三个ASCII码。对于一个特定的枚举成员，它的原始值始终不变。关联值是创建一个基于枚举成员的常量或者变量时才设置的值，枚举成员的关联值可以变化</span><br></pre></td></tr></table></figure>
+
+<h4 id="原始值的隐式赋值"><a href="#原始值的隐式赋值" class="headerlink" title="原始值的隐式赋值"></a>原始值的隐式赋值</h4><p>在使用原始值为<code>整数</code>或者<code>字符串</code>类型的枚举时，不需要显式地为每一个枚举成员设置原始值，Swift 将会自动为你赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enum Planet: Int &#123;</span><br><span class="line">    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用枚举成员的 rawValue 属性可以访问该枚举成员的原始值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let earthsOrder = Planet.earth.rawValue</span><br><span class="line">// earthsOrder 值为 3</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用原始值初始化枚举实例"><a href="#使用原始值初始化枚举实例" class="headerlink" title="使用原始值初始化枚举实例"></a>使用原始值初始化枚举实例</h4><p>如果在定义枚举类型的时候使用了原始值，那么将会自动获得一个初始化方法，这个方法接收一个叫做<code>rawValue</code>的参数，参数类型即为原始值类型，返回值则是枚举成员或nil</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let possiblePlanet = Planet(rawValue: 7)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><br>原始值构造器是一个可失败的构造器，因为并不是每一个原始值都有与之对应的枚举成员。</p>
+<h4 id="递归枚举"><a href="#递归枚举" class="headerlink" title="递归枚举"></a>递归枚举</h4><p>递归枚举是一种枚举类型，它有一个或者多个枚举成员使用该枚举类型的实例作为关联值。你可以再枚举成员前面加上<code>indirect</code>来表示该成员可递归。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum ArithmeticExpression &#123;</span><br><span class="line">	case number(Int)</span><br><span class="line">	indirect case addition(ArithmeticExpression, ArithmeticExpression)</span><br><span class="line">	indirect case multiplication(ArithmeticExpression, ArithmeticExpression)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/closure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/IMG_6327.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -600,12 +793,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -802,12 +995,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -1056,12 +1249,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -1276,12 +1469,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -1532,12 +1725,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -1735,12 +1928,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -1997,12 +2190,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -2248,12 +2441,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
+      <meta itemprop="description" content="平时学习的小笔记。">
       <meta itemprop="image" content="/images/IMG_6327.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
+      <meta itemprop="name" content="钟晴">
     </span>
 
     
@@ -2419,211 +2612,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/ios_memory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="踩过的坑，留一个脚印。只为了下次的到来能绕道而行">
-      <meta itemprop="image" content="/images/IMG_6327.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑夜传说">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/29/ios_memory/" class="post-title-link" itemprop="url">iOS 内存的几大区域</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-29 14:10:02" itemprop="dateCreated datePublished" datetime="2019-03-29T14:10:02+08:00">2019-03-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-19 23:13:18" itemprop="dateModified" datetime="2019-05-19T23:13:18+08:00">2019-05-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/原理/" itemprop="url" rel="index"><span itemprop="name">原理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>本文参考：</strong><a href="https://www.jianshu.com/p/6fe8bf22acfb" target="_blank" rel="noopener">https://www.jianshu.com/p/6fe8bf22acfb</a></p>
-<h3 id="堆栈（stack）："><a href="#堆栈（stack）：" class="headerlink" title="堆栈（stack）："></a>堆栈（stack）：</h3><p>由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出）</p>
-<h3 id="堆区（heap）："><a href="#堆区（heap）：" class="headerlink" title="堆区（heap）："></a>堆区（heap）：</h3><p>由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，操作方式类似于链表</p>
-<h3 id="全局区（又称静态去）（static）"><a href="#全局区（又称静态去）（static）" class="headerlink" title="全局区（又称静态去）（static）"></a>全局区（又称静态去）（static）</h3><p>由编译器管理（分配和释放），程序结束后由系统释放。存放全局变量和static修饰的静态变量。静态区由2块区域组成，一块是存放未初始化的全局变量和静态变量，另一块是初始化已经完成的全局变量和静态变量，这两块是相邻的</p>
-<h3 id="文字常量区："><a href="#文字常量区：" class="headerlink" title="文字常量区："></a>文字常量区：</h3><p>由编译器管理（分配释放），程序结束后由系统存放。存放常量字符串。</p>
-<h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h3><p>存放函数的二进制代码</p>
-<p><strong>几大区域详解</strong></p>
-<ul>
-<li><strong>申请方式</strong><br>栈区：系统自动分配。例如，在函数申明中一个局部变量（int a;）,系统会自动在栈区开辟空间</li>
-</ul>
-<p>堆区：需要程序员自己申请，并指明大小，例如（char <em>p1 = (char *)malloc(10); char</em> p2 = new char[10];）注意p1、p2、本身是栈区，他俩指向地址是在堆区</p>
-<p><strong>申请后系统的响应</strong></p>
-<ul>
-<li>栈区：只要栈区的剩余空间大于所申请的空间，系统将为程序提供内存，否则将报异常提示栈溢出</li>
-<li>堆区：操作系统会有一个记录空闲内存地址的链表，当系统收到程序申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆节点。然后将该节点重空闲链表中删除，并将改节点的空间分配给程序。另外，对于大多数系统，会在这块内存空间中的首地处记录本次分配的空间的大小，这样，后续代码中的delete语句就可以正确的释放该内存空间。还有找到改堆节点的大小不一定正好等于申请的大小，系统会自动将多余的内存空间重新放入空闲链表中。</li>
-</ul>
-<p><strong>申请大小的限制</strong></p>
-<ul>
-<li>栈区：栈区是向低地址扩展的数据结构，是一块连续的内存。栈顶的地址和栈的最大容量是系统预先规定好的，是一个在编译是就确定的常数，如果申请的空间超过栈的剩余空间时，会有错误提示。因此，能从栈获得空间较小。</li>
-<li>堆区：堆区是搞地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储空内存地址的，自然不是连续的。而链表的遍历反向是由低地址向高地址。堆区的大小受限于计算机系统的虚拟内存，由此可见，堆区获得的空间较灵活，空间较大。</li>
-</ul>
-<p><strong>存取效率比较</strong></p>
-<ul>
-<li>堆区：堆区是运行时刻赋值的</li>
-<li>栈区：栈区也是运行时刻赋值的，栈区的读写速度比堆区块</li>
-<li>全局区：编译的时候就确定</li>
-<li>其余的现在不确定</li>
-</ul>
-<p><strong>申请效率的比较</strong><br>栈区：栈区由系统自动分配，速度快，但程序员无法控制<br>堆区：堆区是alloc（c++中使用，即创建新对象）分配的内存，一般速度较慢，而且容易产生内存碎片，不过使用起来方便。</p>
-<p><strong>结语：</strong></p>
-<ul>
-<li>栈区是点菜（只管吃，其他都不用管），堆区是自助餐（都自己来）</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2662,7 +2650,7 @@
               <img class="site-author-image" itemprop="image" src="/images/IMG_6327.jpg" alt="ZQing">
             
               <p class="site-author-name" itemprop="name">ZQing</p>
-              <div class="site-description motion-element" itemprop="description">踩过的坑，留一个脚印。只为了下次的到来能绕道而行</div>
+              <div class="site-description motion-element" itemprop="description">平时学习的小笔记。</div>
           </div>
 
           
@@ -2672,7 +2660,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

@@ -100,18 +100,20 @@
 
 
 
-  <meta name="description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
-<meta name="keywords" content="Objective-C">
+  <meta name="description" content="SwiftUI 核心理念   更好的应用程序，更少的代码 SwiftUI 是一种创新、极其简单的方法，可以利用Swift的强大功能在所有Apple平台上构建用户界面。只需要使用一组工具和Api，即可为任何Apple设备构建用户界面。通过易于阅读和自然编写的申明性Swift语法，SwiftUI与新的Xcode设计工具无缝协作，使您的代码和设计保持完美同步。自动支持动态类型、Dark模式、本地化和辅助">
+<meta name="keywords" content="Object-C 、Swift">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSDictionary 的实现原理">
-<meta property="og:url" content="http://yoursite.com/2019/03/29/Dictionary/index.html">
+<meta property="og:title" content="SwiftUI简单介绍">
+<meta property="og:url" content="http://yoursite.com/2019/06/04/SwiftUI/index.html">
 <meta property="og:site_name" content="钟晴">
-<meta property="og:description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
+<meta property="og:description" content="SwiftUI 核心理念   更好的应用程序，更少的代码 SwiftUI 是一种创新、极其简单的方法，可以利用Swift的强大功能在所有Apple平台上构建用户界面。只需要使用一组工具和Api，即可为任何Apple设备构建用户界面。通过易于阅读和自然编写的申明性Swift语法，SwiftUI与新的Xcode设计工具无缝协作，使您的代码和设计保持完美同步。自动支持动态类型、Dark模式、本地化和辅助">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-19T15:08:02.479Z">
+<meta property="og:image" content="https://developer.apple.com/assets/elements/icons/swiftui/swiftui-96x96_2x.png">
+<meta property="og:updated_time" content="2019-06-04T16:00:51.802Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSDictionary 的实现原理">
-<meta name="twitter:description" content="NSDictionary使用原理1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率 2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现， 哈希原理1哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的">
+<meta name="twitter:title" content="SwiftUI简单介绍">
+<meta name="twitter:description" content="SwiftUI 核心理念   更好的应用程序，更少的代码 SwiftUI 是一种创新、极其简单的方法，可以利用Swift的强大功能在所有Apple平台上构建用户界面。只需要使用一组工具和Api，即可为任何Apple设备构建用户界面。通过易于阅读和自然编写的申明性Swift语法，SwiftUI与新的Xcode设计工具无缝协作，使您的代码和设计保持完美同步。自动支持动态类型、Dark模式、本地化和辅助">
+<meta name="twitter:image" content="https://developer.apple.com/assets/elements/icons/swiftui/swiftui-96x96_2x.png">
 
 
 
@@ -119,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/03/29/Dictionary/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/04/SwiftUI/">
 
 
 
@@ -129,7 +131,7 @@
   };
 </script>
 
-  <title>NSDictionary 的实现原理 | 钟晴</title>
+  <title>SwiftUI简单介绍 | 钟晴</title>
   
 
 
@@ -395,7 +397,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Dictionary/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/SwiftUI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZQing">
@@ -412,7 +414,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NSDictionary 的实现原理
+          <h1 class="post-title" itemprop="name headline">SwiftUI简单介绍
 
               
             
@@ -438,7 +440,7 @@
                 
               
 
-              <time title="Created: 2019-03-29 19:31:49" itemprop="dateCreated datePublished" datetime="2019-03-29T19:31:49+08:00">2019-03-29</time>
+              <time title="Created: 2019-06-04 22:45:51" itemprop="dateCreated datePublished" datetime="2019-06-04T22:45:51+08:00">2019-06-04</time>
             
 
             
@@ -455,7 +457,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-19 23:08:02" itemprop="dateModified" datetime="2019-05-19T23:08:02+08:00">2019-05-19</time>
+                <time title="Modified: 2019-06-05 00:00:51" itemprop="dateModified" datetime="2019-06-05T00:00:51+08:00">2019-06-05</time>
               
             
           </span>
@@ -472,7 +474,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实现原理/" itemprop="url" rel="index"><span itemprop="name">实现原理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a></span>
 
                 
                 
@@ -507,24 +509,22 @@
       
 
       
-        <h3 id="NSDictionary使用原理"><a href="#NSDictionary使用原理" class="headerlink" title="NSDictionary使用原理"></a>NSDictionary使用原理</h3><p>1、NSDictionary （字典）是使用hash表来实现key和value之间的映射存储的，hash函数设计的好坏影响着数据查找访问效率</p>
-<p>2、Objective-C 中的字典NSDictionary底层其实就是一个哈希表，实际上绝大多数语言中字典都是通过哈希表实现，</p>
-<h3 id="哈希原理"><a href="#哈希原理" class="headerlink" title="哈希原理"></a>哈希原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哈希概念：哈希表的本质是一个数组，数组中每一个元素称为一个箱子（bin），箱子中存放的是键值对。</span><br></pre></td></tr></table></figure>
+        <h1 id="SwiftUI"><a href="#SwiftUI" class="headerlink" title="SwiftUI"></a>SwiftUI</h1><p><img src="https://developer.apple.com/assets/elements/icons/swiftui/swiftui-96x96_2x.png" alt></p>
+<p><strong>核心理念</strong>   更好的应用程序，更少的代码</p>
+<p>SwiftUI 是一种创新、极其简单的方法，可以利用Swift的强大功能在所有Apple平台上构建用户界面。只需要使用<strong>一组工具</strong>和<strong>Api</strong>，即可为任何Apple设备构建用户界面。通过易于阅读和自然编写的申明性Swift语法，SwiftUI与新的Xcode设计工具无缝协作，使您的代码和设计保持完美同步。自动支持动态类型、Dark模式、本地化和辅助功能。意味着您的SwiftUI代码的第一行已经是您编写过得最强大的UI代码。</p>
+<p><strong>工具要求：</strong> Xcode11</p>
+<h3 id="声明语法"><a href="#声明语法" class="headerlink" title="声明语法"></a>声明语法</h3><p>SwiftUI使用声明性语法，因此您只需要说明用户界面执行的操作即可。例如，您可以编写所需的项目列表，其中包含文字段，然后每个字段的对齐方法、字体和颜色。您的代码比以往任何时候都更简单、更易于阅读，从而节省了您的时间和维护。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import SwiftUI</span><br><span class="line"></span><br><span class="line">struct Content : View &#123;</span><br><span class="line">	@state var model = Themes.ListModel</span><br><span class="line">	</span><br><span class="line">	var boby: some View &#123;</span><br><span class="line">		List(model.items, action: model.selectItem)&#123;</span><br><span class="line">			Image(item.image)</span><br><span class="line">			VStack(aligment: .leading)&#123;</span><br><span class="line">				Text(item.title)</span><br><span class="line">				Text(item.subtitle)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="哈希表的存储过程："><a href="#哈希表的存储过程：" class="headerlink" title="哈希表的存储过程："></a>哈希表的存储过程：</h3><ol>
-<li>根据key计算出它的哈希值h。</li>
-<li>假设箱子的个数为n，那没这个键值对应该放在第（h % n）个箱子中。</li>
-<li>如果该箱子中已经有了键值对，就使用开放寻址法或者拉链法解决冲突</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在使用拉链法解决哈希冲突时，每个箱子其实是一个链表，属于同一个箱子的所用键值都会排列在链表中。</span><br><span class="line">哈希表还有一个重要的属性：负载因子（load foctor），它用来衡量哈希表的空、满程度，一定程度上也是可以体现查询效率，计算公式为</span><br><span class="line">负载因子 = 总键值对数/箱子个数</span><br><span class="line">负载因子越大，意味着哈希表越满，越容易导致冲突，性能也就越低。因此，一般来说，当负载因子大于某个常数（可能是1，或者0.75）时，哈希表将自动扩容。</span><br></pre></td></tr></table></figure>
-
-<h3 id="重哈希概念："><a href="#重哈希概念：" class="headerlink" title="重哈希概念："></a>重哈希概念：</h3><ol>
-<li><p>哈希表在自动扩容时，一般会创建两倍于原来个数的箱子，因此即使key的哈希值不变，对箱子个数取余结果也会发生改变，因此所有键值对的存放位置可能发生改变，这个过程称为重哈希（rehash）</p>
-</li>
-<li><p>哈希表的扩容并不是总能够有效的解决负载因子过大的问题。假设所有的key的哈希值都一样，那么即使扩容以后他们的位置也不会变化。因为负载因子会降低，但实际存储在每个箱子中的链表长度并不发送改变，因此也就不能提高哈希表的查询性能</p>
-</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、如果哈希表中本来箱子就比较多，扩容时需要重新设计哈希并移动数据，性能影响较大。<br>2、如果哈希函数设计不合理，哈希表在极端情况下会变成线性表。性能极低。</p>
+<p>这种声明样式甚至使用与复杂的动画。只需要几行代码，即可轻松的将动画添加到几乎任何概念中，并选择一组随时可用的效果。在运行时，系统处理创建平滑运动所需要的所有步骤，甚至可以处理中断以保持应用的稳定性。随着动画的简单，你将寻找新的方法来使你的App变的更灵动。</p>
+<h3 id="设计工具"><a href="#设计工具" class="headerlink" title="设计工具"></a>设计工具</h3><p>Xcode11包括直观的新设计工具，使SwiftUI构建见面与拖放一样简单。当您的设计画布工作时，编辑的所有内容都与相邻编辑器中的代码完全同步。代码在您键入时立即显示为预览，并且您对该预览所做的任何更改都会立即显示在代码中。Xcode会立即重新编译你的更改，并将其插入到应用的运行版本中，在任何时候都是可见和可编辑的。</p>
+<p><strong>拖放：</strong> 只需要在画布上拖动控件，即可排列用户界面中的组件。单击以打开检查器可以选择字体、颜色、对齐方式和其他设计选项，并轻松使用光标重新排列控件。代码编辑中还提供了许多可视化编辑器。因此您可以使用检查器为每个控件发现新的修饰符。及时您更喜欢界面的手工编码部分也是如此。您可以从库中拖动控件，并将其方置画布上或者直接放在代码上。</p>
+<p><strong>动态更换：</strong> Swift编辑器和运行时完全嵌入到整个Xcode中，因此你的应用不断的构建和运行。您看到的画布不仅仅是用户界面的近似值，而是您的实体应用。Xcode可以直接在您的实时应用中编辑过得代码与Swift中的一项新功能‘动态替换’交换。</p>
+<p><strong>预览：</strong> 现在，您可以创建任何SwiftUI视图的一个或多个预览以获取示例数据，并配置用户能看到的几乎任何内容，如大字体、本地化或深色模式。预览还可以在任何设备任何方向显示您的UI</p>
+<h3 id="在所有Apple平台上的原生"><a href="#在所有Apple平台上的原生" class="headerlink" title="在所有Apple平台上的原生"></a>在所有Apple平台上的原生</h3><p>SwiftUI是建立在数十年来创造世界上最具创新性和最直观的用户界面的经验至少的。用户喜爱的有关Apple生态系统的所用内容（如控件和特定于平台的体验）在您的代码中都很没。SwiftUI是真正的原生技术，因此你的应用可以通过少量的代码和交互设计画布直接访问每个平台的技术。</p>
+<blockquote>
+<p>以上内容来自苹果官方网站</p>
+</blockquote>
 
       
     </div>
@@ -546,12 +546,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
-          
-        </div>
-      
 
       
       
@@ -561,8 +555,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/29/ios_memory/" rel="next" title="iOS 内存的几大区域">
-                <i class="fa fa-chevron-left"></i> iOS 内存的几大区域
+              <a href="/2019/05/28/socket/" rel="next" title="socket">
+                <i class="fa fa-chevron-left"></i> socket
               </a>
             
           </div>
@@ -570,10 +564,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/01/GCD/" rel="prev" title="iOS 多线程实现 --GCD使用详解">
-                iOS 多线程实现 --GCD使用详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -784,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSDictionary使用原理"><span class="nav-number">1.</span> <span class="nav-text">NSDictionary使用原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希原理"><span class="nav-number">2.</span> <span class="nav-text">哈希原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表的存储过程："><span class="nav-number">3.</span> <span class="nav-text">哈希表的存储过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重哈希概念："><span class="nav-number">4.</span> <span class="nav-text">重哈希概念：</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SwiftUI"><span class="nav-number">1.</span> <span class="nav-text">SwiftUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明语法"><span class="nav-number">1.0.1.</span> <span class="nav-text">声明语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计工具"><span class="nav-number">1.0.2.</span> <span class="nav-text">设计工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在所有Apple平台上的原生"><span class="nav-number">1.0.3.</span> <span class="nav-text">在所有Apple平台上的原生</span></a></li></ol></li></ol></div>
             
 
           </div>
