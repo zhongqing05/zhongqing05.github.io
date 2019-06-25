@@ -650,7 +650,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-19 22:36:35" itemprop="dateModified" datetime="2019-05-19T22:36:35+08:00">2019-05-19</time>
+                <time title="Modified: 2019-06-24 23:11:26" itemprop="dateModified" datetime="2019-06-24T23:11:26+08:00">2019-06-24</time>
               
             
           </span>
@@ -715,8 +715,14 @@
 <h4 id="闭包表达式语法"><a href="#闭包表达式语法" class="headerlink" title="闭包表达式语法"></a>闭包表达式语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//闭包表达式语法有如下的一般形式：</span><br><span class="line">&#123; (parameters) -&gt; return type in</span><br><span class="line">	statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>闭包表达是可以是in-out参数，但不能设定默认值</p>
-<h4 id="单表达式闭包隐式返回"><a href="#单表达式闭包隐式返回" class="headerlink" title="单表达式闭包隐式返回"></a>单表达式闭包隐式返回</h4><p>单行表达式闭包可以省略 <code>return</code>关键字来隐士的返回单行表达式的结果。</p>
+<h5 id="单表达式闭包隐式返回"><a href="#单表达式闭包隐式返回" class="headerlink" title="单表达式闭包隐式返回"></a>单表达式闭包隐式返回</h5><p>单行表达式闭包可以省略 <code>return</code>关键字来隐士的返回单行表达式的结果。</p>
 <p>sorted(by:{s1, s2 in s1 &gt; s2})<br>因为这里只包含了一个单一表达式 s1&gt;s2</p>
+<h5 id="参数名称缩写"><a href="#参数名称缩写" class="headerlink" title="参数名称缩写"></a>参数名称缩写</h5><p>Swift自动为内联函数提供了参数名称缩写功能，直接通过$0,$1,$2 来顺序调用闭包的参数。如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。<code>in</code>关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var reversert = names.sorted(by,&#123; $0 &lt; $1 &#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="运算符函数"><a href="#运算符函数" class="headerlink" title="运算符函数"></a>运算符函数</h5><p>实际上还有一种更简短的方式来编写上面列子中的闭包表达式。Swift的String类型定义了 (&gt;) 的字符串实现，其作为一个函数接受两个 String 类型的参数并返回 Bool 类型的值。而这正好与 sorted(by:)方法的参数需要的函数类型符合。因此，你可以使用更简单的传递一个大于号，Swift可以自动推断出你想使用大于号的字符串的函数实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var reversert = names.sorted(by:&gt;)</span><br></pre></td></tr></table></figure>
+
 <h4 id="尾随闭包："><a href="#尾随闭包：" class="headerlink" title="尾随闭包："></a>尾随闭包：</h4><p>尾随闭包是一个写在函数括号之后的闭包表达式，函数将其作为最后一个参数调用。在使用尾随闭包时，你不用写出它的参数标签：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">someFunctionThatTakesAClosure()&#123;</span><br><span class="line">	//闭包主体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
