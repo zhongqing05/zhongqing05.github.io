@@ -406,6 +406,454 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/04/30/Protocol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/30/Protocol/" class="post-title-link" itemprop="url">协议</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-30 14:36:55" itemprop="dateCreated datePublished" datetime="2019-04-30T14:36:55+08:00">2019-04-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-19 22:56:00" itemprop="dateModified" datetime="2019-05-19T22:56:00+08:00">2019-05-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>协议定义了一个蓝图，规定了用来实现某一特定任务或者功能的方法、属性、以及其他需要的东西。</p>
+<p>协议的语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	//协议的定义部分</span><br><span class="line">&#125;</span><br><span class="line">//某个自定义类型遵循协议</span><br><span class="line">struct SomeStructure : SomeProtocol, AnotherProtocol &#123;</span><br><span class="line">&#125;</span><br><span class="line">拥有父类的类在遵循协议时，应该将父类名放在协议名之前</span><br><span class="line">class SomeClass : SomeSuperClass, FirstProtocol, AnotherProtocol &#123;</span><br><span class="line">	// 这里是类的定义部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h4><p>协议可以要求遵循的类型提供特定名称和类型的实例属性或类型属性。协议不知道是存储属性还是计算属性，它指定属性的名称和类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	var mustBeSetterble: Int &#123; get set&#125;</span><br><span class="line">	var doseNotNeedToBeSettable: Int &#123;get&#125;</span><br><span class="line">&#125;</span><br><span class="line">协议定义类型属性时，总是使用static关键字做前缀。当类类型遵循协议时，除了static关键字，还可以使用class关键字来声明类型属性</span><br><span class="line"></span><br><span class="line">protocol AnotherProtocol &#123;</span><br><span class="line">	static var someTypeProtocol: Int &#123; get set&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//遵循次协议必须有一个可读String类型的实例属性fullName</span><br><span class="line">protocl FullyName &#123;</span><br><span class="line">	var fullName: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">struct Person: FullyNamed &#123;</span><br><span class="line">	var fullName: String</span><br><span class="line">&#125;</span><br><span class="line">let john = Person(fullName: &quot;John&quot;)</span><br><span class="line">//john.fullName 为 “John”</span><br><span class="line"></span><br><span class="line">class StarShip: FullyNamed &#123;</span><br><span class="line">	var prefix: String?</span><br><span class="line">	var name: String</span><br><span class="line">	init(name: String, prefix: String? = nil)&#123;</span><br><span class="line">		self.name = name</span><br><span class="line">		self.prefix = prefix</span><br><span class="line">	&#125;</span><br><span class="line">	var fullName: String &#123;</span><br><span class="line">		return (prefix != nil ? prefix! + &quot;&quot;:&quot;&quot;) + name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h4><p>在协议中定义类方法的时候，总是使用static 关键字作为前缀。当类类型遵循协议时，除了static关键字，还可以使用class关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	static func someTypeMethod()</span><br><span class="line">&#125;</span><br><span class="line">//定义一个只含有实例方法的协议</span><br><span class="line">protocol RandomNumberGenerator &#123;</span><br><span class="line">	func someFun() -&gt; Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="异变方法要求"><a href="#异变方法要求" class="headerlink" title="异变方法要求"></a>异变方法要求</h5><p>有时候需要在方法中改变方法所属的实例。例如，在值类型的实例方法中，将<code>mutating</code>关键字作为方法的前缀，写在func关键字之前，表示可以在该方法中修改所属的实例以及实例任意属性的值。</p>
+<p><strong>注意：</strong><br>实现协议中的mutating方法时，若是类类型，则不用写mutating关键字。而对于结构体和枚举，则必须mutating关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">protocol Togglable &#123;</span><br><span class="line">	mutating func toggle()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum OnOffSwitch: Togglable &#123;</span><br><span class="line">	cass off , on</span><br><span class="line">	mutating func toggle()&#123;</span><br><span class="line">		switch self &#123;</span><br><span class="line">		case .off</span><br><span class="line">			self = .on</span><br><span class="line">		case .on </span><br><span class="line">			self = .off</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var lightSwitch = OnOffSwitch.off</span><br><span class="line">lightSwitch.toggle()</span><br><span class="line">//lightSwitch 现在是 .on</span><br></pre></td></tr></table></figure>
+
+<h5 id="构造器要求"><a href="#构造器要求" class="headerlink" title="构造器要求"></a>构造器要求</h5><p>协议可以要求遵循协议类型实现指定构造器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	init(someParameter: Int)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="协议构造器要求的类实现"><a href="#协议构造器要求的类实现" class="headerlink" title="协议构造器要求的类实现"></a>协议构造器要求的类实现</h5><p>你可以遵循协议的类中实现构造器，无论作为指定构造器还是便利构造器，都必须为构造器标上required修饰符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class SomeClass : SomeProtocol &#123;</span><br><span class="line">	required init(someParameter: Int)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">//required 修饰符可以确保所有子类也必须提供此构造器实现，从而也能符合协议。</span><br><span class="line">//如果类已经标记为final，那么不需要在协议构造器的实现中使用required修饰符。因为final类不能有子类</span><br><span class="line"></span><br><span class="line">//如果一个子类重写了父类的指定构造器，并且该构造器满足了某个协议的要求，那么该构造器的实现需要同时标注 required 和 override</span><br><span class="line"></span><br><span class="line">protocol SomeProtocol&#123;</span><br><span class="line">   init()</span><br><span class="line">&#125;</span><br><span class="line">class SomeSuperClass&#123;</span><br><span class="line">	init()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class SomeSubClass: SomeSuperClass, SomeProtocol &#123;</span><br><span class="line">	//因为遵循协议，需要加上required</span><br><span class="line">	//因为继承自父类，需要加上override</span><br><span class="line">	required override init()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="可失败构造器要求"><a href="#可失败构造器要求" class="headerlink" title="可失败构造器要求"></a>可失败构造器要求</h5><p>协议还可为遵循协议类型的类型定义可失败构造器</p>
+<h4 id="协议作为类型"><a href="#协议作为类型" class="headerlink" title="协议作为类型"></a>协议作为类型</h4><p>协议本身并不实现任何功能，但是协议可以被当做一个成熟的类型来使用。协议可以像其他普通类型一样使用。</p>
+<ul>
+<li>作为函数、方法或构造器中的参数类型或返回值类型</li>
+<li>作为常量、变量或属性的类型</li>
+<li>作为数组、字典或其他容器的元素类型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">protocol RandomNumberGenerator &#123;</span><br><span class="line">	func random() -&gt; Double</span><br><span class="line">&#125;</span><br><span class="line">class Dice &#123;</span><br><span class="line">	let sides: Int</span><br><span class="line">	let generator: RandomNumberGenerator</span><br><span class="line">	init(sides: Int, generator: RandomNumberGenerator)&#123;</span><br><span class="line">		self.sides = sides</span><br><span class="line">		self.generator = generator</span><br><span class="line">	&#125;</span><br><span class="line">	func roll() -&gt; Int &#123;</span><br><span class="line">		return Int(generator.random * Double(sides))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="委托-现实中最常见的用法"><a href="#委托-现实中最常见的用法" class="headerlink" title="委托 现实中最常见的用法"></a>委托 现实中最常见的用法</h4><p>委托是一种设计模式，它允许类或结构体将一些需要它们负责的功能委托给其他类型的实例。</p>
+<h4 id="在扩展里添加协议遵循"><a href="#在扩展里添加协议遵循" class="headerlink" title="在扩展里添加协议遵循"></a>在扩展里添加协议遵循</h4><p>扩展可以为已有类型添加属性（计算属性）、方法、下标以及构造器，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extersion SomeClass: SomeProtocol &#123;</span><br><span class="line">	//实现遵循的协议</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="有条件地遵循协议"><a href="#有条件地遵循协议" class="headerlink" title="有条件地遵循协议"></a>有条件地遵循协议</h4><p>泛型类型可能只在某些情况下满足一个协议的要求，比如当类类型的泛型形式参数遵循对应协议时。你可以通过扩展类型列出限制泛型类型有条件的遵循某协议。在你采纳协议的名字后面写泛型where分句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol &#123;</span><br><span class="line">	var textOutput: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">extension Array : SomeProtocol where Element: String &#123;</span><br><span class="line">	//</span><br><span class="line">	var textOutput: String&#123;</span><br><span class="line">		let text = self.map &#123; $0.textOutput &#125;</span><br><span class="line">		return &quot;[&quot; + text + &quot;]&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在扩展里声明采纳协议"><a href="#在扩展里声明采纳协议" class="headerlink" title="在扩展里声明采纳协议"></a>在扩展里声明采纳协议</h5><p>当一个类型已经符合了某个协议中的所有要求，却还没有声明采纳该协议时。可以通过空扩展体的扩展采纳该协议。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Hamster &#123;</span><br><span class="line">	//完全实现了协议 SomeProtocol</span><br><span class="line">&#125;</span><br><span class="line">//这里显示的声明</span><br><span class="line">extersion Hamster : SomeProtocol&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：即使满足了协议的所有要求，类型也不会自动遵循协议，必须显示地遵循协议</p>
+<h5 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//集合中的3个元素都遵循SomeProtocol协议的实例</span><br><span class="line">let things: [SomeProtocol] = [param1,param2,param3]</span><br></pre></td></tr></table></figure>
+
+<h5 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h5><p>协议能够继承一个或多个其他协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protocol SomeProtocol: FirstProtocol,AnthorProtocol &#123;</span><br><span class="line">	//定义部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="类专属的协议"><a href="#类专属的协议" class="headerlink" title="类专属的协议"></a>类专属的协议</h4><p>通过添加AnyObject 关键字到协议的继承列表，就可以限制协议只能被类类型采纳。<br>protocol SomeClassProtcol: class {<br>    //专属类的协议定义部分<br>}</p>
+<h4 id="协议合成"><a href="#协议合成" class="headerlink" title="协议合成"></a>协议合成</h4><p>要求一个类型同时遵循多个协议是很有用的。你可以使用协议组合来复合多个协议到一个要求里。</p>
+<p>协议组合使用 SomeProtocol &amp; AnotherProtocol 的形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">protocol Named &#123;</span><br><span class="line">	var name: String &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">protocol Aged &#123;</span><br><span class="line">	var age: Int &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line">struct Person: Named, Aged &#123;</span><br><span class="line">	var name: String</span><br><span class="line">	var age: Int</span><br><span class="line">&#125;</span><br><span class="line">//函数参数 celebrator 类型为 Name &amp; Aged。这意味着同时要遵循这2个协议</span><br><span class="line">func wishHappyBirthday(to celebrator: Name &amp; Aged)&#123;</span><br><span class="line">	 print(&quot;Happy birthday, \(celebrator.name), you&apos;re \(celebrator.age)!&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Location &#123;</span><br><span class="line">&#125;</span><br><span class="line">class City: Location, Named &#123;</span><br><span class="line">&#125;</span><br><span class="line">//这意味这方法只接受 Location &amp; Named 的参数</span><br><span class="line">func beginConcert(in location: Location &amp; Named)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查协议一致性"><a href="#检查协议一致性" class="headerlink" title="检查协议一致性"></a>检查协议一致性</h4><p><code>is</code> 和<code>as</code>操作符来检查协议一致性，即是否复合某协议，并且可以转换到指定的协议类型。</p>
+<ul>
+<li>is 用来检查实例是否复合某个协议</li>
+<li>as? 返回一个可选值，当实例复合某个协议是，返回类型为协议类型的可选值。</li>
+<li>as! 将实例强制向下转换到某个协议，如果转换失败，会引发运行时错误</li>
+</ul>
+<h4 id="可选的协议要求"><a href="#可选的协议要求" class="headerlink" title="可选的协议要求"></a>可选的协议要求</h4><p>协议可以定义可选要求，遵循协议类型可以选择是否实现这些要求。协议中使用 <strong>optional</strong> 关键字作为前缀来定义可选要求。可选要求用在你需要和Objective-C打交道的代码中。协议和可选要求都必须带上 <code>@objc</code> 属性。标记 <code>@objc</code>特性的协议只能被继承自 Objective-C类或者遵循。</p>
+<p>使用可选要求时，他们的类型会自动变成可选的。比如，一个类型为 (Int) -&gt; String 的方法会变成 ((Int) -&gt; String)? ，这里是函数类型可选，不是函数的返回值可选</p>
+<h4 id="协议扩展"><a href="#协议扩展" class="headerlink" title="协议扩展"></a>协议扩展</h4><p>协议可以通过扩展来为遵循协议的类型提供属性、方法以及下标的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension RandomNumberGenerator &#123;</span><br><span class="line">	func randomBool() -&gt; Bool &#123;</span><br><span class="line">		retrun random() &gt; 0.5</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过协议扩展，所有遵循协议的类型，都能自动获得这个扩展所增加的方法实现，无需任何额外的修改</p>
+<h5 id="提供默认实现"><a href="#提供默认实现" class="headerlink" title="提供默认实现"></a>提供默认实现</h5><p>可以通过协议扩展来为协议的属性、方法以及下标提供默认的实现。如果遵循协议的类型为这些要求提供了自己的实现，那么这些自定义实现将会替代扩展的默认实现被使用。</p>
+<h4 id="为协议扩展添加限制条件"><a href="#为协议扩展添加限制条件" class="headerlink" title="为协议扩展添加限制条件"></a>为协议扩展添加限制条件</h4><p>在扩展协议的时候，可以指定一些限制条件，只有遵循协议的类型满足某些限制条件，才能获得协议扩展提供的默认实现。使用<code>where</code>字句来描述</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Collection where Element: Equatable &#123;</span><br><span class="line">	func allEqual() -&gt; Bool &#123;</span><br><span class="line">		for element in self &#123;</span><br><span class="line">			if element != self.first &#123;</span><br><span class="line">				return false </span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">		return true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/04/28/extension/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/28/extension/" class="post-title-link" itemprop="url">扩展</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-28 20:48:08" itemprop="dateCreated datePublished" datetime="2019-04-28T20:48:08+08:00">2019-04-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-19 22:48:43" itemprop="dateModified" datetime="2019-05-19T22:48:43+08:00">2019-05-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>扩展就是为一个已有的类、结构体、枚举或者协议添加新功能。</p>
+<p>Swift中的扩展</p>
+<ul>
+<li>添加计算型属性和计算型类型属性</li>
+<li>定义实例方法和类方法</li>
+<li>提供新的构造器</li>
+<li>定义下标</li>
+<li>定义和使用新的嵌套类型</li>
+<li>使一个已有类型符合某个协议</li>
+</ul>
+<h4 id="扩展语法"><a href="#扩展语法" class="headerlink" title="扩展语法"></a>扩展语法</h4><p>使用关键字 <code>extension</code>来声明扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension SomeType &#123;</span><br><span class="line">	// 为 SomeType扩展的新功能写到这里</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过扩展一个已有类型，使其采纳一个或多个协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension SomeType : SomeProtocol, AnotherProtocol &#123;</span><br><span class="line">	//协议实现写到这里</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="计算型属性"><a href="#计算型属性" class="headerlink" title="计算型属性"></a>计算型属性</h5><p>扩展可以为已有类型添加计算型实例属性和计算型类型属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Double &#123;</span><br><span class="line">	var km: Double &#123; return self * 1000.0 &#125;</span><br><span class="line">	var m: Double &#123; return self &#125;</span><br><span class="line">	var cm: Double &#123; return self / 100.0 &#125;</span><br><span class="line">	var mm: Double &#123; return self / 1000.0 &#125;</span><br><span class="line">	var ft: Double &#123; return self / 3.28084 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let oneInch = 25.4.mm</span><br><span class="line">let aMarathon = 42.km + 19.5m</span><br></pre></td></tr></table></figure>
+
+<h5 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h5><p>扩展可以为已有类型添加新的构造器。扩展能为类添加新的<strong>便利构造器</strong>，但不能为类添加新的指定构造器。指定构造器必须总是由原始的类来实现提供</p>
+<p><strong>注意</strong><br>如果你使用扩展为一个值类型添加构造器，同时该值类型的原始实现中未定义任何指定构造器且所有存储属性提供了默认值，那么我们可以再扩展中的构造里调用默认构造器和逐一成员构造器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct Size &#123;</span><br><span class="line">	var width = 0.0, height = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Point&#123;</span><br><span class="line">	var x = 0.0, y = 0.0</span><br><span class="line">&#125;</span><br><span class="line">struct Rect &#123;</span><br><span class="line">	var origin = Point()</span><br><span class="line">	var size = Size()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let defaultRect = Rect()</span><br><span class="line">let memberRect = Rect(origin: Point(x: 0.0, y: 2.0), size: Size(width: 5.0, height: 5.0 ))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extension Rect &#123;</span><br><span class="line">	init(center: Point, size: Size) &#123;</span><br><span class="line">		let originX = center.x - size.width / 2</span><br><span class="line">		let orginY = center.y - size.height / 2</span><br><span class="line">		self.init(origin: Point(x: orginX, y: originY), size: size)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">let centerRect = Rect(center: Point(x: 4.0, y: 4.0), size: Size(x: 5.0, y: 5.0))</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>扩展可以为已有类型添加实例方法和类型方法</p>
+<h5 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h5><p>通过扩展添加的实例方法也可以修改该实例本身。结构体和枚举类型中修改self或其属性方法方法必须将改实例方法标注<code>mutating</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	mutating func square ()&#123;</span><br><span class="line">		return self * self</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var someInt = 3</span><br><span class="line">somInt.square()</span><br></pre></td></tr></table></figure>
+
+<h5 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h5><p>扩展可以为已有类型添加新下标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	subscript(digitIndex: Int) -&gt; Int &#123;</span><br><span class="line">		var decimalBase = 1</span><br><span class="line">		for _ in 0..&lt;digitIndex &#123;</span><br><span class="line">			decimalBase *= 10</span><br><span class="line">		&#125;</span><br><span class="line">		return (self / decimalBase) %10</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">746[0]</span><br></pre></td></tr></table></figure>
+
+<h5 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h5><p>扩展可以为已有类型的类、结构体和枚举添加新的嵌套类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">extension Int &#123;</span><br><span class="line">	enum Kind &#123;</span><br><span class="line">		case negative, zero, positive</span><br><span class="line">	&#125;</span><br><span class="line">	var kind: Kind &#123;</span><br><span class="line">		switch self &#123;</span><br><span class="line">			case 0:</span><br><span class="line">				return .zero</span><br><span class="line">			case let x where x &gt; 0 :</span><br><span class="line">				return .positve</span><br><span class="line">			default:</span><br><span class="line">				reutrn .negative</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子为Int添加了嵌套类型，这个名为Kind的枚举表示特定整数的类型。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/04/28/Swift/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2344,485 +2792,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/04/13/HTTPIntroduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="平时学习的小笔记。">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钟晴">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/13/HTTPIntroduce/" class="post-title-link" itemprop="url">HTTP的简单介绍</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-13 12:15:08" itemprop="dateCreated datePublished" datetime="2019-04-13T12:15:08+08:00">2019-04-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-19 22:51:38" itemprop="dateModified" datetime="2019-05-19T22:51:38+08:00">2019-05-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/通信/" itemprop="url" rel="index"><span itemprop="name">通信</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原文链接 <a href="https://juejin.im/entry/5981c5df518825359a2b9476" target="_blank" rel="noopener">https://juejin.im/entry/5981c5df518825359a2b9476</a></p>
-<h2 id="HTTP网络请求的基本介绍"><a href="#HTTP网络请求的基本介绍" class="headerlink" title="HTTP网络请求的基本介绍"></a>HTTP网络请求的基本介绍</h2><p>HTTPH (Hyper Text Transfer Protocol超文本传输协议)是一种应用层协议，它通过TCP实现了可靠的数据传输，能够保证该数据的完整性，正确性。而TCP对于数据传输控制的优点也能够体现在HTTP上，使得HTTP数据传输吞吐量，效率得到保证。<br>对于移动开发来说，网络应用基本上都是C/S架构。客户端通过向服务端发起特定的请求，服务器返回结果，客户端解析结果，然后将结果展示在UI上，他们的之间的交互图如下</p>
-<p>详细的交互步骤：</p>
-<ol>
-<li>客户端执行网络请求，从URL中解析出服务器的主机名</li>
-<li>将服务器的主机名转换成服务器的IP地址</li>
-<li>将端口从URL中解析出来</li>
-<li>建立一条客户端与Web服务器的TCP连接</li>
-<li>客户端通过输出流向服务器发送一条HTTP请求</li>
-<li>服务器向客户端发送一条HTTP响应报文</li>
-<li>客户端从输入流解析报文</li>
-<li>客户端解析报文，关闭连接</li>
-<li>客户端将结果显示在UI上</li>
-</ol>
-<h2 id="HTTP的请求方式"><a href="#HTTP的请求方式" class="headerlink" title="HTTP的请求方式"></a>HTTP的请求方式</h2><h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><p>GET是最常见的方法，它的作用是获取服务器中某个资源，下图显示了一个例子，在这个例子中，客户端用GET方法发起了一次HTTP请求，然后服务端将对应的资源返回给客户端</p>
-<p>注意：GET请求的参数都需要放到请求的URL中。</p>
-<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><p>POST方法起初始用来向服务器传递数据的，实际上，POST请求通常会用来提交HTML的表单，表单中填好的数据会被传输给服务器，然后由服务器对这些数据进行处理，下图显示了一个用POST请求的执行流程。</p>
-<p><strong>比较</strong>：</p>
-<p>GET</p>
-<ul>
-<li>GET请求能够被缓存</li>
-<li>GET请求有长度限制</li>
-<li>GET请求会保存在浏览器的浏览记录中</li>
-<li>GET请求的URL能够保存为浏览器书签</li>
-</ul>
-<p>POST</p>
-<ul>
-<li>POST请求不能够被缓存</li>
-<li>POST请求没有长度限制</li>
-<li>POST请求不会保存在浏览器的浏览记录中</li>
-<li>POST请求的URL无法保存为浏览器书签</li>
-</ul>
-<h4 id="PUT请求"><a href="#PUT请求" class="headerlink" title="PUT请求"></a>PUT请求</h4><p>与GET从服务器中读取资源相反，PUT方法会向服务器写入资源，有些发布系统允许用户创建Web页面，并用PUT直接向其传输到Web服务器中。如下图所示</p>
-<p>PUT方法的语义就是让服务器用请求的主体部分来创建一个由所请求的URL命名的新文档，如果那个URL已经存在的话，就用这个资源来代替它。</p>
-<h4 id="DELETE请求"><a href="#DELETE请求" class="headerlink" title="DELETE请求"></a>DELETE请求</h4><p>顾名思义，DELETE方法所做的事情就是请求服务器删除请求URL所指定的资源，但是客户端应用程序无法保证删除操作一定会被执行，因为HTTP规范允许服务器在不通知的情况下撤销请求，下图显示了一个DELETE方法实例。</p>
-<p>注：DELETE方式与GET请求一样，参数都是需要放在请求的URL中。</p>
-<h4 id="HEAD请求"><a href="#HEAD请求" class="headerlink" title="HEAD请求"></a>HEAD请求</h4><p>HEAD方法与GET方法的行为很类似，但服务器在响应中只返回首部，不会放回实体的主体部分，这就允许客户端在未获取实际资源的请求下，对资源的首部进行检查，使得HEAD可以在不获取资源的情况下了解资源的情况（比如，判断其类型），通过看响应中的状态码，看看某个对象是否存在；通过查看首部，测试资源是否被修改了。</p>
-<h4 id="TRACE-请求"><a href="#TRACE-请求" class="headerlink" title="TRACE 请求"></a>TRACE 请求</h4><p>客户端发起一个请求，这个请求可能要穿过防火墙，代理，网关或者其他一些应用程序，每个中间节点都可能会修改原始的HTTP请求，TRACE方法允许客户端在最终将请求发送给服务器时，看看它变成了什么样子。</p>
-<p>TRACE请求会在目的服务器端发起一个“环回”诊断。形程最后一站的服务器会弹回来一条TRACE响应，并在响应主体携带它收到的原生报文，这样客户端就可以查看所有在HTTP应用层组成的请求、响应链、原生报文是否以及如何被毁坏或修改过。如下图所示</p>
-<p>TRACE方法主要用户诊断，也就是说，用于验证请求是否如愿穿过请求、响应链。它是一种很好的工具，可以查看代理和其他应用程序对用户请求所产生的效果。</p>
-<h4 id="OPTIONS请求"><a href="#OPTIONS请求" class="headerlink" title="OPTIONS请求"></a>OPTIONS请求</h4><p>OPTIONS方法请求Web服务器告知其支持的各种功能。可以询问服务器通常支持哪些方法，或者对某些特殊资源支持哪些方法（有些服务器可能只支持一些特殊的对象使用特定的操作）。这对客户端应用程序提供了一种手段，使其不用实际访问那些资源就能判定访问各种资源的最优方式。下图显示了一个OPTIONS方法请求。</p>
-<h3 id="HTTP请求的几大要素"><a href="#HTTP请求的几大要素" class="headerlink" title="HTTP请求的几大要素"></a>HTTP请求的几大要素</h3><p><strong>请求行</strong></p>
-<p>请求行包含请求方法（Methode）、请求统一资源标识符（RUL）、HTTP版本号。<br>URL就是URL中排除Host剩下的部分，也就是资源在服务器本地上的路径</p>
-<p><strong>请求头</strong></p>
-<p>请求头主要存放客户端想给服务端的附近信息。HTTP请求在iOS中用<code>NSURLRequest</code>与<code>NSMutableRequest</code>表示；HTTP响应用<code>NSHTTPURLResponse</code>表示</p>
-<p>Host：目标服务的网络地址</p>
-<p>Accept：让服务器知道客户端能接受的数据类型，如 text/html/json</p>
-<p>Content-Type：body中的数据类型，如 application/json; charest=UTF-8</p>
-<p>Accept-Language:客户端的语言环境，如 zh-cn</p>
-<p>Accept-Encoding：客户端支持的数据压缩格式：如gzip</p>
-<p>User-Agent：客户端的软件环境</p>
-<p>Connection：keep-alive，该字段是从HTTP1.1才开始有的，用来告诉服务端着是个持久链接，“请服务端不要在发出响应之后立即断开TCP连接”</p>
-<p>Content-Length：body的长度，如果body为空则该字段值为0。该字段一般在POST请求中才会有</p>
-<p>Cookie：记录者用户信息的保存在本地的用户数据，如果有会被自动附上。</p>
-<p>Field：</p>
-<p><strong>请求体</strong></p>
-<p>真正需要给服务器端的数据，在使用POST-multipart上传请求中请求提就是上传文件的二进制NSData类型数据；在GET请求中请求体为空；在普通的POST请求中请求提就是一些表单数据。在iOS中一般用NSMutableRequest 的HTTPBody属性表示，添加body用 <code>[NSMutalbeURLRequest
- setHTTPBody]</code> </p>
-<p><strong>响应状态行</strong></p>
-<p>响应状态行是服务器返回给客户端状态的信息，包含HTTP版本号、状态码、状态码对应的英文名称。</p>
-<p><strong>HTTP版本介绍</strong></p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_png/cmOLumrNib1cfBOtIMQ6JfSibJdd6QkQribgQuEeJaevuN9LRgQ9WR85hRiaVISeia7SDz1aU9hAAgO33XFaJ3FhmhQ/0?wx_fmt=png" alt></p>
-<ul>
-<li><p>HTTP1.1之前</p>
-<p>  1、不支持持久连接。一旦服务器对客户端发出响应就立刻断开TCP连接。</p>
-<p>  2、无请求头跟响应头</p>
-<p>  3、客户端的前后请求是同步的，下一个请求必须等上一个请求从服务端拿到响应后才能发出，有点类似多线程的同步机制。</p>
-</li>
-<li><p>HTTP1.1（主流版本，1999发布）</p>
-<p>  1、增加请求头跟响应头</p>
-<p>  2、支持持久连接。客户端通过请求中指定Connection为keep-alive告知服务器不要在完成响应后立即释放连接。HTTP是基于TCP的，在HTTP1.1中一次TCP连接可以处理多次HTTP请求</p>
-<p>  3、客户端不同请求之间是异步的，下一个请求不必等到上一个请求回来后再发出，而可连续发出请求，有点类似多线程异步处理。</p>
-</li>
-<li><p>HTTP2.0（2015年）</p>
-<p>  1、HTTP2.0采用二进制格式而非文本格式</p>
-<p>  2、HTTP2.0是完全多路复用的，而非有序阻塞的。只需一个连接即可实现并行。</p>
-<p>  3、使用报头压缩，HTTP2.0降低了开销</p>
-<p>  4、HTTP2.0让服务器可以将响应主动推送到客户端缓存中。</p>
-</li>
-</ul>
-<h3 id="HTTPS与HTTP的一些区别"><a href="#HTTPS与HTTP的一些区别" class="headerlink" title="HTTPS与HTTP的一些区别"></a>HTTPS与HTTP的一些区别</h3><p>HTTPS协议需要到CA申请证书，一般免费证书很少，需要交费。<br>HTTP协议运行在TCP之上，所有的传输的内容都是明文，在HTTPS运行在SSL/TLS之上，SSL/TLS运行在TCP之上，所有传输的内容都经过加密的<br>HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443.<br>HTTPS可以有效的防止运营商劫持，解决了防劫持的一个大问题。</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_png/cmOLumrNib1cfBOtIMQ6JfSibJdd6QkQribXL5PwzkqQdmyY9egu2hpzzMCgz2F5HhhkdSNc5eYJ9UGMDBGjeCGiag/0?wx_fmt=png" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/04/10/Cocoapods/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="平时学习的小笔记。">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钟晴">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/10/Cocoapods/" class="post-title-link" itemprop="url">使用cocoapod托管代码。</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-10 14:21:32" itemprop="dateCreated datePublished" datetime="2019-04-10T14:21:32+08:00">2019-04-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-19 23:00:13" itemprop="dateModified" datetime="2019-05-19T23:00:13+08:00">2019-05-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/github/" itemprop="url" rel="index"><span itemprop="name">github</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="一、新建一个项目"><a href="#一、新建一个项目" class="headerlink" title="一、新建一个项目"></a>一、新建一个项目</h3><p>1、在github上新建一个项目，新加项目是要<strong>勾选许可证类型</strong>。</p>
-<p><img src="https://github.com/zhongqing05/zhongqing05.github.io/blob/master/ScreenShot/github01.png?raw=true" alt></p>
-<p>注：如果是已有项目，可以从其他地方拷贝一个LICENSE文件，放到项目的跟目录下（与READEME.md同级）</p>
-<p>2、使用GitHub DeskTop 工具把代码克隆到本地。如果还没有安装的同学。赶紧去<a href="https://desktop.github.com/" target="_blank" rel="noopener">官方网站</a>下载。很好用的工具<br>注：这里也可以使用git命令行把远程代码clone到本地。我个人是比较习惯可视化工具</p>
-<p>3、在当前文件夹新建一个项目。</p>
-<p>到这里你的项目就已经准备好了。</p>
-<h3 id="二、构建版本"><a href="#二、构建版本" class="headerlink" title="二、构建版本"></a>二、构建版本</h3><p>注：我这里主要在github上构建release版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、进入你刚刚在github上创建的项目。如果你还没有构建过版本。release一定是0</span><br><span class="line">2、点击release。编写版本号.(这里填写的版本号要跟podspec文件里填的版本号一致，一般是从0.0.1开始填写)。</span><br><span class="line">3、然后填写release title 和 describe this release</span><br><span class="line">4、然后把你要发布的文件拖进来，或者点击进去选择文件。</span><br><span class="line">5、检查完成后，点击 Publish release 发布。</span><br></pre></td></tr></table></figure>
-
-<p>附：使用tag git命令来构建新版本</p>
-<p>重点（ tag 标记上传至 github ）:</p>
-<p>此处默认以上操作完成（终端完成以下操作,前提路径在该仓库下） </p>
-<ol>
-<li>git tag ‘xxx’（xxx必须是你在 .podspec 文件中的 version(版本号)）</li>
-<li>git add . (添加)</li>
-<li>git commit -m ‘提交内容’</li>
-<li>git push origin xxx（xxx是你的tag号）</li>
-</ol>
-<h3 id="三-创建podspec文件"><a href="#三-创建podspec文件" class="headerlink" title="三. 创建podspec文件"></a>三. 创建podspec文件</h3><p>1、打开终端，cd 到你当前文件夹下。比如：cd cd Desktop/JPAlbumPicker/</p>
-<p>2、创建.podspec文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod spec create &apos;项目名&apos;</span><br><span class="line">比如：pod spec create JPAlbumPicker JPAlbumPicker是我的项目名</span><br></pre></td></tr></table></figure>
-
-<p>3、打开你刚刚创建的podspec文件。并进行修改。</p>
-<p>我这里建议一下作为初学者，这里稍微花点心思去了解一下大概有哪些功能。然后全部给删了，把<a href="https://guides.cocoapods.org/syntax/podspec.html#specification" target="_blank" rel="noopener">官方写的</a>黏贴进来，进行对应的修改。这样相对简洁。</p>
-<p>常用的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- s.name : 类库的名称</span><br><span class="line">- s.version : 类库的版本号</span><br><span class="line">- s.summary : 类库的摘要(简介)</span><br><span class="line">- s.description : 描述, 用于生成标签和提高搜索结果, 主要是类库的功能等, 尽量简短; 注意, 需要写在两个DESC中间</span><br><span class="line">- s.homepage : 类库的地址链接</span><br><span class="line">- s.screenshots : 效果图链接</span><br><span class="line">- s.license: 许可类型, 常用的是 MIT</span><br><span class="line">- s.author :作者</span><br><span class="line">- s.social_media_url : 个人主页地址</span><br><span class="line">- s.platform : 平台 例如: iOS , tvOS, watchOS等,</span><br><span class="line">- s.resource = &quot;icon.png&quot;:单个资源</span><br><span class="line">- s.resources = &quot;Resources/*.png&quot; : 多个资源</span><br><span class="line">- s.source_files : 文件的相对路径</span><br><span class="line">- s.public_header_files : 公开的头文件, 如果不设置这个, 默认公开所有的头文件</span><br><span class="line">- s.exclude_files = &quot;Classes/Exclude&quot; 排除不需要的文件</span><br><span class="line">- s.requires_arc = true 需要ARC</span><br><span class="line">- s.xcconfig = &#123; &quot;HEADER_SEARCH_PATHS&quot; =&gt; &quot;$(SDKROOT)/usr/include/libxml2&quot; &#125; 项目配置</span><br><span class="line">- s.dependency &quot;JSONKit&quot;, &quot;~&gt; 1.4&quot; 需要其他第三方库的支持</span><br></pre></td></tr></table></figure>
-
-<p>4、编写完成之后校验一下你填写的podspec文件有没有问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint &apos;.podspec&apos;</span><br><span class="line">比如：pod lib lint JPAlbumPicker.podspec</span><br></pre></td></tr></table></figure>
-
-<p>这里可能出现错误。你根据错误从新打开podspec文件修改正确就好了。另外如果错误不明确的话，后面跟上 –verbose。输出的错误内容更详细</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint JPAlbumPicker.podspec --verbose</span><br></pre></td></tr></table></figure>
-
-<p>把错误改完之后基本上也就剩下一些警告了。如果是一些无关紧要的警告导致验证不通过。后面加上 —allow-warnings进行忽略即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint JPAlbumPicker.podspec --allow-warnings</span><br></pre></td></tr></table></figure>
-
-<p>基本上到这里podspec文件也就通过验证了。在终端上会打印 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">‘项目名’ passed validation</span><br></pre></td></tr></table></figure>
-
-<h3 id="四、注册cocoapods账户（已有账号可以忽略这步骤）"><a href="#四、注册cocoapods账户（已有账号可以忽略这步骤）" class="headerlink" title="四、注册cocoapods账户（已有账号可以忽略这步骤）"></a>四、注册cocoapods账户（已有账号可以忽略这步骤）</h3><p>输入 pod trunk me  检查你有没有注册过账号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Name:     zhongqing</span><br><span class="line">- Email:    zhongqing05@gmail.com</span><br><span class="line">- Since:    December 17th, 2018 20:34</span><br></pre></td></tr></table></figure>
-
-<p>首次使用。注册</p>
-<p>pod trunk register <a href="mailto:zhongqing05@gmail.com" target="_blank" rel="noopener">zhongqing05@gmail.com</a> ‘zhongqing’ –description=’test’</p>
-<p>正常情况下回收到邮件，根据提示验证即可：</p>
-<h3 id="五、上传代码"><a href="#五、上传代码" class="headerlink" title="五、上传代码"></a>五、上传代码</h3><p>注：这里还可以再次校验 podrepo文件。通过之后直接发布就好了。</p>
-<p>pod trunk push JPAlbumPicker.podrepo</p>
-<p>这里上传时间可能会有点久，耐心等待，上传成功。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2866,7 +2840,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2905,7 +2879,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2946,7 +2922,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
