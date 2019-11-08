@@ -406,6 +406,484 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/11/06/iOS组件话开发一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/06/iOS组件话开发一/" class="post-title-link" itemprop="url">iOS组件化开发（一）：远程私有库的基本使用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-06 19:02:30" itemprop="dateCreated datePublished" datetime="2019-11-06T19:02:30+08:00">2019-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-07 00:23:15" itemprop="dateModified" datetime="2019-11-07T00:23:15+08:00">2019-11-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS组件化学习/" itemprop="url" rel="index"><span itemprop="name">iOS组件化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>随着项目功能的不断增加，越来越多的开发人员，业务主线也随之越来越多，造成耦合越来越严重，编译越来越慢，测试不独立等一系列问题。为了解决此类情况，我们可以考虑组件话开发</p>
+</blockquote>
+<ul>
+<li><p><strong>概念</strong>： 组件话就是将一个单一的工程项目，分解成为各个独立的组件，然后按照某种方式，任意组织成一个拥有完整业务逻辑的工程</p>
+</li>
+<li><p><strong>优势</strong></p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>独立：独立编写、编译、运行、测试</li>
+<li>重用：功能代码的重复使用。比如不同项目使用同一功能模块</li>
+<li>高效：任意增删模块，实现高效迭代</li>
+<li>组件化还可以配合二进制化，提高项目编译速度</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>组件分类</strong>大体上分为三类：基础组件、功能组件和业务组件</li>
+</ul>
+<blockquote>
+<ul>
+<li>基础组件：也称为公共组件，存放平时定义的宏、常量、协议、分类、对必要的第三方的封装类，以及各种处理工具类，如时间、日期、设备信息、文件处理、沙盒管理等</li>
+<li>功能组件：自定义视图控件、一些特定功能的封装（如录音、播放音频封装）</li>
+<li>业务组件：各种业务线</li>
+</ul>
+</blockquote>
+<h3 id="步骤归纳"><a href="#步骤归纳" class="headerlink" title="步骤归纳"></a>步骤归纳</h3><p>1、创建远程索引库和私有库</p>
+<p>2、将远程索引库添加到本地  <code>pod repo add  索引库名称 索引库地址</code></p>
+<p>3、在本地创建一个pod模版 <code>pod lib create 组件名称</code> 将框架的核心代码添加到Classes目录下</p>
+<p>4、本地安装测试核心代码是否可用 <code>pod install</code>。修改Spec描述文件，将修改好的模版库上传至远程私有库</p>
+<p>5、上传代码</p>
+<blockquote>
+<ol>
+<li><code>git init</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m  &quot;提交描述&quot;</code></li>
+<li><code>git remote add origin  远程私有库地址</code></li>
+<li><code>git push origin master</code></li>
+</ol>
+</blockquote>
+<p>6、打标签</p>
+<blockquote>
+<ol>
+<li><code>git tag &#39;0.1.0&#39;</code></li>
+<li><code>git push  --tags</code></li>
+</ol>
+</blockquote>
+<p>7、提交spec至私有索引库</p>
+<blockquote>
+<ol>
+<li>pod lib lint –private</li>
+<li>pod spec lint –private</li>
+<li>pod repo push 索引库名称  xx.podspec</li>
+</ol>
+</blockquote>
+<p>8、使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source  官方索引库url</span><br><span class="line">source  私有库索引url</span><br></pre></td></tr></table></figure>
+
+<h2 id="一、创建私用索引库"><a href="#一、创建私用索引库" class="headerlink" title="一、创建私用索引库"></a>一、创建私用索引库</h2><p>这里以码云为例，创建一个TGSpecs的私有索引库，这玩意的作用如其名，就是用来索引的</p>
+<p><img src="/images/QQ20191106-194258@2x.png" alt></p>
+<p><img src="/images/QQ20191106-194631@2x.png" alt></p>
+<h2 id="二、本地添加私有索引库"><a href="#二、本地添加私有索引库" class="headerlink" title="二、本地添加私有索引库"></a>二、本地添加私有索引库</h2><h4 id="一、查看本地索引库"><a href="#一、查看本地索引库" class="headerlink" title="一、查看本地索引库"></a>一、查看本地索引库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod repo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QQ20191106-194859@2x.png" alt></p>
+<p>如图，目前本地仅有github上的那个公有索引库</p>
+<h4 id="2、添加私有索引库"><a href="#2、添加私有索引库" class="headerlink" title="2、添加私有索引库"></a>2、添加私有索引库</h4><p>将我们刚刚新建的私有索引库TGSpecs添加到本地</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// pod repo add 索引库名称 索引库地址</span><br><span class="line"></span><br><span class="line">pod repo add TGSpecs https://gitee.com/zhongqing05/TGSpecs.git</span><br></pre></td></tr></table></figure>
+
+<p>再查看一下本索引 <code>pod repo</code></p>
+<p><img src="/images/QQ20191106-195259@2x.png" alt></p>
+<p>现在本地就有两个索引库。到这里，索引库的的事情就先放一边了</p>
+<h2 id="三、创建组件库"><a href="#三、创建组件库" class="headerlink" title="三、创建组件库"></a>三、创建组件库</h2><p>创建TGBase为例，创建一个基础组件</p>
+<p><img src="/images/QQ20191106-195839@2x.png" alt></p>
+<h4 id="1、快速创建模版库"><a href="#1、快速创建模版库" class="headerlink" title="1、快速创建模版库"></a>1、快速创建模版库</h4><p>到合适的位置创建一个与组件名相同的文件夹，cd 进去后，使用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//pod lib create 组件名</span><br><span class="line"></span><br><span class="line">pod lib create TGBase</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QQ20191106-200451@2x.png" alt></p>
+<p>这里会让你配置一些信息，根据自己的情况自行配置即可。</p>
+<p><img src="/images/QQ20191106-200719@2x.png" alt></p>
+<h4 id="2、添加组件内容"><a href="#2、添加组件内容" class="headerlink" title="2、添加组件内容"></a>2、添加组件内容</h4><p>创建完成后，会自动帮我们打开相应的Example项目，TGBase目录中会出现如图这些文件，我们把基础组件相关的东西丢到Classes文件夹中，并且把ReplaceMe.m 文件删除</p>
+<p><img src="/images/QQ20191106-211905@2x.png" alt></p>
+<blockquote>
+<p>note：默认Classes文件夹中存放的文件就是pod install 时要下载下来的文件，当然可以通过修改spec文件的配置来更改位置</p>
+</blockquote>
+<h4 id="3、安装与测试本地库"><a href="#3、安装与测试本地库" class="headerlink" title="3、安装与测试本地库"></a>3、安装与测试本地库</h4><p>cd到 Example目录下，打开Podfile文件可以看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;TGBase&apos;, :path =&gt; &apos;../&apos;</span><br></pre></td></tr></table></figure>
+
+<p>模版库已经默认帮我们在Podfile中指定了TGBase.podspec 的位置，使组件可以正常安装使用和方便测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QQ20191106-215025@2x.png" alt></p>
+<p>如上图安装成功，Xcode打开项目，也能看到刚刚添加的文件</p>
+<p><img src="/images/QQ20191106-215255@2x.png" alt></p>
+<p>到这里，本地测试组件没问题后，我们接下来要将podspec文件进行修改，然后上传至私有索引库</p>
+<h4 id="4、修改Spec"><a href="#4、修改Spec" class="headerlink" title="4、修改Spec"></a>4、修改Spec</h4><p>具体的配置说明可以参考<a href="https://juejin.im/post/5ac446b8f265da238d50ecfa" target="_blank" rel="noopener">Cocoapods创建第三方框架</a></p>
+<p><img src="/images/QQ20191106-220005@2x.png" alt></p>
+<p>主要修改内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  s.name             = &apos;TGBase&apos;</span><br><span class="line">  s.version          = &apos;0.1.0&apos;</span><br><span class="line">  s.summary          = &apos;TGBase.&apos;</span><br><span class="line">  s.description      = &lt;&lt;-DESC</span><br><span class="line">TODO: TBase is Tiange Technology Basic component</span><br><span class="line">                       DESC</span><br><span class="line">  s.homepage         = &apos;https://gitee.com/zhongqing05/TGBase&apos;</span><br><span class="line">  s.source           = &#123; :git =&gt; &apos;https://gitee.com/zhongqing05/TGBase.git&apos;, :tag =&gt; s.version.to_s &#125;</span><br><span class="line">  s.source_files = &apos;TGBase/Classes/**/*&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、上传组件代码"><a href="#四、上传组件代码" class="headerlink" title="四、上传组件代码"></a>四、上传组件代码</h2><h4 id="1、将代码提交到组件仓库"><a href="#1、将代码提交到组件仓库" class="headerlink" title="1、将代码提交到组件仓库"></a>1、将代码提交到组件仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br><span class="line">git remote add origin https://gitee.com/zhongqing05/TGBase.git</span><br><span class="line">//第一次push如果报错的话可以加上-f</span><br><span class="line">//git push -f origin master</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、打标签"><a href="#2、打标签" class="headerlink" title="2、打标签"></a>2、打标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag &apos;0.1.0&apos;</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QQ20191106-231641@2x.png" alt></p>
+<h2 id="五、提交podspec到私有索引库"><a href="#五、提交podspec到私有索引库" class="headerlink" title="五、提交podspec到私有索引库"></a>五、提交podspec到私有索引库</h2><p>在上传spec文件前我们可以做一个验证来节省时间，不然每次推送很久结果还是验证失败，会气死人的</p>
+<h4 id="1、本地验证Spec的必填字段"><a href="#1、本地验证Spec的必填字段" class="headerlink" title="1、本地验证Spec的必填字段"></a>1、本地验证Spec的必填字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 本地验证不会验证 s.source 中的tag</span><br><span class="line">pod lib lint</span><br></pre></td></tr></table></figure>
+
+<p><a href="/images/QQ20191106-232409@2x.png"></a></p>
+<h4 id="2、远程验证"><a href="#2、远程验证" class="headerlink" title="2、远程验证"></a>2、远程验证</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 远程验证会验证 s.source 中的tag，如果此时没有打上相应的标签则会报错</span><br><span class="line">pod spec lint</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你刚才没有打标签，并上传至远程私有库进来进行验证，肯定是会报错</p>
+</blockquote>
+<p><a href="/images/QQ20191106-232801@2x.png"></a></p>
+<p>note：如果验证的是私有库，则后面加上 <code>--private</code>，否则会有警告，你可以选择 <code>--alllow-warnings</code> 来忽略警告</p>
+<h4 id="3、提交podspec"><a href="#3、提交podspec" class="headerlink" title="3、提交podspec"></a>3、提交podspec</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//pod repo push 私有索引库名称  spec名称.podspec</span><br><span class="line"></span><br><span class="line">pod repo push TGSpecs TGBase.podspec</span><br></pre></td></tr></table></figure>
+
+<p>这里的炒作过程：先将我们的代码直接push到本地索引库TGSpecs，推送后自动会帮我们同步到远程索引库</p>
+<p><a href="/images/QQ20191106-233759@2x.png"></a></p>
+<p>再来看看码云上的私有索引库TGSpecs</p>
+<p><a href="/images/QQ20191106-234002@2x.png"></a></p>
+<p>来测试下我们的组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod search TGBase</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QQ20191106-235215@2x.png" alt></p>
+<h2 id="六、使用私有库"><a href="#六、使用私有库" class="headerlink" title="六、使用私有库"></a>六、使用私有库</h2><p>现在我们可以试试通过pod的形式来添加TGBase，创建一个新项目，cd到工程目录下</p>
+<h4 id="1、添加Podfile文件"><a href="#1、添加Podfile文件" class="headerlink" title="1、添加Podfile文件"></a>1、添加Podfile文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、在Podfile的最顶部添加索引库Url"><a href="#2、在Podfile的最顶部添加索引库Url" class="headerlink" title="2、在Podfile的最顶部添加索引库Url"></a>2、在Podfile的最顶部添加索引库Url</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line">source &apos;https://gitee.com/zhongqing05/TGSpecs.git&apos;</span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### 3、添加使用组件</span><br></pre></td></tr></table></figure>
+
+<p>pod ‘TGBase’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](/images/QQ20191106-235812@2x.png)</span><br><span class="line"></span><br><span class="line">#### 4、安装组件</span><br></pre></td></tr></table></figure>
+
+<p>pod install</p>
+<pre><code>
+![](/images/QQ20191107-000134@2x.png)
+![](/images/QQ20191107-000253@2x.png)
+
+
+本文参考：[https://juejin.im/post/5ac5d5abf265da2396129e63](https://juejin.im/post/5ac5d5abf265da2396129e63)
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/11/04/iOS组件时间安排/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/04/iOS组件时间安排/" class="post-title-link" itemprop="url">Untitled</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-04 14:36:12 / Modified: 16:46:22" itemprop="dateCreated datePublished" datetime="2019-11-04T14:36:12+08:00">2019-11-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>iOS组件化</p>
+<p><strong>组件原则</strong></p>
+<p>组件被定义为两种类型的组件：基础组件，业务组件。<br>基础组件可以被业务组件依赖，基础组件不可依赖业务组件。<br>业务组件不可依赖业务组件。</p>
+<p>1、基础组件</p>
+<p>2、第三方登录授权、分享</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iOS喵播：QQ、微信、微博、FB、TW、Line、Zalo</span><br></pre></td></tr></table></figure>
+
+<p>3、IM消息模块  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文本消息、图片、语言</span><br></pre></td></tr></table></figure>
+
+<p>4、大厅整体框架、根据UI的多注册几种Cell样式</p>
+<p>5、开播观看模块。</p>
+<p>6、礼物模块。礼物面板和礼物跑道</p>
+<p>7、房间公聊模块</p>
+<p>8、房间私聊。本地数据库存放统一用FMDB。</p>
+<p>9、点赞（基础组件）</p>
+<p>10、实名认证。</p>
+<p>11、PK模块</p>
+<p>12、推送。个推、信鸽推送</p>
+<p>13、相册选择</p>
+<p>14、C++通讯模块。websocket、java通讯模块</p>
+<p>16、支付模块、（苹果支付和第三分支付分开）</p>
+<p>17、搜索主播模块</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/10/30/errsecinternalcomponent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,12 +1476,24 @@
                 
               
 
-              <time title="Created: 2019-10-18 10:08:45 / Modified: 10:25:16" itemprop="dateCreated datePublished" datetime="2019-10-18T10:08:45+08:00">2019-10-18</time>
+              <time title="Created: 2019-10-18 10:08:45" itemprop="dateCreated datePublished" datetime="2019-10-18T10:08:45+08:00">2019-10-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-31 16:23:40" itemprop="dateModified" datetime="2019-10-31T16:23:40+08:00">2019-10-31</time>
               
             
           </span>
@@ -1056,7 +1546,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump --help</span><br></pre></td></tr></table></figure>
 
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>1、自己建项目生成一个ipa文件，更改文件为zip格式，然后解压之后得到.app的目标文件</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2457033-4c5a8d70b84e9cb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/498" alt></p>
+<p><img src="/images/2457033-4c5a8d70b84e9cb7.png" alt></p>
 <p>2、用终端输入命令class-dump -H [.app文件的路径] -o [输出文件夹路径]</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -H /Users/mac/Desktop/Payload/Kt.app -o /Users/mac/Desktop/Payload</span><br></pre></td></tr></table></figure>
 
@@ -1779,374 +2269,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/05/28/socket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="平时学习的小笔记。">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钟晴">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/28/socket/" class="post-title-link" itemprop="url">socket</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-28 19:46:59" itemprop="dateCreated datePublished" datetime="2019-05-28T19:46:59+08:00">2019-05-28</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2019/05/19/fanxing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZQing">
-      <meta itemprop="description" content="平时学习的小笔记。">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钟晴">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/19/fanxing/" class="post-title-link" itemprop="url">泛型</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-19 14:01:08 / Modified: 22:42:15" itemprop="dateCreated datePublished" datetime="2019-05-19T14:01:08+08:00">2019-05-19</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>泛型代码让你能够自定义要求，编写出适用于任意类型、灵活可重用的函数及类型。它能够让你避免代码重复，用一种清晰抽象的方式来表达意图。</p>
-<h4 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func swapTwoValues&lt;T&gt;(_ a: inout T, _ b: inout T)&#123;</span><br><span class="line">	let temporaryA = a</span><br><span class="line">	a = b</span><br><span class="line">	b = temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><t>这个尖括号告诉Swift那个T是swapTwoValues函数定义的一个占位类型名，因此Swift不会去查找名为T的实际类型</t></p>
-<h5 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h5><p>你可以提供多个类型参数，将他们都写在尖括号中，用逗号隔开</p>
-<h5 id="命名类型参数"><a href="#命名类型参数" class="headerlink" title="命名类型参数"></a>命名类型参数</h5><p>大多数情况下，命名参数具有一个描述性名字，例如 Dictionary&lt;Key, Value&gt; 中的Key和Value，以及Array<element>中的Element</element></p>
-<h4 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h4><p>除了泛型函数，Swift还允许你定义泛型类型.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct Stack&lt;Element&gt; &#123;</span><br><span class="line">	var items = [Element]()</span><br><span class="line">	mutating func push(_ item: Element)&#123;</span><br><span class="line">		items.append(item)</span><br><span class="line">	&#125;</span><br><span class="line">	mutating func pop() -&gt; Element &#123;</span><br><span class="line">		return items.removeLast()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Element 为待提供的类型定义了一个占位名。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var stackOfString = Stack&lt;String&gt;()</span><br><span class="line">stackOfString.push(&quot;uno&quot;)</span><br><span class="line">stackOfString.push(&quot;dos&quot;)</span><br><span class="line">stackOfString.push(&quot;tres&quot;)</span><br><span class="line"></span><br><span class="line">let fromThePop = stackOfStirng.pop()</span><br></pre></td></tr></table></figure>
-
-<h5 id="扩展一个泛型类型"><a href="#扩展一个泛型类型" class="headerlink" title="扩展一个泛型类型"></a>扩展一个泛型类型</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Stack &#123;</span><br><span class="line">	var topItems: Element? &#123;</span><br><span class="line">		return items.isEmpty ? nil : items[items.count -1]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//这个扩展并没有定义一个类型参数列表。相反的，Stack类型已有的类型参数名称Element，</span><br><span class="line">被用在扩展中表示计算型topItems的可选类型。</span><br><span class="line"></span><br><span class="line">if let topItem = stackOfString.topItem &#123;</span><br><span class="line">	print(&quot;The top item on the stack is \(topItem)&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h4><p>类型约束是指定一个类型参数必须继承指定类，或者符合一个特定的协议或协议组合。例如，Swift中的Dictionary类型对字典的键类型做了限制。字典的键必须是可哈希（hashable）的。</p>
-<h5 id="类型约束语法"><a href="#类型约束语法" class="headerlink" title="类型约束语法"></a>类型约束语法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func someFunction&lt;T: SomeClass, U: SomeProtocol&gt;(someT: T, someU: U)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="类型约束实践"><a href="#类型约束实践" class="headerlink" title="类型约束实践"></a>类型约束实践</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func findIndex&lt;T&gt;(of valueToFind: T, in array:[T]) -&gt; Int? &#123;</span><br><span class="line">	for (index, value) in array.enumerated() &#123;</span><br><span class="line">		if value == valueToFind&#123;</span><br><span class="line">			return index</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面所写的函数无法通过编译。问题出在相等性检查上。不是所有的Swift类型都可以用等式符进行比较。Swift标准库中定义了一个Equatalbe协议。该协议要求任何遵循的类型必须实现等式符（==）及不等符（!=）,从而能对改类型的任意两个值进行比较</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func findIndex&lt;T: Equatable&gt;(of valueToFind: T, in array: [T]) -&gt; Int ? &#123;</span><br><span class="line">	for (index, value) in array.enumerated() &#123;</span><br><span class="line">		if value == valueToFind &#123;</span><br><span class="line">			return index</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="关联类型"><a href="#关联类型" class="headerlink" title="关联类型"></a>关联类型</h4><p>关联类型为协议中的某个类型提供一个占位名，其代表的实际类型在协议被采纳时才会被指定。你可以通过 associatedtype关键字来指定关联类型。</p>
-<h5 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//定义一个Container 协议，该协议定义了一个关联类型Item</span><br><span class="line">protocol Container &#123;</span><br><span class="line">	associatedtype Item</span><br><span class="line">	mutating func append(_ item: Item)</span><br><span class="line">	var count: Int &#123; get &#125;</span><br><span class="line">	subscript(i: Int) -&gt; Item &#123; get &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>定义一个非泛型的IntStack类型。采纳并符合了Container协议</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">struct IntStack: Container &#123;</span><br><span class="line">	//原始实现</span><br><span class="line">	var items = [Int]()</span><br><span class="line">	mutating func push(_ item: Int)&#123;</span><br><span class="line">		items.append(item)</span><br><span class="line">	&#125;</span><br><span class="line">	mutating func pop() -&gt; Int &#123;</span><br><span class="line">		return items.removeLast()</span><br><span class="line">	&#125;</span><br><span class="line">	//Container 协议实现部分</span><br><span class="line">	typealias Item = Int </span><br><span class="line">	mutating func append(_ item: Int)&#123;</span><br><span class="line">		self.push(item)</span><br><span class="line">	&#125;</span><br><span class="line">	var count: Int &#123;</span><br><span class="line">		return items.count</span><br><span class="line">	&#125;</span><br><span class="line">	subscript(i: Int) -&gt; Int &#123;</span><br><span class="line">		return items[i]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>指定Item为Int类型，即typealias Item = Int,从而将Container协议中抽象的Item类型转换为具体的Int类型</p>
-<p>下面定义泛型Stack结构体并且遵循Container协议</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">struct Stack&lt;Element&gt;: Container&#123;</span><br><span class="line">	//Stack&lt;Element&gt; 的原始实现部分</span><br><span class="line">	var items = [Element]()</span><br><span class="line">	mutating func push(_ item: Element)&#123;</span><br><span class="line">		items.append(item)</span><br><span class="line">	&#125;</span><br><span class="line">	mutating func pop() -&gt; Element &#123;</span><br><span class="line">		return items.removeLast()</span><br><span class="line">	&#125;</span><br><span class="line">	//Container  协议实现部分</span><br><span class="line">	mutating func append(_ item: Element)&#123;</span><br><span class="line">		self.push(item)</span><br><span class="line">	&#125;</span><br><span class="line">	var count: Int &#123;</span><br><span class="line">		return items.count</span><br><span class="line">	&#125;</span><br><span class="line">	subscript(i: Int) -&gt; Element&#123;</span><br><span class="line">		return items[i]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="通过扩展一个已经存在的类型来指定关联类型"><a href="#通过扩展一个已经存在的类型来指定关联类型" class="headerlink" title="通过扩展一个已经存在的类型来指定关联类型"></a>通过扩展一个已经存在的类型来指定关联类型</h5><p>Swift的Array类型已经提供了Container协议所有的属于、方法、以及下标的实现。这意味着你只需要简单的申明Array采纳协议就可以扩展Array</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension Array: Container &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>定义了这个扩展之后，你可以将任意的Array当做Container</p>
-<h5 id="给关联类型添加约束"><a href="#给关联类型添加约束" class="headerlink" title="给关联类型添加约束"></a>给关联类型添加约束</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">protocol Container &#123;</span><br><span class="line">	associatedtype Item: Equatable</span><br><span class="line">	mutating func append(_ item: Item)</span><br><span class="line">	var count: Int &#123; get &#125;</span><br><span class="line">	subscript(i: Int)-&gt; Item &#123; get &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>为了遵循Container协议，Item类型也必须遵循Equatable协议</p>
-<h5 id="在关联类型约束里使用协议"><a href="#在关联类型约束里使用协议" class="headerlink" title="在关联类型约束里使用协议"></a>在关联类型约束里使用协议</h5><p>协议可以作为自身的要求出现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">protocol SuffixableContainer : Container &#123;</span><br><span class="line">	associatedtype Suffix: SuffixableContainer where Suffix.Item == Item</span><br><span class="line">	func suffix(_ size: Int) -&gt; Suffix</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个协议中的Suffix是个关联类型。它有2个约束。它必须遵循SuffixableContainer协议（就是当前定义的协议），以及它的Item类型必须和容器里的Item类型相同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">extension Stack: SuffixableContainer &#123;</span><br><span class="line">	func suffix(_ size: Int) -&gt; Stack &#123;</span><br><span class="line">		var result = Stack&lt;Int&gt;()</span><br><span class="line">		for index in (count-size)..&lt;count &#123;</span><br><span class="line">			result.append(self[index])</span><br><span class="line">		&#125;</span><br><span class="line">		return result </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="泛型Where语句"><a href="#泛型Where语句" class="headerlink" title="泛型Where语句"></a>泛型Where语句</h4><p>类型约束让你能够为泛型函数，下标，类型的类型参数定义一些强制要求。where子句跟一个或多个针对关联类型的约束，以及一个或多个类型参数和关联类型间的相等关系</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func allItemsMatch&lt;C1: Container, C2: Container&gt;(_ someContainer: C1, _ anotherContainer: C2) -&gt; Bool where C1.Item == C2.Item, C1.Item: Equatable &#123;</span><br><span class="line">  //检查容器是否相同</span><br><span class="line">  if someContainer.count != anotherContainer.count &#123;</span><br><span class="line">  return false</span><br><span class="line">  &#125;</span><br><span class="line">  //检查每一对元素是否相等</span><br><span class="line">  for i in 0..&lt;someContainer.count &#123;</span><br><span class="line">    if someContainer[i] != anotherContainer[i] &#123;</span><br><span class="line">    	return false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //所有元素都匹配，返回true</span><br><span class="line">  return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数参数列表的两个类型的要求</p>
-<ol>
-<li>C1必须符合 Container 协议</li>
-<li>C2必须符合 Container 协议</li>
-<li>C1的Item和C2的Item类型相同</li>
-<li>C1的Item必须符合Equatable协议</li>
-</ol>
-<h5 id="具有泛型Where子句的扩展"><a href="#具有泛型Where子句的扩展" class="headerlink" title="具有泛型Where子句的扩展"></a>具有泛型Where子句的扩展</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extension Stack where Element: Equatalbe &#123;</span><br><span class="line">	func isTop(_ item: Element) -&gt; Bool &#123;</span><br><span class="line">		guard let topItem = items.last else&#123;</span><br><span class="line">			return false</span><br><span class="line">		&#125;</span><br><span class="line">		return topItem == item</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>//如果尝试在其元素不符合Equatable协议栈上调用isTop(_:)方法，则会编译报错</p>
-<p><strong>使用where字句去扩展一个协议</strong></p>
-<p>where子句要求Item符合协议</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Container where Item: Equatable &#123;</span><br><span class="line">	func startsWith(_ item: Item) -&gt; Bool &#123;</span><br><span class="line">		return count &gt; 1 &amp;&amp; self[0] == item</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if [8, 9, 9].statsWith(43)&#123;</span><br><span class="line">	print(&quot;Start Wiht 43&quot;)</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	print(&quot;Start with something else&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>where字句要求Item为特定的类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension Container where Item == Double &#123;</span><br><span class="line">	func average() -&gt; Double &#123;</span><br><span class="line">		var sum = 0.0;</span><br><span class="line">		for index in 0..&lt;count &#123;</span><br><span class="line">			sum += self[index]</span><br><span class="line">		&#125;</span><br><span class="line">		return sum / Double(count)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">print([125.0, 23.00, 323.00].average())</span><br></pre></td></tr></table></figure>
-
-<h5 id="具有泛型Where字句的关联类型"><a href="#具有泛型Where字句的关联类型" class="headerlink" title="具有泛型Where字句的关联类型"></a>具有泛型Where字句的关联类型</h5><p>你可以在关联类型后面加上具有泛型where的子句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">protocol Container &#123;</span><br><span class="line">	associatedtype Item</span><br><span class="line">	mutating func append(_ item: Item)</span><br><span class="line">	var count: Int &#123; get &#125;</span><br><span class="line">	subscript(i: Int) -&gt; Item &#123; get &#125;</span><br><span class="line">	associatedtype Iterator: IteratorProtocol where Iterator.Element == Item</span><br><span class="line">	func makeIterator() -&gt; Iterator</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>迭代器（Iterator）的泛型where字句要求，无论迭代器是什么类型，迭代器中的元素必须和容器项目的类型保持一致</p>
-<h5 id="泛型下标"><a href="#泛型下标" class="headerlink" title="泛型下标"></a>泛型下标</h5><p>下标是能够泛型的，他们能够包含泛型where子句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">extension Container &#123;</span><br><span class="line">	subscript&lt;Indices: Sequence&gt;(indices: Indices) -&gt; [Item] where Indices.Iterator.Element == Int &#123;</span><br><span class="line">		var result = [Item]()</span><br><span class="line">		for index in indices &#123;</span><br><span class="line">			result.append(self[index])</span><br><span class="line">		&#125;</span><br><span class="line">		return result</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2195,7 +2317,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2236,7 +2358,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
