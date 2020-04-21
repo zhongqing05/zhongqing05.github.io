@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"right","width":300,"display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="title: iOS面试题 Object-C部分date: 2020-4-21 18:10:47categories: Object-Ctags: 面试题 iOS面试题 Object-C部分Object-C 基础题1、NSSet 一般用什么关键字修饰。为什么？2、浅拷贝和深拷贝的区别？浅拷贝：只复制指向对象的指针，而不复制引用对象本身。深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改">
+<meta name="keywords" content="Object-C 、Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="钟晴">
+<meta property="og:url" content="http://zhongqing05.top/2020/04/20/iOS面试题Object-C部分/index.html">
+<meta property="og:site_name" content="钟晴">
+<meta property="og:description" content="title: iOS面试题 Object-C部分date: 2020-4-21 18:10:47categories: Object-Ctags: 面试题 iOS面试题 Object-C部分Object-C 基础题1、NSSet 一般用什么关键字修饰。为什么？2、浅拷贝和深拷贝的区别？浅拷贝：只复制指向对象的指针，而不复制引用对象本身。深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-21T06:04:17.945Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="钟晴">
+<meta name="twitter:description" content="title: iOS面试题 Object-C部分date: 2020-4-21 18:10:47categories: Object-Ctags: 面试题 iOS面试题 Object-C部分Object-C 基础题1、NSSet 一般用什么关键字修饰。为什么？2、浅拷贝和深拷贝的区别？浅拷贝：只复制指向对象的指针，而不复制引用对象本身。深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://zhongqing05.top/2020/04/20/iOS面试题Object-C部分/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 钟晴</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-142699670-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-142699670-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钟晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">当你的实力撑不起你的梦想，就更应该脚踏实地！</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/books" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-电影">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/movies" rel="section"><i class="menu-item-icon fa fa-fw fa-film"></i> <br>电影</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2020/04/20/iOS面试题Object-C部分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-20 20:37:35" itemprop="dateCreated datePublished" datetime="2020-04-20T20:37:35+08:00">2020-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-21 14:04:17" itemprop="dateModified" datetime="2020-04-21T14:04:17+08:00">2020-04-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>title: iOS面试题 Object-C部分<br>date: 2020-4-21 18:10:47<br>categories: Object-C<br>tags: 面试题</p>
+<h2 id="iOS面试题-Object-C部分"><a href="#iOS面试题-Object-C部分" class="headerlink" title="iOS面试题 Object-C部分"></a>iOS面试题 Object-C部分</h2><h3 id="Object-C-基础题"><a href="#Object-C-基础题" class="headerlink" title="Object-C 基础题"></a>Object-C 基础题</h3><h5 id="1、NSSet-一般用什么关键字修饰。为什么？"><a href="#1、NSSet-一般用什么关键字修饰。为什么？" class="headerlink" title="1、NSSet 一般用什么关键字修饰。为什么？"></a>1、NSSet 一般用什么关键字修饰。为什么？</h5><h5 id="2、浅拷贝和深拷贝的区别？"><a href="#2、浅拷贝和深拷贝的区别？" class="headerlink" title="2、浅拷贝和深拷贝的区别？"></a>2、浅拷贝和深拷贝的区别？</h5><p>浅拷贝：只复制指向对象的指针，而不复制引用对象本身。<br>深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改A时，A_copy不变。</p>
+<h5 id="3、使用Block时需要注意哪些问题。"><a href="#3、使用Block时需要注意哪些问题。" class="headerlink" title="3、使用Block时需要注意哪些问题。"></a>3、使用Block时需要注意哪些问题。</h5><ol>
+<li>在block内部使用外部指针且会造成循环引用情况下，需要用__weak修饰外部指针： __weak typeof(self) weakSelf = self; </li>
+<li>在block内部如果调用了延时函数还使用弱指针会取不到该指针，因为已经被销毁了，需要在block内部再将弱指针重新强引用一下。 __strong typeof(self) strongSelf = weakSelf;</li>
+<li>如果需要在block内部改变外部栈区变量的话，需要在用__block修饰外部变量</li>
+</ol>
+<h5 id="4、UIView-和-CALayer-是什么关系？"><a href="#4、UIView-和-CALayer-是什么关系？" class="headerlink" title="4、UIView 和 CALayer 是什么关系？"></a>4、UIView 和 CALayer 是什么关系？</h5><p>UIView 继承自UIResponder类，可以响应事件。<br>CALayer直接继承NSObject类。不可以响应事件。<br>UIView时CALayer的代理。<br>UIView主要处理事件，CALayer负责绘制。</p>
+<h5 id="5、iOS中数据持久化方案有哪些？"><a href="#5、iOS中数据持久化方案有哪些？" class="headerlink" title="5、iOS中数据持久化方案有哪些？"></a>5、iOS中数据持久化方案有哪些？</h5><p>NSUserDefault 简单数据快速读写<br>Property list (属性列表)文件存储<br>Archiver (归档)<br>SQLite 本地数据库</p>
+<h5 id="6、单个viewController的生命周期？"><a href="#6、单个viewController的生命周期？" class="headerlink" title="6、单个viewController的生命周期？"></a>6、单个viewController的生命周期？</h5><ul>
+<li>initWithCoder:(NSCoder *)aDecoder：（如果使用storyboard或者xib）</li>
+<li>loadView：加载view</li>
+<li>viewDidLoad：view加载完毕</li>
+<li>viewWillAppear：控制器的view将要显示</li>
+<li>viewWillLayoutSubviews：控制器的view将要布局子控件</li>
+<li>viewDidLayoutSubviews：控制器的view布局子控件完成  </li>
+<li>viewDidAppear:控制器的view完全显示</li>
+<li>viewWillDisappear：控制器的view即将消失的时候</li>
+<li>viewDidDisappear：控制器的view完全消失的时候</li>
+<li>dealloc 控制器销毁</li>
+</ul>
+<h5 id="7、Objective-C-如何对内存管理的？"><a href="#7、Objective-C-如何对内存管理的？" class="headerlink" title="7、Objective-C 如何对内存管理的？"></a>7、Objective-C 如何对内存管理的？</h5><p>答：Objective-C的内存管理主要有三种方式ARC(自动内存计数)、手动内存计数、内存池</p>
+<p>1). 自动内存计数ARC：由Xcode自动在App编译阶段，在代码中添加内存管理代码。</p>
+<p>2). 手动内存计数MRC：遵循内存谁申请、谁释放；谁添加，谁释放的原则。</p>
+<p>3). 内存释放池Release Pool：把需要释放的内存统一放在一个池子中，当池子被抽干后(drain)，池子中所有的内存空间也被自动释放掉。内存池的释放操作分为自动和手动。自动释放受runloop机制影响。</p>
+<h5 id="8、继承、分类和类扩展"><a href="#8、继承、分类和类扩展" class="headerlink" title="8、继承、分类和类扩展"></a>8、继承、分类和类扩展</h5><ol>
+<li>分类有名字，类扩展没有分类名字，是一种特殊的分类。</li>
+<li>分类只能扩展方法（属性仅仅是声明，并没真正实现），类扩展可以扩展属性、成员变量和方法。</li>
+<li>继承可以增加，修改或者删除方法，并且可以增加属性。</li>
+</ol>
+<h5 id="9、通常对象为啥要用strong？"><a href="#9、通常对象为啥要用strong？" class="headerlink" title="9、通常对象为啥要用strong？"></a>9、通常对象为啥要用strong？</h5><p>用strong就是要持有他的指针，指针就是指向内存，就是叫被引用的内存不被释放</p>
+<h5 id="10、instancetype和id的异同"><a href="#10、instancetype和id的异同" class="headerlink" title="10、instancetype和id的异同?"></a>10、instancetype和id的异同?</h5><p>1.相同点<br>都可以作为方法的返回类型<br>2.不同点<br>1.instancetype可以返回和方法所在类相同类型的对象，id只能返回未知类型的对象；<br>2.instancetype只能作为返回值，不能像id那样作为参数</p>
+<h5 id="11、isKindOfClass和isMemberOfClass的区别"><a href="#11、isKindOfClass和isMemberOfClass的区别" class="headerlink" title="11、isKindOfClass和isMemberOfClass的区别"></a>11、isKindOfClass和isMemberOfClass的区别</h5><p>isKindOfClass来确定一个对象是否是一个类的成员，或者是派生自该类的成员</p>
+<p>isMemberOfClass只能确定一个对象是否是当前类的成员</p>
+<h5 id="12、delegate-和-notification-的区别"><a href="#12、delegate-和-notification-的区别" class="headerlink" title="12、delegate 和 notification 的区别"></a>12、delegate 和 notification 的区别</h5><p>二者都用于传递消息，不同之处主要在于一个是一对一的，另一个是一对多的。</p>
+<h5 id="13、iOS多线程技术有哪几种方式？"><a href="#13、iOS多线程技术有哪几种方式？" class="headerlink" title="13、iOS多线程技术有哪几种方式？"></a>13、iOS多线程技术有哪几种方式？</h5><p>pthread、NSThread、GCD、NSOperation</p>
+<h5 id="14、什么是懒加载，懒加载有什么作用"><a href="#14、什么是懒加载，懒加载有什么作用" class="headerlink" title="14、什么是懒加载，懒加载有什么作用"></a>14、什么是懒加载，懒加载有什么作用</h5><p>用到时才初始化，延迟加载。<br>延时加载可以避免内存过高</p>
+<h5 id="15、有哪些常见的Crash场景"><a href="#15、有哪些常见的Crash场景" class="headerlink" title="15、有哪些常见的Crash场景"></a>15、有哪些常见的Crash场景</h5><ol>
+<li>访问了僵尸对象</li>
+<li>访问了不存在的方法</li>
+<li>数组越界</li>
+</ol>
+<h5 id="16、说一下静态库和动态库之间的区别"><a href="#16、说一下静态库和动态库之间的区别" class="headerlink" title="16、说一下静态库和动态库之间的区别"></a>16、说一下静态库和动态库之间的区别</h5><h5 id="17、使用atomic一定是线程安全的吗？"><a href="#17、使用atomic一定是线程安全的吗？" class="headerlink" title="17、使用atomic一定是线程安全的吗？"></a>17、使用atomic一定是线程安全的吗？</h5><p>不一定。只有在执行setter或getter方法时是线程安全的。</p>
+<h5 id="18、什么是-KVO-和-KVC？"><a href="#18、什么是-KVO-和-KVC？" class="headerlink" title="18、什么是 KVO 和 KVC？"></a>18、什么是 KVO 和 KVC？</h5><p>KVC(key-value-coding)键值编码，是一种间接访问实例变量的方法。提供一种机制来间接访问对象的属性</p>
+<p>KVO是一种基于KVC实现的观察者模式。当指定的被观察的对象的属性更改了，KVO会以自动或手动方式通知观察者。</p>
+<h5 id="19-堆、栈"><a href="#19-堆、栈" class="headerlink" title="19 堆、栈"></a>19 堆、栈</h5><p>栈：由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出）</p>
+<p>堆：由程序员管理（分配释放），若程序员不释放，程序结束时可能由系统回收。一般由程序员 alloc、new 出来的对象。堆的操作方式与数据结构中的堆不同，操作方式类似于链表</p>
+<h3 id="Object-C-进阶题："><a href="#Object-C-进阶题：" class="headerlink" title="Object-C 进阶题："></a>Object-C 进阶题：</h3><h5 id="1、什么是-RunLoop？"><a href="#1、什么是-RunLoop？" class="headerlink" title="1、什么是 RunLoop？"></a>1、什么是 RunLoop？</h5><h5 id="2、说的OC是动态运行时语言是什么意思？"><a href="#2、说的OC是动态运行时语言是什么意思？" class="headerlink" title="2、说的OC是动态运行时语言是什么意思？"></a>2、说的OC是动态运行时语言是什么意思？</h5><p>主要是将数据类型的确定由编译时，推迟到了运行时。</p>
+<p>简单来说, 运行时机制使我们直到运行时才去决定一个对象的类别,以及调用该类别对象指定方法。</p>
+<h5 id="3、isa指针？"><a href="#3、isa指针？" class="headerlink" title="3、isa指针？"></a>3、isa指针？</h5><p>对象的isa指针指向所属类。<br>类的isa指针指向所属的元类。<br>元类的isa指针指向了根元类；跟元类指向了自己</p>
+<h5 id="4-Objective-C都有哪些锁机制"><a href="#4-Objective-C都有哪些锁机制" class="headerlink" title="4.Objective C都有哪些锁机制"></a>4.Objective C都有哪些锁机制</h5><p>1.@synchronized 同步锁<br>2.NSLock 对象锁<br>3.NSRecursiveLock 递归锁<br>4.NSConditionLock 条件锁<br>5.pthread_mutex 互斥锁（C语言）<br>6.dispatch_semaphore 信号量实现加锁（GCD）</p>
+<h5 id="5、NSNotificationCenter是在哪个线程发送的通知？"><a href="#5、NSNotificationCenter是在哪个线程发送的通知？" class="headerlink" title="5、NSNotificationCenter是在哪个线程发送的通知？"></a>5、NSNotificationCenter是在哪个线程发送的通知？</h5><p>6、load和initialize方法分别在什么时候调用的？</p>
+<p>7、说一下hash算法。</p>
+<p>8、什么是method swizzling?</p>
+<p>9、runtime 如何实现 weak 属性</p>
+<p>要实现 weak 属性，首先要搞清楚 weak 属性的特点：</p>
+<blockquote>
+<p>weak 此特质表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同 assign 类似， 然而在属性所指的对象遭到摧毁时，属性值也会清空(nil out)。</p>
+</blockquote>
+<p>那么 runtime 如何实现 weak 变量的自动置nil？</p>
+<blockquote>
+<p>runtime 对注册的类， 会进行布局，对于 weak 对象会放入一个 hash 表中。 用 weak 指向的对象内存地址作为 key，当此对象的引用计数为0的时候会 dealloc，假如 weak 指向的对象内存地址是a，那么就会以a为键， 在这个 weak 表中搜索，找到所有以a为键的 weak 对象，从而设置为 nil。</p>
+</blockquote>
+<p>10、dispatch_barrier_async的作用是什么？</p>
+<p>栏栅函数</p>
+<h3 id="计算机基础题"><a href="#计算机基础题" class="headerlink" title="计算机基础题"></a>计算机基础题</h3><h5 id="1、get-和-post-的区别"><a href="#1、get-和-post-的区别" class="headerlink" title="1、get 和 post 的区别"></a>1、get 和 post 的区别</h5><ol>
+<li>get用来获取数据，post用来提交数据</li>
+<li>get参数有长度限制，而post无限制。</li>
+<li>get是明文传输，post是放在请求体中</li>
+<li>get请求会保存在浏览器历史记录中，还可能保存在web服务器的日志中</li>
+</ol>
+<h5 id="1、HTTP与HTTPS的区别？"><a href="#1、HTTP与HTTPS的区别？" class="headerlink" title="1、HTTP与HTTPS的区别？"></a>1、HTTP与HTTPS的区别？</h5><ol>
+<li>HTTPS协议需要到CA申请证书</li>
+<li>HTTP是明文传输，HTTPS则是具有安全性的SSL加密传输</li>
+<li>HTTP和HTTPS使用的端口也不一样，前者是80，后者是443</li>
+<li>HTTP的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
+</ol>
+<p>3、说一下TCP和UDP</p>
+<p>UDP协议是全称是用户数据协议，在OSI模型中，在第四层网络层。UDP有不提供数据包分组、组装和不对数据包进行排序的缺点，也就是说，当报问发送之后，是无法得知器是否安全完整的达到。</p>
+<p>TCP协议全称是传输控制协议。是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP是面向连接的、可靠的、流协议。流就是指不间断的数据结构，你可以把它想象成排水管里面的水流。</p>
+<h3 id="实战应用相关的题目"><a href="#实战应用相关的题目" class="headerlink" title="实战应用相关的题目"></a>实战应用相关的题目</h3><p>1、麻烦你设计个简单的图片内存缓存器（移除策略是一定要说的）</p>
+<p>2、如何检测内存泄漏</p>
+<p>3、如何优化App的性能。</p>
+<p>4、抓包工具的使用。</p>
+<p>5、苹果掉单问题如何解决</p>
+<p>7、有一个数组，我要把里面的元素去重。你会怎么做？</p>
+<p>8、Git与SVN之间的比较。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="ZQing Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/15/SourceTree记住密码/" rel="next" title="SourceTree记住密码">
+                <i class="fa fa-chevron-left"></i> SourceTree记住密码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/21/iOS面试题Swift部分/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="ZQing">
+            
+              <p class="site-author-name" itemprop="name">ZQing</p>
+              <div class="site-description motion-element" itemprop="description">平时学习的小笔记。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zhongqing05" title="GitHub &rarr; https://github.com/zhongqing05" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhongqing05@gmail.com" title="E-Mail &rarr; mailto:zhongqing05@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS面试题-Object-C部分"><span class="nav-number">1.</span> <span class="nav-text">iOS面试题 Object-C部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-C-基础题"><span class="nav-number">1.1.</span> <span class="nav-text">Object-C 基础题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、NSSet-一般用什么关键字修饰。为什么？"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1、NSSet 一般用什么关键字修饰。为什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、浅拷贝和深拷贝的区别？"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2、浅拷贝和深拷贝的区别？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、使用Block时需要注意哪些问题。"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3、使用Block时需要注意哪些问题。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、UIView-和-CALayer-是什么关系？"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">4、UIView 和 CALayer 是什么关系？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、iOS中数据持久化方案有哪些？"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">5、iOS中数据持久化方案有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6、单个viewController的生命周期？"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">6、单个viewController的生命周期？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7、Objective-C-如何对内存管理的？"><span class="nav-number">1.1.0.7.</span> <span class="nav-text">7、Objective-C 如何对内存管理的？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8、继承、分类和类扩展"><span class="nav-number">1.1.0.8.</span> <span class="nav-text">8、继承、分类和类扩展</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9、通常对象为啥要用strong？"><span class="nav-number">1.1.0.9.</span> <span class="nav-text">9、通常对象为啥要用strong？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10、instancetype和id的异同"><span class="nav-number">1.1.0.10.</span> <span class="nav-text">10、instancetype和id的异同?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11、isKindOfClass和isMemberOfClass的区别"><span class="nav-number">1.1.0.11.</span> <span class="nav-text">11、isKindOfClass和isMemberOfClass的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12、delegate-和-notification-的区别"><span class="nav-number">1.1.0.12.</span> <span class="nav-text">12、delegate 和 notification 的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13、iOS多线程技术有哪几种方式？"><span class="nav-number">1.1.0.13.</span> <span class="nav-text">13、iOS多线程技术有哪几种方式？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14、什么是懒加载，懒加载有什么作用"><span class="nav-number">1.1.0.14.</span> <span class="nav-text">14、什么是懒加载，懒加载有什么作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15、有哪些常见的Crash场景"><span class="nav-number">1.1.0.15.</span> <span class="nav-text">15、有哪些常见的Crash场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16、说一下静态库和动态库之间的区别"><span class="nav-number">1.1.0.16.</span> <span class="nav-text">16、说一下静态库和动态库之间的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#17、使用atomic一定是线程安全的吗？"><span class="nav-number">1.1.0.17.</span> <span class="nav-text">17、使用atomic一定是线程安全的吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18、什么是-KVO-和-KVC？"><span class="nav-number">1.1.0.18.</span> <span class="nav-text">18、什么是 KVO 和 KVC？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#19-堆、栈"><span class="nav-number">1.1.0.19.</span> <span class="nav-text">19 堆、栈</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-C-进阶题："><span class="nav-number">1.2.</span> <span class="nav-text">Object-C 进阶题：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、什么是-RunLoop？"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1、什么是 RunLoop？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、说的OC是动态运行时语言是什么意思？"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2、说的OC是动态运行时语言是什么意思？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、isa指针？"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3、isa指针？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Objective-C都有哪些锁机制"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">4.Objective C都有哪些锁机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、NSNotificationCenter是在哪个线程发送的通知？"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">5、NSNotificationCenter是在哪个线程发送的通知？</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机基础题"><span class="nav-number">1.3.</span> <span class="nav-text">计算机基础题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、get-和-post-的区别"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">1、get 和 post 的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1、HTTP与HTTPS的区别？"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">1、HTTP与HTTPS的区别？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战应用相关的题目"><span class="nav-number">1.4.</span> <span class="nav-text">实战应用相关的题目</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQing</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
