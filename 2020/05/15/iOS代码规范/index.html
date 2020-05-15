@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"right","width":300,"display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="编程核心原则：原则一：代码应该简洁易懂，逻辑清晰 因为软件是需要人来维护的。这个人在未来很可能不是你。所以首先是为人编写程序，其次才是计算机：  不要过分追求技巧，降低程序的可读性。 简洁的代码可以让bug无处藏身      原则二：面向变化编程，而不是面向需求编程。 需求是暂时的，只有变化才是永恒的。 本次迭代不能仅仅为了当前的需求，写出扩展性强，易修改的程序才是负责任的做法，对自己负责，对公司">
+<meta name="keywords" content="Object-C 、Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS代码规范">
+<meta property="og:url" content="http://zhongqing05.top/2020/05/15/iOS代码规范/index.html">
+<meta property="og:site_name" content="钟晴">
+<meta property="og:description" content="编程核心原则：原则一：代码应该简洁易懂，逻辑清晰 因为软件是需要人来维护的。这个人在未来很可能不是你。所以首先是为人编写程序，其次才是计算机：  不要过分追求技巧，降低程序的可读性。 简洁的代码可以让bug无处藏身      原则二：面向变化编程，而不是面向需求编程。 需求是暂时的，只有变化才是永恒的。 本次迭代不能仅仅为了当前的需求，写出扩展性强，易修改的程序才是负责任的做法，对自己负责，对公司">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-15T05:47:35.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS代码规范">
+<meta name="twitter:description" content="编程核心原则：原则一：代码应该简洁易懂，逻辑清晰 因为软件是需要人来维护的。这个人在未来很可能不是你。所以首先是为人编写程序，其次才是计算机：  不要过分追求技巧，降低程序的可读性。 简洁的代码可以让bug无处藏身      原则二：面向变化编程，而不是面向需求编程。 需求是暂时的，只有变化才是永恒的。 本次迭代不能仅仅为了当前的需求，写出扩展性强，易修改的程序才是负责任的做法，对自己负责，对公司">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://zhongqing05.top/2020/05/15/iOS代码规范/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iOS代码规范 | 钟晴</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-142699670-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-142699670-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钟晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">当你的实力撑不起你的梦想，就更应该脚踏实地！</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-读书">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/books" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>读书</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-电影">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/movies" rel="section"><i class="menu-item-icon fa fa-fw fa-film"></i> <br>电影</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhongqing05.top/2020/05/15/iOS代码规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZQing">
+      <meta itemprop="description" content="平时学习的小笔记。">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钟晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS代码规范
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-15 13:46:07 / Modified: 13:47:35" itemprop="dateCreated datePublished" datetime="2020-05-15T13:46:07+08:00">2020-05-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Objective-C/" itemprop="url" rel="index"><span itemprop="name">Objective-C</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="编程核心原则："><a href="#编程核心原则：" class="headerlink" title="编程核心原则："></a>编程核心原则：</h4><p><strong>原则一：代码应该简洁易懂，逻辑清晰</strong></p>
+<p>因为软件是需要人来维护的。这个人在未来很可能不是你。所以首先是为人编写程序，其次才是计算机：</p>
+<ul>
+<li>不要过分追求技巧，降低程序的可读性。</li>
+<li>简洁的代码可以让bug无处藏身    </li>
+</ul>
+<p><strong>原则二：面向变化编程，而不是面向需求编程。</strong></p>
+<p>需求是暂时的，只有变化才是永恒的。 本次迭代不能仅仅为了当前的需求，写出扩展性强，易修改的程序才是负责任的做法，对自己负责，对公司负责。</p>
+<p><strong>原则三：先保证程序的正确性，防止过度工程</strong></p>
+<p>过度工程（over-engineering）：在正确可用的代码写出之前就过度地考虑扩展，重用的问题，使得工程过度复杂。</p>
+<blockquote>
+<ol>
+<li>先把眼前的问题解决掉，解决好，再考虑将来的扩展问题。</li>
+<li>先写出可用的代码，反复推敲，再考虑是否需要重用的问题。</li>
+<li>先写出可用，简单，明显没有bug的代码，再考虑测试的问题。</li>
+</ol>
+</blockquote>
+<h4 id="Objective-C-编程规范"><a href="#Objective-C-编程规范" class="headerlink" title="Objective-C 编程规范"></a>Objective-C 编程规范</h4><p><strong>if 语句不要使用过多分支，分支比较多的情况下要善于使用return来提前返回</strong></p>
+<p>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)someMethod &#123; </span><br><span class="line">  if (!goodCondition) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  //Do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)someMethod &#123; </span><br><span class="line">  if (goodCondition) &#123;</span><br><span class="line">    //Do something</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举个典型的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(id)initWithDictionary:(NSDictionary*)dict error:(NSError)err&#123;</span><br><span class="line">    //方法1. 参数为nil</span><br><span class="line">    if (!dict) &#123;</span><br><span class="line">    	 if (err) *err = [JSONModelError errorInputIsNil];</span><br><span class="line">     	return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //方法2. 参数不是nil，但也不是字典</span><br><span class="line">    if (![dict isKindOfClass:[NSDictionary class]]) &#123;</span><br><span class="line">        if (err) *err = [JSONModelError errorInvalidDataWithMessage:@&quot;Attempt to initialize JSONModel object using initWithDictionary:error: but the dictionary parameter was not an &apos;NSDictionary&apos;.&quot;];</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //方法3. 初始化</span><br><span class="line">    self = [self init];</span><br><span class="line">    if (!self) &#123;</span><br><span class="line">        //初始化失败</span><br><span class="line">        if (err) *err = [JSONModelError errorModelIsInvalid];</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    //方法4. 检查用户定义的模型里的属性集合是否大于传入的字典里的key集合（如果大于，则返回NO）</span><br><span class="line">    if (![self __doesDictionary:dict matchModelWithKeyMapper:self.__keyMapper error:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //方法5. 核心方法：字典的key与模型的属性的映射</span><br><span class="line">    if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:YES error:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">     //方法6. 可以重写[self validate:err]方法并返回NO，让用户自定义错误并阻拦model的返回</span><br><span class="line">    if (![self validate:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //方法7. 终于通过了！成功返回model</span><br><span class="line">    return self;</span><br></pre></td></tr></table></figure>
+
+<p><strong>条件表达式如果很长(超过2个表达式)，则需要将他们提取出来赋给一个BOOL值</strong></p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Bool isContains = sessionName.hasPrefix(&quot;Swift&quot;)</span><br><span class="line">Bool isCurrentYear = sessionDateCompontents.year == 2014</span><br><span class="line"></span><br><span class="line">let isSwiftSession = nameContainsSwift &amp;&amp; isCurrentYear &amp;&amp; user.isLogin</span><br><span class="line">if (isSwiftSession) &#123; </span><br><span class="line">	//Do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (sessionName.hasPrefix(&quot;Swift&quot;) &amp;&amp; sessionDateCompontents.year == 2014 &amp;&amp; user.isLogin )&#123;</span><br><span class="line">	//Do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个函数的长度必须限制在50行以内</strong></p>
+<p>通常来说，在阅读一个函数的时候，如果视需要跨过很长的垂直距离会非常影响代码的阅读体验。如果需要来回滚动眼球或代码才能看全一个方法，就会很影响思维的连贯性，对阅读代码的速度造成比较大的影响。最好的情况是在不滚动眼球或代码的情况下一眼就能将该方法的全部代码映入眼帘。</p>
+<p><strong>一个函数只做一件事（单一原则）</strong></p>
+<p>每个函数的职责都应该划分的很明确（就像类一样）。</p>
+<p>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataConfiguration()</span><br><span class="line">viewConfiguration()</span><br></pre></td></tr></table></figure>
+
+<p>不推荐:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void dataConfiguration()</span><br><span class="line">&#123;   </span><br><span class="line">   ...</span><br><span class="line">   viewConfiguration()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数命名要清晰</strong></p>
+<p>命名应该尽可能的清晰和简洁，但在 Objective-C 中，清晰比简洁更重要。由于 Xcode 强大的自动补全功能，我们不必担心名称过长的问题</p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void) insertObject:(UInteger)atIndex;</span><br><span class="line"></span><br><span class="line">- (void) removeObjectAtIndex:(UInteger)atIndex;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void) insert:(int)at;</span><br><span class="line">- (void) remove:(int)at;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在 init 和 dealloc 中不要用存取方法访问实例变量</strong><br>当 <code>init</code>、<code>dealloc</code> 方法被执行时，类的运行时环境不是处于正常状态的，使用存取方法访问变量可能会导致不可预料的结果，因此应当在这两个方法内直接访问实例变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//正确，直接访问实例变量</span><br><span class="line">- (instancetype)init &#123;</span><br><span class="line">  self = [super init];</span><br><span class="line">  if (self) &#123;</span><br><span class="line">    _bar = [[NSMutableString alloc] init];</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">  [_bar release];</span><br><span class="line">  [super dealloc];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 错误，不要通过存取方法访问</span><br><span class="line">- (instancetype)init &#123;</span><br><span class="line">  self = [super init];</span><br><span class="line">  if (self) &#123;</span><br><span class="line">    self.bar = [NSMutableString string];</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">  self.bar = nil;</span><br><span class="line">  [super dealloc];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>不要用点分语法来调用方法，只用来访问属性。这样是为了防止代码可读性问题。</strong></p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.backgroundColor = [UIColor orangeColor];</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[view setBackgroundColor:[UIColor orangeColor]];</span><br></pre></td></tr></table></figure>
+
+<p><strong>注释</strong></p>
+<ol>
+<li>公共接口（注释要告诉阅读代码的人，当前类能实现什么功能）。</li>
+<li>涉及到比较深层专业知识的代码（注释要体现出实现原理和思想）。  </li>
+<li>容易产生歧义的代码</li>
+</ol>
+<p>设计以上三种情况下。都必须写好注释。在xcode中自带快捷注释方法。选好要注释的方法或类。<code>option + command + /</code></p>
+<p><strong>系统常用类作实例变量声明时加入后缀</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="right">后缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">UIView</td>
+<td align="right">View</td>
+</tr>
+<tr>
+<td align="left">UILabel</td>
+<td align="right">Lbl</td>
+</tr>
+<tr>
+<td align="left">UIButton</td>
+<td align="right">Btn</td>
+</tr>
+<tr>
+<td align="left">UIImage</td>
+<td align="right">Img</td>
+</tr>
+<tr>
+<td align="left">UIImageView</td>
+<td align="right">ImgView</td>
+</tr>
+<tr>
+<td align="left">NSArray</td>
+<td align="right">Ary</td>
+</tr>
+<tr>
+<td align="left">NSMutableArray</td>
+<td align="right">Mary</td>
+</tr>
+<tr>
+<td align="left">NSDictionary</td>
+<td align="right">Dict</td>
+</tr>
+<tr>
+<td align="left">NSMutableDictionary</td>
+<td align="right">Mdict</td>
+</tr>
+<tr>
+<td align="left">NSString</td>
+<td align="right">Str</td>
+</tr>
+<tr>
+<td align="left">NSMutableString</td>
+<td align="right">Mstr</td>
+</tr>
+<tr>
+<td align="left">NSSet</td>
+<td align="right">Set</td>
+</tr>
+<tr>
+<td align="left">NSMutableSet</td>
+<td align="right">Mset</td>
+</tr>
+</tbody></table>
+<p><strong>CGRect函数</strong></p>
+<p>其实iOS内部已经提供了相应的获取CGRect各个部分的函数了，它们的可读性比较高，而且简短，推荐使用</p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect frame = self.view.frame; </span><br><span class="line">CGFloat x = CGRectGetMinX(frame); </span><br><span class="line">CGFloat y = CGRectGetMinY(frame); </span><br><span class="line">CGFloat width = CGRectGetWidth(frame); </span><br><span class="line">CGFloat height = CGRectGetHeight(frame); </span><br><span class="line">CGRect frame = CGRectMake(0.0, 0.0, width, height);</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect frame = self.view.frame;  </span><br><span class="line">CGFloat x = frame.origin.x;  </span><br><span class="line">CGFloat y = frame.origin.y;  </span><br><span class="line">CGFloat width = frame.size.width;  </span><br><span class="line">CGFloat height = frame.size.height;  </span><br><span class="line">CGRect frame = (CGRect)&#123; .origin = CGPointZero, .size = frame.size &#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>范型</strong></p>
+<p>如果容器元素唯一时，建议在定义NSArray、NSDictionary、NSSet，指定容器的元素</p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatimic, readwrite, copy) NSArray &lt;DSRUser*&gt; *userAry;</span><br><span class="line">@property (nonatimic, readwrite, copy) NSDictionary &lt;NSString *,DSRUser*&gt; *userDict</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatimic, readwrite, copy) NSArray *userAry;</span><br><span class="line">@property (nonatimic, readwrite, copy) NSDictionary * userDict</span><br></pre></td></tr></table></figure>
+
+<p><strong>尽量使用字面量值来创建 NSString , NSDictionary , NSArray , NSNumber 这些不可变对象：</strong></p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *nameAry = @[@&quot;zhangsan&quot;, @&quot;lishi&quot;, @&quot;wangwu&quot;];</span><br><span class="line">NSDictionary *productDict = @&#123;@&quot;iPhone&quot; : @&quot;Kate&quot;,</span><br><span class="line">							  @&quot;iPad&quot; : @&quot;Kamal&quot;,</span><br><span class="line">							  @&quot;Mobile Web&quot; : @&quot;Bill&quot;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSArray * nameAry = [NSArray arrayWithObjects:@&quot;zhangsan&quot;, @&quot;lishi&quot;, @&quot;wangwu&quot;, nil];</span><br><span class="line">NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;Kate&quot;, @&quot;iPhone&quot;, @&quot;Kamal&quot;, @&quot;iPad&quot;, @&quot;Bill&quot;];</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性的命名使用小驼峰</strong></p>
+<p>推荐:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, readwrite, copy) NSString * tipStr;</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性的关键字推荐按照 原子性，读写，内存管理的顺序排列</strong><br>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, readwrite, copy) NSString *nameStr;</span><br><span class="line">@property (nonatomic, readonly, assign) NSUInterger old;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Block属性应该使用copy关键字</strong></p>
+<p>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">typedef void (^ErrorCodeBlock) (id errorCode,NSString *message);</span><br><span class="line">@property (nonatomic, readwrite, copy) ErrorCodeBlock errorBlock;</span><br></pre></td></tr></table></figure>
+
+<p><strong>形容词性的BOOL属性的getter应该加上is前缀</strong></p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, getter=isEditable, assign) BOOL editable;</span><br></pre></td></tr></table></figure>
+
+<p><strong>建议尽量把对外公布出来的属性设置为只读，在实现文件内部设为读写,避免多处地方修改属性值，方便管理代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在头文件中，设置对象属性为 `readonly`</span><br><span class="line">在实现文件中设置为 `readwrite`</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法名中不应使用and</strong></p>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法实现时，如果参数过长(参数超过3个)，则令每个参数占用一行，以冒号对齐</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)doSomethingWith:(NSString *)theFoo</span><br><span class="line">                   rect:(CGRect)theRect</span><br><span class="line">               interval:(CGFloat)theInterval</span><br><span class="line">&#123;</span><br><span class="line">   //Implementation</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法名前缀</strong></p>
+<ul>
+<li>刷新视图的方法名要以refresh为首。</li>
+<li>更新数据的方法名要以update为首</li>
+<li>点击事件的方法实现要以click为首</li>
+</ul>
+<p>推荐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)refreshHeaderViewWithCount:(NSUInteger)count;</span><br><span class="line">- (void)updateDataSourceWithViewModel:(ViewModel*)viewModel;</span><br></pre></td></tr></table></figure>
+
+<p><strong>类遵循代理过多的时候(超过3个协议)，换行对齐显示</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@interface ShopViewController () &lt;UIGestureRecognizerDelegate,</span><br><span class="line">                                  HXSClickEventDelegate,</span><br><span class="line">                                  UITableViewDelegate,</span><br><span class="line">                                  UITableViewDataSource&gt;&#123;</span><br><span class="line">   ...</span><br><span class="line">                  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>代理的方法需要明确必须执行和可不执行</strong></p>
+<p>代理方法在默认情况下都是必须执行的，然而在设计一组代理方法的时候，有些方法可以不是必须执行（是因为存在默认配置），这些方法就需要使用@optional关键字来修饰：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@protocol HomeCellViewDeleagte &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line">- (void)switchValueChanged:(id)sender;</span><br><span class="line">- (void)clickButtonToDetail:(id)sender;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用定时器时。要实现startTimer 和 stopTimer 两个函数；实现函数尽量不要加入其他的业务逻辑</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void) startTimer</span><br><span class="line">&#123;</span><br><span class="line">	if (_timer)&#123;</span><br><span class="line">		[self stopTimer];</span><br><span class="line">	&#125;</span><br><span class="line">	_timer = ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void) stopTimer&#123;</span><br><span class="line">	[_timer invalidate];</span><br><span class="line">	_timer = nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法与参数名，一般都以小写字母开头；对于缩写字符串，可以大写字符开头</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (NSURL *)URLWithString:(NSString *)URLString;</span><br></pre></td></tr></table></figure>
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://juejin.im/post/5940c8befe88c2006a468ea6#heading-29" target="_blank" rel="noopener">https://juejin.im/post/5940c8befe88c2006a468ea6#heading-29</a></p>
+<p><a href="https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese" target="_blank" rel="noopener">https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="ZQing Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/21/iOS面试题Swift部分/" rel="next" title="iOS面试题Swift部分">
+                <i class="fa fa-chevron-left"></i> iOS面试题Swift部分
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="ZQing">
+            
+              <p class="site-author-name" itemprop="name">ZQing</p>
+              <div class="site-description motion-element" itemprop="description">平时学习的小笔记。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zhongqing05" title="GitHub &rarr; https://github.com/zhongqing05" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhongqing05@gmail.com" title="E-Mail &rarr; mailto:zhongqing05@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#编程核心原则："><span class="nav-number">1.</span> <span class="nav-text">编程核心原则：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Objective-C-编程规范"><span class="nav-number">2.</span> <span class="nav-text">Objective-C 编程规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQing</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

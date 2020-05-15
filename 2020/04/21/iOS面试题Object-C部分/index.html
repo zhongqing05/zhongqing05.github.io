@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="钟晴">
 <meta property="og:description" content="iOS面试题 Object-C部分Object-C 基础题1、NSSet 一般用什么关键字修饰。为什么？2、浅拷贝和深拷贝的区别？浅拷贝：只复制指向对象的指针，而不复制引用对象本身。深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改A时，A_copy不变。 3、使用Block时需要注意哪些问题。 在block内部使用外部指针且会造成循环引用情况下，需要用__weak修饰外部指针： __">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-21T07:02:45.532Z">
+<meta property="og:updated_time" content="2020-04-28T01:48:15.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS面试题Object-C部分">
 <meta name="twitter:description" content="iOS面试题 Object-C部分Object-C 基础题1、NSSet 一般用什么关键字修饰。为什么？2、浅拷贝和深拷贝的区别？浅拷贝：只复制指向对象的指针，而不复制引用对象本身。深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改A时，A_copy不变。 3、使用Block时需要注意哪些问题。 在block内部使用外部指针且会造成循环引用情况下，需要用__weak修饰外部指针： __">
@@ -449,12 +449,24 @@
                 
               
 
-              <time title="Created: 2020-04-21 14:59:53 / Modified: 15:02:45" itemprop="dateCreated datePublished" datetime="2020-04-21T14:59:53+08:00">2020-04-21</time>
+              <time title="Created: 2020-04-21 14:59:53" itemprop="dateCreated datePublished" datetime="2020-04-21T14:59:53+08:00">2020-04-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-28 09:48:15" itemprop="dateModified" datetime="2020-04-28T09:48:15+08:00">2020-04-28</time>
               
             
           </span>
@@ -554,7 +566,14 @@
 <li>访问了不存在的方法</li>
 <li>数组越界</li>
 </ol>
-<h5 id="16、说一下静态库和动态库之间的区别"><a href="#16、说一下静态库和动态库之间的区别" class="headerlink" title="16、说一下静态库和动态库之间的区别"></a>16、说一下静态库和动态库之间的区别</h5><h5 id="17、使用atomic一定是线程安全的吗？"><a href="#17、使用atomic一定是线程安全的吗？" class="headerlink" title="17、使用atomic一定是线程安全的吗？"></a>17、使用atomic一定是线程安全的吗？</h5><p>不一定。只有在执行setter或getter方法时是线程安全的。</p>
+<h5 id="16、说一下静态库和动态库之间的区别"><a href="#16、说一下静态库和动态库之间的区别" class="headerlink" title="16、说一下静态库和动态库之间的区别"></a>16、说一下静态库和动态库之间的区别</h5><p><strong>动态库形式：</strong>.dylib 和 .framework</p>
+<p><strong>静态库形式：</strong>.a和.framework</p>
+<p><strong>区别：</strong></p>
+<ul>
+<li>静态库：链接时，静态库会被完整的复制到可执行文件中</li>
+<li>系统动态库：链接时不复制，程序运行时有系统动态加载到内存，提供内存掉用，系统只加载一次，多个程序共用，节省内存。</li>
+</ul>
+<h5 id="17、使用atomic一定是线程安全的吗？"><a href="#17、使用atomic一定是线程安全的吗？" class="headerlink" title="17、使用atomic一定是线程安全的吗？"></a>17、使用atomic一定是线程安全的吗？</h5><p>不一定。只有在执行setter或getter方法时是线程安全的。</p>
 <h5 id="18、什么是-KVO-和-KVC？"><a href="#18、什么是-KVO-和-KVC？" class="headerlink" title="18、什么是 KVO 和 KVC？"></a>18、什么是 KVO 和 KVC？</h5><p>KVC(key-value-coding)键值编码，是一种间接访问实例变量的方法。提供一种机制来间接访问对象的属性</p>
 <p>KVO是一种基于KVC实现的观察者模式。当指定的被观察的对象的属性更改了，KVO会以自动或手动方式通知观察者。</p>
 <h5 id="19-堆、栈"><a href="#19-堆、栈" class="headerlink" title="19 堆、栈"></a>19 堆、栈</h5><p>栈：由系统管理分配和释放。一般存放函数的参数值，和局部变量（函数中的基本数据类型）。栈区的操作方式类似数据结构中的栈（先进后出）</p>
@@ -742,7 +761,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
